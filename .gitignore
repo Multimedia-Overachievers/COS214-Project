@@ -3,6 +3,7 @@
 **/.idea/
 main
 output
+Build
 
 # Prerequisites
 *.d

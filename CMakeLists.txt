@@ -1,24 +1,29 @@
+project(project)
 cmake_minimum_required(VERSION 3.22)
-project(Project)
-
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(Project
-        Driver/private/main.cpp
-        Driver/private/Faction.cpp
-        Driver/public/Faction.h
-        Driver/private/ConcreteSimulator.cpp
-        Driver/public/ConcreteSimulator.h
-        Driver/public/Simulator.h
+option(BUILD_TESTS "Build test programs" OFF)
 
-        Creation/private/HospitalBuilding.cpp
-        Creation/public/HospitalBuilding.h
-        Creation/private/BarracksBuilding.cpp
-        Creation/public/BarracksBuilding.h
-        Creation/private/BuildingFactory.cpp
-        Creation/public/BuildingFactory.h
-        Creation/public/Building.h
+file(GLOB_RECURSE Driver_Sources "Driver/*.cpp")
+file(GLOB_RECURSE Driver_Headers "Driver/*.h")
 
-        Manipulation/private/Observer.cpp
-        Manipulation/public/Observer.h
-        )
+file(GLOB_RECURSE Manipulation_Sources "Manipulation/*.cpp")
+file(GLOB_RECURSE Manipulation_Headers "Manipulation/*.h")
+
+file(GLOB_RECURSE Creation_Sources "Driver/*.cpp")
+file(GLOB_RECURSE Creation_Headers "Driver/*.h")
+
+file(GLOB_RECURSE Tests "Tests/*.cpp")
+set(Testing_Sources ${Driver_Sources})
+list(REMOVE_ITEM Testing_Sources ${CMAKE_CURRENT_SOURCE_DIR}/Driver/private/main.cpp)
+
+#[[${Creation_Sources} ${Creation_Headers}]]
+
+add_executable(Project ${Driver_Sources} ${Driver_Headers} ${Manipulation_Sources} ${Manipulation_Headers})
+add_executable(Testing ${Testing_Sources} ${Driver_Headers} ${Tests} ${Manipulation_Sources} ${Manipulation_Headers})
+
+if(BUILD_TESTS)
+        add_subdirectory(googletest)
+        include_directories(googletest/include)
+        target_link_libraries(Testing PRIVATE gtest)
+endif(BUILD_TESTS)

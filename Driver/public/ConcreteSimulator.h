@@ -5,8 +5,10 @@
  */
 
 #pragma once
+#include "Simulator.h"
 
-
-class ConcreteSimulator {
-
+class ConcreteSimulator : public Simulator
+{
+public:
+    int TestFunction(int a, int b);
 };

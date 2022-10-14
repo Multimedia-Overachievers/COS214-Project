@@ -3,11 +3,8 @@
 //
 
 #include <iostream>
-#include "TestClass.h"
 
 int main() {
-    std::cout << "Lets do this bitches" << std::endl;
-    std::cout << "soundcloud.com/keelanriel" << std::endl;
-    std::cout << "Ruck you Ross!" << std::endl;
+    std::cout << "Hello, World!" << std::endl;
     return 0;
 }
