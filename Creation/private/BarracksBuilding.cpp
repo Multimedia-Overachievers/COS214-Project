@@ -14,7 +14,7 @@ BarracksBuilding::BarracksBuilding() : Building() {
  */
 Troops BarracksBuilding::buff(Troops* t) {
     int damage = t->getDmg();
-    Troops* newTroop = Troops();
+    Troops* newTroop = new Troops();
     newTroop->setHp(damage * this->weight);
     t = newTroop;
 }

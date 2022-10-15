@@ -14,7 +14,7 @@ HospitalBuilding::HospitalBuilding() : Building() {
  */
 void HospitalBuilding::buff(Troops* t) {
     int health = t->getHp();
-    Troops* newTroop = Troops();
+    Troops* newTroop = new Troops();
     newTroop->setHp(health * this->weight);
     t = newTroop;
 }

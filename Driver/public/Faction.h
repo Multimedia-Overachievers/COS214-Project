@@ -5,8 +5,14 @@
  */
 
 #pragma once
-
-
+#include "Simulator.h"
+#include <list>
 class Faction {
-
+private:
+    Simulator* simulator;
+    std::list<Country*> countries;
+public:
+    explicit Faction(Simulator* simulator, std::string name);
+    void attack();
+    void reStock();
 };
