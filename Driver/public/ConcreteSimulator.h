@@ -7,6 +7,7 @@
 #pragma once
 #include "Simulator.h"
 #include "Faction.h"
+#include "FactionAction.h"
 #include <vector>
 
 class ConcreteSimulator : public Simulator
@@ -16,5 +17,6 @@ private:
 public:
     int TestFunction(int a, int b);
     ConcreteSimulator();
+    void action(FactionAction*);
     void notify(std::string command) override;
 };
