@@ -22,4 +22,4 @@ class Logs
     private:
         std::vector<MapState*> logs;
         
-}
+};
