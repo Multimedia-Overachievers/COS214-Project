@@ -2,6 +2,7 @@
 #pragma once
 #include "Troops.h"
 #include "Squad.h"
+#include "SquadIterator.h"
 
 using namespace std;
 
@@ -37,8 +38,10 @@ class Soldiers : public Troops{
         void remove(Troops * squads);
         int getTotalHP();
         int getTotalDMG();
+        TroopIterator* createIterator();
     private:
         void changeState();
         vector<Troops *> squads;
         int compositeBuff;
+        friend class SquadIterator;
 };
