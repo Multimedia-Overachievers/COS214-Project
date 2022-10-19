@@ -5,11 +5,10 @@
 #include "../public/BuildInCountry.h"
 
 /**
-* @brief Constructor for the BuildInCountry command
-* @param myFaction The faction to be built in.
+* @brief Constructor for the BuildInCountry command.
+* @param myFaction The faction to be built in (passed to FactionAction).
 * @param myCountry The country to be build in.
 * @param myBuilding The building to be built (pass in an anonymous pointer).
-* @return the ConcreteFaction stored
 */
 BuildInCountry::BuildInCountry(ConcreteFaction * myFaction, Country* myCountry, Building* myBuilding): FactionAction(myFaction) {
     this->myCountry = myCountry;
@@ -17,9 +16,9 @@ BuildInCountry::BuildInCountry(ConcreteFaction * myFaction, Country* myCountry, 
 }
 
 /**
-* @brief Method to get the currently stored faction.
+* @brief passes the building to the faction to be built.
 */
 void BuildInCountry::execute() {
     // Uncommented until functions are made to allow compilation
-    // myFaction->build(this->myBuilding);
+    // myFaction->build(this->myCountry, this->myBuilding);
 }
