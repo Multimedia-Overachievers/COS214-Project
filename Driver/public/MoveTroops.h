@@ -9,5 +9,5 @@ private:
     int numTroops;
 public:
     MoveTroops(ConcreteFaction* destinationFaction, Country* destinationCountry, Country* sourceCountry, int numTroops);
-    virtual bool execute();
+    virtual void execute();
 };

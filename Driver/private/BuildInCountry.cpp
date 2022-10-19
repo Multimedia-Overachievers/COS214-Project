@@ -18,10 +18,8 @@ BuildInCountry::BuildInCountry(ConcreteFaction * myFaction, Country* myCountry, 
 
 /**
 * @brief Method to get the currently stored faction.
-* @return Will always return true. (Why will it, why not make it void then? - Francois Smith)
 */
-bool BuildInCountry::execute() {
+void BuildInCountry::execute() {
     // Uncommented until functions are made to allow compilation
     // myFaction->build(this->myBuilding);
-    return true;
 }

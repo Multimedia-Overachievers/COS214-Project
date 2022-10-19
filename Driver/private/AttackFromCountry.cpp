@@ -10,7 +10,6 @@ AttackFromCountry::AttackFromCountry(ConcreteFaction* myFaction, Country* attack
     this->toAttack = toAttack;
 }
 
-bool AttackFromCountry::execute() {
+void AttackFromCountry::execute() {
     attacker->invade(toAttack);
-    return true;
 }
