@@ -6,9 +6,18 @@
 
 #include "FactionAction.h"
 
+/**
+* Constructor for FactionAction
+* @param c passed in faction
+*/
 FactionAction::FactionAction(ConcreteFaction* c) {
     myFaction = c;
 }
+
+/**
+* Method to get the currently stored faction
+* @return the ConcreteFaction stored
+*/
 ConcreteFaction* FactionAction::getFaction() {
     return myFaction;
 }
