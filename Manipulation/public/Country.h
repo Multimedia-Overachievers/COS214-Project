@@ -8,7 +8,7 @@
 
 #include "../../Creation/public/Building.h"
 #include "../../Creation/public/Troops.h"
-#include "../../Driver/public/ConcreteFaction.h"
+#include "../../Driver/public/enums.h"
 #include <iostream>
 #include <vector>
 
@@ -21,7 +21,7 @@ class Country {
 private:
     vector<Building*> buildings;
     vector<Troops*> troops;
-    string name;
+    CountryName name;
     Observer* observer;
 public:
     Country(string name, vector<Building*> buildings);
