@@ -1,4 +1,4 @@
-#include "../public/Soldiers.h"
+#include "Soldiers.h"
 
 Soldiers::Soldiers(NAME name = PLATOON, STATE state) : Troops(name, state){
     switch(name){
@@ -261,4 +261,8 @@ void Soldiers::changeState(){
         setName(ARMY);
         this->compositeBuff = 40;
     }  
+}
+
+TroopIterator * Soldiers::createIterator(){
+    return new SquadIterator(this);
 }
