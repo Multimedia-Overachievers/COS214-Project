@@ -6,13 +6,13 @@
 
 #pragma once
 
-
 #include "../../Creation/public/Building.h"
 #include "../../Creation/public/Troops.h"
 #include "../../Driver/public/ConcreteFaction.h"
-#include "Observer.h"
 #include <iostream>
 #include <vector>
+
+class Observer;
 
 /**
  * @description Represents a country in the game
@@ -25,8 +25,6 @@ private:
     Observer* observer;
 public:
     Country(string name, vector<Building*> buildings);
-    void attach(Observer* observer);
-    void detach(Observer* observer);
     bool hasTroops();
     Troops* removeTroop();
     void addTroop(Troops* troop);

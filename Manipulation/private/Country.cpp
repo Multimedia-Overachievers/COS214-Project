@@ -1,3 +1,4 @@
+#include "../public/CountryObserver.h"
 #include "../public/Country.h"
 
 /**
@@ -10,22 +11,7 @@
 Country::Country(string name, vector<Building *> buildings) {
     this->name = name;
     this->buildings = buildings;
-}
-
-/**
- * @brief Country::attach
- * @param observer
- */
-void Country::attach(Observer *observer) {
-    this->observer = observer;
-}
-
-/**
- * @brief Country::detach
- * @param observer
- */
-void Country::detach(Observer *observer) {
-    this->observer = nullptr;
+    this->observer = new CountryObserver(this);
 }
 
 /**
