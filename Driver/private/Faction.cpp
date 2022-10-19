@@ -29,3 +29,17 @@ void Faction::attack() {
 void Faction::reStock() {
     simulator->notify("reStock");
 }
+
+/**
+ * @description Gets the current state of the faction.
+ * @return FactionState
+ */
+FactionState *Faction::getState() {
+    std::vector<Country*> countries;
+    for (Country* country : this->countries)
+    {
+        countries.push_back(country);
+    }
+    return new FactionState(countries);
+}
+
