@@ -4,7 +4,7 @@
  *  Author: Thomas Isebeck (u20446332)
  */
 
-#include "FactionAction.h"
+#include "../public/FactionAction.h"
 
 /**
 * Constructor for FactionAction

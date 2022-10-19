@@ -1,4 +1,4 @@
-#include "Troops.h"
+#include "../public/Troops.h"
 
 Troops::Troops(NAME name, STATE state){
     this->name = name;

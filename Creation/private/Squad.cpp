@@ -1,4 +1,4 @@
-#include "Squad.h"
+#include "../public/Squad.h"
 
 Squad::Squad(NAME name = SQUAD, STATE state) : Troops(name, state){
     setDMG(10);

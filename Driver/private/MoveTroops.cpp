@@ -2,7 +2,7 @@
 // Created by thoma on 10/19/2022.
 //
 
-#include "MoveTroops.h"
+#include "../public/MoveTroops.h"
 
 MoveTroops::MoveTroops(ConcreteFaction* destinationFaction, Country* destinationCountry, Country* sourceCountry, int numTroops)
                                                                                 : FactionAction(destinationFaction) {

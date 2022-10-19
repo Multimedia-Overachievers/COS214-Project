@@ -2,7 +2,7 @@
 // Created by thoma on 10/19/2022.
 //
 
-#include "AttackFromCountry.h"
+#include "../public/AttackFromCountry.h"
 
 AttackFromCountry::AttackFromCountry(ConcreteFaction* myFaction, Country* attacker, Country* toAttack): FactionAction(myFaction){
         this->attacker = attacker;

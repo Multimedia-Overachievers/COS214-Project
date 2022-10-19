@@ -1,4 +1,4 @@
-#include "BuildInCountry.h"
+#include "../public/BuildInCountry.h"
 
 /**
 * @brief Constructor for the BuildInCountry command

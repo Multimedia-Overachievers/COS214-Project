@@ -17,7 +17,6 @@ file(GLOB_RECURSE Creation_Headers "Driver/*.h")
 
 add_executable(Project ${Driver_Sources} ${Driver_Headers} ${Manipulation_Sources} ${Manipulation_Headers})
 
-
 if(BUILD_TESTS)
         add_subdirectory(googletest)
         include_directories(googletest/include)

@@ -2,7 +2,7 @@
 // Created by Thomas on 10/15/2022.
 //
 
-#include "Faction.h"
+#include "../public/Faction.h"
 
 class ConcreteFaction: public Faction {
     ConcreteFaction();

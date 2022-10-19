@@ -1,4 +1,4 @@
-#include "Soldiers.h"
+#include "../public/Soldiers.h"
 
 Soldiers::Soldiers(NAME name = PLATOON, STATE state) : Troops(name, state){
     switch(name){
