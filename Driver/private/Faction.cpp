@@ -45,3 +45,10 @@ FactionState* Faction::getState() {
     return new FactionState(countries);
 }
 
+/**
+ * @description Gets the number of countries in the faction.
+ * @return int - Strength of the faction.
+ */
+int Faction::getStrength() {
+    return countries.size();
+}
