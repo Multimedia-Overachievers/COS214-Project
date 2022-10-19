@@ -1,6 +1,10 @@
+//
+// Created by thomas on 10/19/2022.
+//
+
 #pragma once
 #include "../../Creation/public/Building.h"
-#include "FactionAction.h"
+#include "./FactionAction.h"
 
 class BuildInCountry: public FactionAction {
 private:

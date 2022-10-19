@@ -1,3 +1,7 @@
+//
+// Created by thomas on 10/19/2022.
+//
+
 #include "../public/BuildInCountry.h"
 
 /**
@@ -12,12 +16,12 @@ BuildInCountry::BuildInCountry(ConcreteFaction * myFaction, Country* myCountry, 
     this->myBuilding = myBuilding;
 }
 
-
 /**
 * @brief Method to get the currently stored faction.
-* @return Will always return true.
+* @return Will always return true. (Why will it, why not make it void then? - Francois Smith)
 */
 bool BuildInCountry::execute() {
-    myFaction->build(this->myBuilding);
-    return true;
+    // Uncommented until functions are made to allow compilation
+    // myFaction->build(this->myBuilding);
+    // return true;
 }
