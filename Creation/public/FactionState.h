@@ -7,7 +7,7 @@
 #pragma once
 #include "vector"
 
-#include "../Driver/public/Country.h"
+#include "../Manipulation/public/Country.h"
 
 /**
  * @description Stores the state of a faction at a given time
@@ -22,4 +22,4 @@ class FactionState
     private:
         std::vector<Country*> countries;
         friend class Faction;
-}
+};

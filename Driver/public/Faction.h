@@ -7,6 +7,7 @@
 #pragma once
 #include "Simulator.h"
 #include "../../Manipulation/public/Country.h"
+#include "../../Creation/public/FactionState.h"
 #include <list>
 
 class Faction {
@@ -17,4 +18,5 @@ public:
     explicit Faction(Simulator* simulator, std::string name);
     void reStock();
     void attack();
+    FactionState* getState();
 };

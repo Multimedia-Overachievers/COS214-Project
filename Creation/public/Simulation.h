@@ -23,7 +23,6 @@ class Simulation {
         void loadLog(MapState* state);
 
     private:
-        Faction[] factions;
-
+        Faction* factions[2];
         
-}
+};

@@ -10,7 +10,6 @@
 /**
  * @description Stores the state of the world at a given time
  */
-
 class MapState
 {
     private:
@@ -21,4 +20,4 @@ class MapState
         FactionState* factionStates[2];
         friend class Simulation;
         // Other world states from simulation
-}
+};
