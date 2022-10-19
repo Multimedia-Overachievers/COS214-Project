@@ -7,19 +7,18 @@
 #pragma once
 #include "vector"
 
-#include "../Manipulation/public/Country.h"
+#include "../../Manipulation/public/Country.h"
 
 /**
  * @description Stores the state of a faction at a given time
  */
-
 class FactionState
 {
-    private:
-        FactionState(std::vector<Country*> countries);
-        std::vector<Country*> getCountries();
+private:
+    FactionState(std::vector<Country*> countries);
+    std::vector<Country*> getCountries();
 
-    private:
-        std::vector<Country*> countries;
-        friend class Faction;
+private:
+    std::vector<Country*> countries;
+    friend class Faction;
 };

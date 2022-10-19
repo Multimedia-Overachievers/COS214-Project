@@ -1,6 +1,12 @@
+//
+// Created by thomas on 10/19/2022.
+//
+
 #pragma once
-#include "FactionAction.h"
-#include "ConcreteFaction.h"
+
+#include "./FactionAction.h"
+#include "./ConcreteFaction.h"
+
 
 class AttackFromCountry: public FactionAction {
 private:

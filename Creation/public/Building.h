@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "./Troops.h"
+
 /**
  * @description Abstract class for all buildings
  */

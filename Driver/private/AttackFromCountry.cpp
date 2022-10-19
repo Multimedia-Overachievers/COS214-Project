@@ -1,12 +1,13 @@
 //
-// Created by thoma on 10/19/2022.
+// Created by thomas on 10/19/2022.
 //
 
 #include "../public/AttackFromCountry.h"
+#include "../../Manipulation/public/Country.h"
 
 AttackFromCountry::AttackFromCountry(ConcreteFaction* myFaction, Country* attacker, Country* toAttack): FactionAction(myFaction){
-        this->attacker = attacker;
-        this->toAttack = toAttack;
+    this->attacker = attacker;
+    this->toAttack = toAttack;
 }
 
 bool AttackFromCountry::execute() {

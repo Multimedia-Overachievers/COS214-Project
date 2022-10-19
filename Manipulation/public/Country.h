@@ -24,9 +24,10 @@ private:
     CountryName name;
     Observer* observer;
 public:
-    Country(string name, vector<Building*> buildings);
+    Country(CountryName name, vector<Building*> buildings);
     bool hasTroops();
     Troops* removeTroop();
     void addTroop(Troops* troop);
     void notify();
+    void invade(Country* country);
 };

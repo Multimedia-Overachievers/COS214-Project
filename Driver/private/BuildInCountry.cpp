@@ -23,5 +23,5 @@ BuildInCountry::BuildInCountry(ConcreteFaction * myFaction, Country* myCountry, 
 bool BuildInCountry::execute() {
     // Uncommented until functions are made to allow compilation
     // myFaction->build(this->myBuilding);
-    // return true;
+    return true;
 }

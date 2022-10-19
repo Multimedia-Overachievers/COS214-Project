@@ -8,7 +8,7 @@
  * @param owner
  * @param troops
  */
-Country::Country(string name, vector<Building *> buildings) {
+Country::Country(CountryName name, vector<Building *> buildings) {
     this->name = name;
     this->buildings = buildings;
     this->observer = new CountryObserver(this);
@@ -45,4 +45,13 @@ void Country::addTroop(Troops *troop) {
  */
 void Country::notify() {
     this->observer->update();
+}
+
+
+/**
+ * @brief Invades a country
+ * @param country
+ */
+void Country::invade(Country *country) {
+    //..
 }
