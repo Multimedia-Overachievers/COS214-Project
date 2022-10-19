@@ -17,6 +17,7 @@ private:
 public:
     int TestFunction(int a, int b);
     ConcreteSimulator();
-    void action(FactionAction*);
+    void action(FactionAction* factionAction);
     void notify(std::string command) override;
+    FactionAction* decideAction(Faction* faction); 
 };

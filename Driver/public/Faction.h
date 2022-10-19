@@ -11,12 +11,16 @@
 #include <list>
 
 class Faction {
-private:
-    Simulator* simulator;
-    std::list<Country*> countries;
-public:
-    explicit Faction(Simulator* simulator, std::string name);
-    void reStock();
-    void attack();
-    FactionState* getState();
+
+    public:
+        explicit Faction(Simulator* simulator, std::string name);
+        void reStock();
+        void attack();
+        FactionState* getState();
+        int getStrength();
+
+    private:
+        Simulator* simulator;
+        std::list<Country*> countries;
+        
 };
