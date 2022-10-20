@@ -18,7 +18,7 @@ class Observer;
  */
 class Country {
 public:
-    Country(CountryName name, vector<Building*> buildings);
+    Country(CountryName name, Building *building1 = nullptr, Building *building2 = nullptr);
     bool hasTroops();
     Troops* removeTroop();
     void addTroop(Troops* troop);

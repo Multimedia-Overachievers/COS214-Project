@@ -14,9 +14,17 @@
  * @param owner
  * @param troops
  */
-Country::Country(CountryName name, vector<Building *> buildings) {
+Country::Country(CountryName name, Building *building1, Building *building2) {
     this->name = name;
-    this->buildings = buildings;
+
+    if (building1 != nullptr)
+    {
+        buildings.push_back(building1);
+    }
+    if (building2 != nullptr)
+    {
+        buildings.push_back(building2);
+    }
     this->observer = new CountryObserver(this);
 }
 

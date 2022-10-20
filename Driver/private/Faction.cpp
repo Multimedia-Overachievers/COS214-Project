@@ -6,23 +6,28 @@
 
 #include "../public/Faction.h"
 #include "../public/enums.h"
+#include "../../Creation/public/BuildingFactory.h"
 
 Faction::Faction(Simulator *simulator, std::string name) {
     this->simulator = simulator;
-    std::vector<Building*> buildings;
+
+    // use the factory to make buildings @Dhairiya
+    BuildingFactory *buildingFactory = new BuildingFactory();
+    Building *hospital = buildingFactory->create();
+    Building *barracks = buildingFactory->create();
 
 
     if (name == "Allies")
     {
-        countries.push_back(new Country(CountryName::France, buildings));
-        countries.push_back(new Country(CountryName::UnitedKingdom, buildings));
-        countries.push_back(new Country(CountryName::UnitedStates, buildings));
+        countries.push_back(new Country(CountryName::France, hospital, hospital));
+        countries.push_back(new Country(CountryName::UnitedKingdom, barracks));
+        countries.push_back(new Country(CountryName::UnitedStates, barracks, hospital));
     }
     else if (name == "Axis")
     {
-        countries.push_back(new Country(CountryName::Germany, buildings));
-        countries.push_back(new Country(CountryName::Italy, buildings));
-        countries.push_back(new Country(CountryName::Japan, buildings));
+        countries.push_back(new Country(CountryName::Germany, hospital, hospital));
+        countries.push_back(new Country(CountryName::Italy, hospital));
+        countries.push_back(new Country(CountryName::Japan, barracks, hospital));
     }
     else
     {
