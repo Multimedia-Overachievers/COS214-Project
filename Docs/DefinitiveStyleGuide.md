@@ -11,6 +11,7 @@ This is the c++ styling standards that you should try and use during the project
 
 - Enums should be named in Pascal Case formatting.
 
+
 ## Folder Structure
 - Files are split into different modules that are compiled by the CMakeList file, these modules are split into the following categories:
     - Driver - This will run simulations and tests, it will also be the main entry point for the program.
