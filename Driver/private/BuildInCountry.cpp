@@ -1,6 +1,8 @@
-//
-// Created by thomas on 10/19/2022.
-//
+/*
+ *  BuildInCountry.cpp
+ *  Created on: 10/19/2022.
+ *  Author: Thomas Isebeck (u20446332)
+ */
 
 #include "../public/BuildInCountry.h"
 

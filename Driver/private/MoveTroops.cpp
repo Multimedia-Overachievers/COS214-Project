@@ -1,6 +1,8 @@
-//
-// Created by thoma on 10/19/2022.
-//
+/*
+ *  MoveTroops.cpp
+ *  Created on: 10/15/2022.
+ *  Author: Thomas Isebeck (u20446332)
+ */
 
 #include "../public/MoveTroops.h"
 

@@ -22,18 +22,28 @@ enum CountryName {
     UnitedStates
 };
 
+/**
+ * @brief Defines the various states a country can be in.
+ */
 enum FactionStance{
     Defensive,
     Aggressive,
     Passive
 };
 
+/**
+ * @brief Defines the various states a squad of troops can be in.
+ */
 enum STATE {
     MOVING, 
     READY, 
     DEFEATED
 };
 
+
+/**
+ * @brief Defines the various types of squads in a country.
+ */
 enum NAME {
     SQUAD, 
     PLATOON, 

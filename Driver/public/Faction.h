@@ -24,5 +24,4 @@ private:
     Simulator* simulator;
     std::list<Country*> countries;
     FactionStance stance;
-        
 };

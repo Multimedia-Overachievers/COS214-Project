@@ -1,3 +1,9 @@
+/*
+ *  ConcreteSimulator.cpp
+ *  Created on: 10/13/2022.
+ *  Author: Keelan Matthews (u21549967)
+ */
+
 #include "../public/ConcreteSimulator.h"
 #include "../public/FactionAction.h"
 

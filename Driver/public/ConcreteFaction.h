@@ -1,6 +1,14 @@
-#pragma once
-#include "Faction.h"
+/*
+ *  ConcreteFaction.cpp
+ *  Created on: 10/15/2022.
+ *  Author: Thomas Isebeck (u20446332)
+ */
 
-class ConcreteFaction: public Faction {
+
+#pragma once
+#include "./Faction.h"
+
+class ConcreteFaction: public Faction 
+{
 
 };
