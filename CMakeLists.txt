@@ -10,8 +10,8 @@ file(GLOB_RECURSE Driver_Headers "Driver/*.h")
 file(GLOB_RECURSE Manipulation_Sources "Manipulation/*.cpp")
 file(GLOB_RECURSE Manipulation_Headers "Manipulation/*.h")
 
-file(GLOB_RECURSE Creation_Sources "Driver/*.cpp")
-file(GLOB_RECURSE Creation_Headers "Driver/*.h")
+file(GLOB_RECURSE Creation_Sources "Creation/*.cpp")
+file(GLOB_RECURSE Creation_Headers "Creation/*.h")
 
 add_executable(Project ${Driver_Sources} ${Driver_Headers} ${Manipulation_Sources} ${Manipulation_Headers} ${Creation_Sources} ${Creation_Headers})
 
