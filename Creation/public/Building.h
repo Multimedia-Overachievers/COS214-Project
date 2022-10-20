@@ -10,11 +10,12 @@
 #include "./Troops.h"
 
 /**
- * @description Abstract class for all buildings
+ * @brief Abstract class for all buildings
  */
 class Building {
-protected:
-    double weight;
 public:
     virtual void buff(Troops* t) = 0;
+    
+protected:
+    double weight;
 };

@@ -1,3 +1,9 @@
+/*
+ *  Soldiers.cpp
+ *  Created on: 10/15/2022.
+ *  Author: Tayla Orsmond (u21467456)
+ */
+
 #include "../public/Soldiers.h"
 
 Soldiers::Soldiers(NAME name = PLATOON, STATE state = READY) : Troops(name, state){

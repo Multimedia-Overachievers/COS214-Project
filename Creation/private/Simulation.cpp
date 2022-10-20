@@ -1,3 +1,9 @@
+/*
+ *  Simulation.cpp
+ *  Created on: 10/15/2022.
+ *  Author: Ross Tordiffe (u21533572)
+ */
+
 #include "../public/Simulation.h"
 
 /**

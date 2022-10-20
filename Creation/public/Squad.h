@@ -1,6 +1,11 @@
-//Tayla Orsmond u21467456
+/*
+ *  Squad.h
+ *  Created on: 10/15/2022.
+ *  Author: Tayla Orsmond (u21467456)
+ */
+
 #pragma once
-#include "Troops.h"
+#include "./Troops.h"
 
 using namespace std;
 /**
@@ -20,19 +25,19 @@ using namespace std;
  * 
  */
 class Squad : public Troops{
-    public:
-        Squad(NAME name, STATE state);
-        Squad(NAME name);
-        ~Squad();
-        int takeDMG(int total);
-        // void attack(Troops* enemy);
-        void buffDMG(int buff);
-        void buffHP(int buff);
-        string getReport();
-        vector<Troops *> disband();
-        void build(vector<Troops *> squads);
-        void add(Troops * squads);
-        void remove(Troops * squads);
-        int getTotalHP();
-        int getTotalDMG();
+public:
+    Squad(NAME name, STATE state);
+    Squad(NAME name);
+    ~Squad();
+    int takeDMG(int total);
+    // void attack(Troops* enemy);
+    void buffDMG(int buff);
+    void buffHP(int buff);
+    string getReport();
+    vector<Troops *> disband();
+    void build(vector<Troops *> squads);
+    void add(Troops * squads);
+    void remove(Troops * squads);
+    int getTotalHP();
+    int getTotalDMG();
 };

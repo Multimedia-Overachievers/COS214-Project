@@ -6,20 +6,18 @@
 
 #pragma once
 
-#include "Building.h"
+#include "./Building.h"
 
 /**
- * @description BuildingFactory 
- * 
+ * @brief BuildingFactory 
  */
 class BuildingFactory 
 {
-    protected:
-        virtual Building* createBuilding() = 0;
+public:
+    BuildingFactory();
+    virtual ~BuildingFactory();
+    Building* create();
 
-    public:
-        BuildingFactory();
-        virtual ~BuildingFactory();
-        Building* create();
-        
+protected:
+    virtual Building* createBuilding() = 0;   
 };

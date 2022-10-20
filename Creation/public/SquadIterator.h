@@ -1,8 +1,13 @@
-//Tayla Orsmond u21467456
+/*
+ *  SquadIterator.h
+ *  Created on: 10/15/2022.
+ *  Author: Tayla Orsmond (u21467456)
+ */
+
 #pragma once
-#include "TroopIterator.h"
-#include "Soldiers.h"
-#include "Squad.h"
+#include "./TroopIterator.h"
+#include "./Soldiers.h"
+#include "./Squad.h"
 
 /**
  * @brief The SquadIterator class
@@ -16,16 +21,17 @@
  */
 class Soldiers;
 class SquadIterator : public TroopIterator{
-    public:
-        SquadIterator();
-        SquadIterator(Soldiers * soldiers);
-        ~SquadIterator();
-        Troops * first();
-        Troops * next();
-        bool isDone();
-        Troops * current();
-        vector<Troops *>::iterator at();
-    private:
-        vector<Troops *>::iterator it;
-        Soldiers * mySoldiers;
+public:
+    SquadIterator();
+    SquadIterator(Soldiers * soldiers);
+    ~SquadIterator();
+    Troops * first();
+    Troops * next();
+    bool isDone();
+    Troops * current();
+    vector<Troops *>::iterator at();
+    
+private:
+    vector<Troops *>::iterator it;
+    Soldiers * mySoldiers;
 };

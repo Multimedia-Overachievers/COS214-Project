@@ -27,3 +27,17 @@ enum FactionStance{
     Aggressive,
     Passive
 };
+
+enum STATE {
+    MOVING, 
+    READY, 
+    DEFEATED
+};
+
+enum NAME {
+    SQUAD, 
+    PLATOON, 
+    COMPANY, 
+    BATTALION, 
+    ARMY
+};

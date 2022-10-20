@@ -5,7 +5,7 @@
  */
 
 #pragma once
-#include "Building.h"
+#include "./Building.h"
 
 /**
  * @description Hospital building

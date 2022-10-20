@@ -1,4 +1,9 @@
-//Tayla Orsmond u21467456
+/*
+ *  TroopIterator.h
+ *  Created on: 10/15/2022.
+ *  Author: Tayla Orsmond (u21467456)
+ */
+
 #pragma once
 #include <vector>
 #include <string>
@@ -15,13 +20,14 @@
  */
 class Troops;
 class TroopIterator{
-    public:
-        virtual ~TroopIterator();
-        virtual Troops * first() = 0;
-        virtual Troops * next() = 0;
-        virtual bool isDone() = 0;
-        virtual Troops* current() = 0;
-        virtual std::vector<Troops *>::iterator at() = 0;
-    protected:
-        TroopIterator();
+public:
+    virtual ~TroopIterator();
+    virtual Troops * first() = 0;
+    virtual Troops * next() = 0;
+    virtual bool isDone() = 0;
+    virtual Troops* current() = 0;
+    virtual std::vector<Troops *>::iterator at() = 0;
+    
+protected:
+    TroopIterator();
 };

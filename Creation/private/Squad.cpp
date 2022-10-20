@@ -1,3 +1,9 @@
+/*
+ *  Squad.cpp
+ *  Created on: 10/15/2022.
+ *  Author: Tayla Orsmond (u21467456)
+ */
+
 #include "../public/Squad.h"
 
 Squad::Squad(NAME name = SQUAD, STATE state = READY) : Troops(name, state){

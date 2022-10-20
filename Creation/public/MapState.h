@@ -5,19 +5,19 @@
  */
 
 #pragma once
-#include "FactionState.h"
+#include "./FactionState.h"
 
 /**
  * @description Stores the state of the world at a given time
  */
 class MapState
 {
-    private:
-        MapState(FactionState* allies, FactionState* axis);
-        FactionState** getFactionStates();
+private:
+    MapState(FactionState* allies, FactionState* axis);
+    FactionState** getFactionStates();
 
-    private:
-        FactionState* factionStates[2];
-        friend class Simulation;
-        // Other world states from simulation
+private:
+    FactionState* factionStates[2];
+    friend class Simulation;
+    // Other world states from simulation
 };

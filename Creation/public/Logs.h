@@ -6,20 +6,19 @@
 
 #pragma once
 
-#include "MapState.h"
+#include "./MapState.h"
 
 /**
  * @description A log of the previous states of each faction
  */
 class Logs 
 {
-    public:
-        Logs();
-        ~Logs();
-        std::vector<MapState*> getLogs();
-        void CreateLog(MapState* state);
+public:
+    Logs();
+    ~Logs();
+    std::vector<MapState*> getLogs();
+    void CreateLog(MapState* state);
 
-    private:
-        std::vector<MapState*> logs;
-        
+private:
+    std::vector<MapState*> logs;
 };

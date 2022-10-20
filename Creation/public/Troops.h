@@ -1,7 +1,13 @@
-//Tayla Orsmond u21467456
+/*
+ *  Troops.h
+ *  Created on: 10/15/2022.
+ *  Author: Tayla Orsmond (u21467456)
+ */
+
 #pragma once
 #include <vector>
 #include <string>
+#include "../../Driver/public/enums.h"
 
 using namespace std;
 /**
@@ -22,40 +28,39 @@ using namespace std;
  */
 
 class Troops{
-    protected:
-    enum STATE {MOVING, READY, DEFEATED};
-    enum NAME {SQUAD, PLATOON, COMPANY, BATTALION, ARMY};
-    public:
-        Troops(NAME name, STATE state);
-        Troops(NAME name);
-        virtual ~Troops();
-        virtual int takeDMG(int total) = 0;
-        // virtual void attack(Troops* enemy) = 0;
-        virtual void buffDMG(int buff) = 0;
-        virtual void buffHP(int buff) = 0;
-        virtual string getReport() = 0;
-        virtual vector<Troops *> disband() = 0;
-        virtual void build(vector<Troops *> squads) = 0;
-        virtual void add(Troops * squads) = 0;
-        virtual void remove(Troops * squads) = 0;
-        virtual int getTotalHP() = 0;
-        virtual int getTotalDMG() = 0;
-        enum STATE getState(){return this->state;}
-        enum NAME getName(){return this->name;}
-    protected:
-        void setState(STATE state){this->state = state;}
-        void setName(NAME name){this->name = name;}
-        void setHP(int hp){this->hp = hp;}
-        void setDMG(int dmg){this->dmg = dmg;}
-        void setBuffDMG(int buff){this->buffDmg = buff;}
-        void setBuffHP(int buff){this->buffHp = buff;}
-        int getHP(){return this->hp;}
-        int getDMG(){return this->dmg;}
-    private:
-        int dmg;
-        int hp;
-        int buffDmg;
-        int buffHp;
-        STATE state;
-        NAME name;
+public:
+    Troops(NAME name, STATE state);
+    Troops(NAME name);
+    virtual ~Troops();
+    virtual int takeDMG(int total) = 0;
+    // virtual void attack(Troops* enemy) = 0;
+    virtual void buffDMG(int buff) = 0;
+    virtual void buffHP(int buff) = 0;
+    virtual string getReport() = 0;
+    virtual vector<Troops *> disband() = 0;
+    virtual void build(vector<Troops *> squads) = 0;
+    virtual void add(Troops * squads) = 0;
+    virtual void remove(Troops * squads) = 0;
+    virtual int getTotalHP() = 0;
+    virtual int getTotalDMG() = 0;
+    enum STATE getState(){return this->state;}
+    enum NAME getName(){return this->name;}
+
+protected:
+    void setState(STATE state){this->state = state;}
+    void setName(NAME name){this->name = name;}
+    void setHP(int hp){this->hp = hp;}
+    void setDMG(int dmg){this->dmg = dmg;}
+    void setBuffDMG(int buff){this->buffDmg = buff;}
+    void setBuffHP(int buff){this->buffHp = buff;}
+    int getHP(){return this->hp;}
+    int getDMG(){return this->dmg;}
+
+private:
+    int dmg;
+    int hp;
+    int buffDmg;
+    int buffHp;
+    STATE state;
+    NAME name;
 };
