@@ -1,4 +1,5 @@
 #include "../public/ConcreteSimulator.h"
+#include "../public/FactionAction.h"
 
 /**
  * @brief Constructor that initializes the factions
@@ -51,21 +52,20 @@ void ConcreteSimulator::action(FactionAction *factionAction) {
  * @param faction - Faction to decide an action for.
  * @return FactionAction - Action to perform on the faction.
  */
-FactionAction *ConcreteSimulator::decideAction(Faction *faction) {
-    
+FactionAction* ConcreteSimulator::decideAction(Faction *faction) {
     double weights[2]; // Weights for the different actions 0 -> 0.5 = attack, 0.5 -> 1 = reStock
 
-    if(faction->getStance() == "aggressive")
+    if(faction->getStance() == FactionStance::Aggressive)
     {
         weights[0] = 0.75; // 75%
         weights[1] = 1; // 25%
     }
-    else if(faction->getStance() == "passive")
+    else if(faction->getStance() == FactionStance::Passive)
     {
         weights[0] = 0.5; // 50% 
         weights[1] = 1; // 50%
     }
-    else if(faction->getStance() == "defensive")
+    else if(faction->getStance() == FactionStance::Defensive)
     {   
         weights[0] = 0.25; // 25%
         weights[1] = 1; // 75%
@@ -88,11 +88,11 @@ FactionAction *ConcreteSimulator::decideAction(Faction *faction) {
 
     if(random < weights[0])
     {
-        return new AttackAction(faction);
+        //return new AttackAction(faction);
     }
     else
     {
-        return new ReStockAction(faction);
+        //return new ReStockAction(faction);
     }
 
 }

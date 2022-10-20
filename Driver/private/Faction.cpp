@@ -52,3 +52,11 @@ FactionState* Faction::getState() {
 int Faction::getStrength() {
     return countries.size();
 }
+
+/**
+ * @description Gets the stance of the faction.
+ * @return FactionStance - Stance of the faction.
+ */
+FactionStance Faction::getStance() {
+    return stance;
+}

@@ -21,3 +21,9 @@ enum CountryName {
     UnitedKingdom,
     UnitedStates
 };
+
+enum FactionStance{
+    Defensive,
+    Aggressive,
+    Passive
+};
