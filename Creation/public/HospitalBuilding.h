@@ -13,5 +13,5 @@
 class HospitalBuilding : public Building {
 public:
     HospitalBuilding();
-    Troops buff(Troops t) override;
+    void buff(Troops* t) override;
 };

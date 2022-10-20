@@ -16,5 +16,5 @@ class Building {
 protected:
     double weight;
 public:
-    virtual Troops buff(Troops t) = 0;
+    virtual void buff(Troops* t) = 0;
 };
