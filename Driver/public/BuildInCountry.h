@@ -12,6 +12,6 @@ private:
     Building* myBuilding;
 public:
     BuildInCountry(ConcreteFaction * myFaction, Country* myCountry, Building* myBuilding);
-    virtual bool execute();
+    virtual void execute();
 };
 

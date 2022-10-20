@@ -14,5 +14,5 @@ private:
     Country* toAttack;
 public:
     AttackFromCountry(ConcreteFaction* myFaction, Country* attacker, Country* toAttack);
-    virtual bool execute();
+    virtual void execute();
 };
