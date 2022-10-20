@@ -64,7 +64,7 @@ Ordering should be:
  *  Author: Name Surname (uXXXXXXXX)    <-- Author name and student number
  */
 
-#include "./public/ClassHeader.h"       <-- Include statements | Always use relative paths
+#include "../public/ClassHeader.h"      <-- Include statements | Always use relative paths
 
 ↓ Comment block to explain function
 /**

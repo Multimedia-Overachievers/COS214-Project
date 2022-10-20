@@ -16,8 +16,8 @@ file(GLOB_RECURSE Creation_Headers "Creation/*.h")
 add_executable(Project ${Driver_Sources} ${Driver_Headers} ${Manipulation_Sources} ${Manipulation_Headers} ${Creation_Sources} ${Creation_Headers})
 
 if(BUILD_TESTS)
-        add_subdirectory(googletest)
-        include_directories(googletest/include)
+        add_subdirectory(GoogleTests)
+        include_directories(GoogleTests/include)
 
         file(GLOB_RECURSE Tests "Tests/*.cpp")
         set(Testing_Sources ${Driver_Sources})
