@@ -5,7 +5,6 @@
  */
 
 #pragma once
-
 #include "./Observer.h"
 
 //Forward declaration to avoid circular dependency

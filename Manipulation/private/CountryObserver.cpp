@@ -12,6 +12,9 @@ CountryObserver::CountryObserver(Country* country)
     this->country = country;
 }
 
+/**
+ * @brief Checks the new state of the country and sends relevant data to simulation
+ */
 void CountryObserver::update()
 {
     std::cout << "Country has been updated" << std::endl;

@@ -6,6 +6,9 @@
 
 #pragma once
 
+/**
+ * @brief Abstract class that defines the interface for all observers
+ */
 class Observer
 {
 public:

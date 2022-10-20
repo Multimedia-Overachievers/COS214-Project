@@ -1,3 +1,9 @@
+/*
+ *  Country.cpp
+ *  Created on: 10/19/2022.
+ *  Author: Keelan Matthews (u21549967)
+ */
+
 #include "../public/CountryObserver.h"
 #include "../public/Country.h"
 
