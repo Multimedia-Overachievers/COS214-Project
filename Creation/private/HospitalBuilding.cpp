@@ -13,8 +13,8 @@ HospitalBuilding::HospitalBuilding() : Building() {
  * @return newTroop
  */
 void HospitalBuilding::buff(Troops* t) {
-    int health = t->getHp();
-    Troops* newTroop = new Troops();
-    newTroop->setHp(health * this->weight);
-    t = newTroop;
+    // int health = t->getHp();
+    // Troops* newTroop = new Troops();
+    // newTroop->setHp(health * this->weight);
+    // t = newTroop;
 }

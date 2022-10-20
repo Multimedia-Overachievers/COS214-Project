@@ -20,7 +20,7 @@ Logs::~Logs()
  * Gets the logs
  * @return logs
  */
-MapState* Logs::getLogs() {
+std::vector<MapState*> Logs::getLogs() {
     return this->logs;
 }
 

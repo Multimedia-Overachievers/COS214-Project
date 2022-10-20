@@ -1,6 +1,6 @@
 #include "../public/Squad.h"
 
-Squad::Squad(NAME name = SQUAD, STATE state) : Troops(name, state){
+Squad::Squad(NAME name = SQUAD, STATE state = READY) : Troops(name, state){
     setDMG(10);
     setHP(100);
 }

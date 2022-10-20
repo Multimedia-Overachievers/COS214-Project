@@ -21,7 +21,7 @@ class TroopIterator{
         virtual Troops * next() = 0;
         virtual bool isDone() = 0;
         virtual Troops* current() = 0;
-        virtual vector<Troops *>::iterator at() = 0;
+        virtual std::vector<Troops *>::iterator at() = 0;
     protected:
         TroopIterator();
 };

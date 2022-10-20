@@ -1,4 +1,4 @@
-#include "SquadIterator.h"
+#include "../public/SquadIterator.h"
 
 SquadIterator::SquadIterator(){
     it = vector<Troops *>::iterator();

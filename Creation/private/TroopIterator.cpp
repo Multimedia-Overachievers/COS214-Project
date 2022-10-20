@@ -1,4 +1,4 @@
-#include "TroopIterator.h"
+#include "../public/TroopIterator.h"
 
 TroopIterator::TroopIterator()
 {

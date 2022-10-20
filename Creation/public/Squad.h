@@ -1,4 +1,5 @@
 //Tayla Orsmond u21467456
+#pragma once
 #include "Troops.h"
 
 using namespace std;

@@ -94,5 +94,5 @@ FactionAction* ConcreteSimulator::decideAction(Faction *faction) {
     {
         //return new ReStockAction(faction);
     }
-
+    return nullptr;
 }
