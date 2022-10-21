@@ -7,15 +7,18 @@
 #include "../public/Faction.h"
 #include "../public/enums.h"
 #include "../../Creation/public/BuildingFactory.h"
+#include "../../Creation/public/HospitalFactory.h"
+#include "../../Creation/public/BarracksFactory.h"
 
 Faction::Faction(Simulator *simulator, std::string name) {
     this->simulator = simulator;
 
-    // use the factory to make buildings @Dhairiya
-    BuildingFactory *buildingFactory = new BuildingFactory();
-    Building *hospital = buildingFactory->create();
-    Building *barracks = buildingFactory->create();
-
+    int numBuildings = 2;
+    BuildingFactory **buildingFactory = new BuildingFactory*[numBuildings];
+    buildingFactory[0] = new HospitalFactory();
+    buildingFactory[1] = new BarracksFactory();
+    Building *hospital = buildingFactory[0]->create();
+    Building *barracks = buildingFactory[1]->create();
 
     if (name == "Allies")
     {
@@ -33,6 +36,13 @@ Faction::Faction(Simulator *simulator, std::string name) {
     {
         std::cout << "Invalid faction name" << std::endl;
     }
+
+    // @Keelan-Matthews make sure each country deletes its own buildings
+    for (int i = 0; i < numBuildings; i++)
+    {
+        delete buildingFactory[i];
+    }
+    delete [] buildingFactory;
 }
 
 void Faction::attack() {
