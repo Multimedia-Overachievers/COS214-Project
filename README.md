@@ -1,7 +1,3 @@
-# COS214 Project
-## Project Description :receipt:
-Lorem Ipsum
-
 ## Meet the Team:
 - Keelan Matthews u21549967
 - Francois Smith u21649988
