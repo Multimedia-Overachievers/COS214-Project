@@ -1,6 +1,8 @@
-# COS214-Project
+# COS214 Project
+## Project Description :receipt:
+Lorem Ipsum
 
-## Members:
+## Meet the Team:
 - Keelan Matthews u21549967
 - Francois Smith u21649988
 - Ross Tordiffe u21533572
