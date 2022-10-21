@@ -1,4 +1,4 @@
-# COS214-Project
+# COS214-Project :receipt:
 
 ## Members:
 - Keelan Matthews u21549967
