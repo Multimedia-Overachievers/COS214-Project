@@ -10,5 +10,10 @@
 
 class ConcreteFaction: public Faction 
 {
-
+    ConcreteFaction(Simulator* simulator, std::string name);
+    void reStock() override;
+    void attack() override;
+    FactionState* getState() override;
+    FactionStance getStance() override;
+    int getStrength() override;
 };

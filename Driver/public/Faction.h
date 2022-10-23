@@ -8,19 +8,22 @@
 #include "Simulator.h"
 #include "../../Manipulation/public/Country.h"
 #include "../../Creation/public/FactionState.h"
+#include "../public/enums.h"
+#include "../../Creation/public/BuildingFactory.h"
+#include "../../Creation/public/HospitalFactory.h"
+#include "../../Creation/public/BarracksFactory.h"
 #include "./enums.h"
 #include <list>
 
 class Faction {
 public:
-    explicit Faction(Simulator* simulator, std::string name);
-    void reStock();
-    void attack();
-    FactionState* getState();
-    FactionStance getStance();
-    int getStrength();
+    virtual void reStock() = 0;
+    virtual void attack() = 0;
+    virtual FactionState* getState() = 0;
+    virtual FactionStance getStance() = 0;
+    virtual int getStrength() = 0;
 
-private:
+protected:
     Simulator* simulator;
     std::list<Country*> countries;
     FactionStance stance;

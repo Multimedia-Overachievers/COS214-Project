@@ -61,7 +61,6 @@ void Country::notify() {
     this->observer->update();
 }
 
-
 /**
  * @brief Invades a country
  * @param country
