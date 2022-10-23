@@ -13,13 +13,22 @@
 Faction::Faction(Simulator *simulator, std::string name) {
     this->simulator = simulator;
 
+    // Generate buildings for the countries
     int numBuildings = 2;
-    BuildingFactory **buildingFactory = new BuildingFactory*[numBuildings];
-    buildingFactory[0] = new HospitalFactory();
-    buildingFactory[1] = new BarracksFactory();
+    auto **buildingFactory = new BuildingFactory*[numBuildings];
+    for (int i = 0; i < numBuildings; i++) {
+        if (i % 2 == 0) {
+            buildingFactory[i] = new HospitalFactory();
+        } else {
+            buildingFactory[i] = new BarracksFactory();
+        }
+
+    }
+
     Building *hospital = buildingFactory[0]->create();
     Building *barracks = buildingFactory[1]->create();
 
+    // Generate countries
     if (name == "Allies")
     {
         countries.push_back(new Country(CountryName::France, hospital, hospital));

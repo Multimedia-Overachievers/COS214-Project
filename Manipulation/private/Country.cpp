@@ -69,3 +69,12 @@ void Country::notify() {
 void Country::invade(Country *country) {
     //..
 }
+
+Country::~Country() {
+    delete this->observer;
+    for (auto building : buildings)
+        delete building;
+
+    for (auto troop : troops)
+        delete troop;
+}

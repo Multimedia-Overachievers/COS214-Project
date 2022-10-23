@@ -18,13 +18,13 @@ class Observer;
  */
 class Country {
 public:
-    Country(CountryName name, Building *building1 = nullptr, Building *building2 = nullptr);
+    explicit Country(CountryName name, Building *building1 = nullptr, Building *building2 = nullptr);
     bool hasTroops();
     Troops* removeTroop();
     void addTroop(Troops* troop);
     void notify();
     void invade(Country* country);
-
+    ~Country();
 private:
     vector<Building*> buildings;
     vector<Troops*> troops;
