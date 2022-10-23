@@ -7,9 +7,10 @@
 #pragma once 
 #include <string>
 #include <iostream>
+#include "./ConcreteFaction.h"
 
 class Simulator
 {
 public:
-    virtual void notify(std::string command) = 0;
+    virtual void notify(ConcreteFaction* enemyFaction) = 0;
 };

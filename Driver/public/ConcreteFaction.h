@@ -7,13 +7,16 @@
 
 #pragma once
 #include "./Faction.h"
+#include "./ConcreteSimulator.h"
 
 class ConcreteFaction: public Faction 
 {
-    ConcreteFaction(Simulator* simulator, std::string name);
     void reStock() override;
     void attack() override;
     FactionState* getState() override;
+
+public:
+    ConcreteFaction(ConcreteSimulator* simulator, std::string name);
     FactionStance getStance() override;
     int getStrength() override;
 };

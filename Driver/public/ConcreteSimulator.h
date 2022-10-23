@@ -6,7 +6,7 @@
 
 #pragma once
 #include "./Simulator.h"
-#include "./Faction.h"
+#include "./ConcreteFaction.h"
 #include "./FactionAction.h"
 #include <vector>
 
@@ -15,10 +15,10 @@ class ConcreteSimulator : public Simulator
 public:
     int TestFunction(int a, int b);
     ConcreteSimulator();
-    void action(FactionAction* factionAction);
-    void notify(std::string command) override;
-    FactionAction* decideAction(Faction* faction); 
+    static void action(FactionAction* factionAction);
+    void notify(ConcreteFaction* enemyFaction) override;
+    static FactionAction* decideAction(ConcreteFaction* faction);
 
 private:
-    std::vector<Faction*> factions;
+    std::vector<ConcreteFaction*> factions;
 };

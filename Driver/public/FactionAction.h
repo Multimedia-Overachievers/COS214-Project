@@ -9,7 +9,7 @@
 
 class FactionAction {
 public:
-    FactionAction(ConcreteFaction* c);
+    explicit FactionAction(ConcreteFaction* c);
     ConcreteFaction* getFaction();
     virtual void execute() = 0;
 

@@ -6,7 +6,7 @@
 
 #include "../public/ConcreteFaction.h"
 
-ConcreteFaction::ConcreteFaction(Simulator *simulator, std::string name) {
+ConcreteFaction::ConcreteFaction(ConcreteSimulator *simulator, std::string name) {
     this->simulator = simulator;
 
     // Generate buildings for the countries
@@ -62,7 +62,7 @@ void ConcreteFaction::attack() {
  * @description Gets the current state of the faction.
  * @return FactionState
  */
-FactionState* Faction::getState() {
+FactionState* ConcreteFaction::getState() {
     std::vector<Country*> countries;
     for (Country* country : this->countries)
     {
@@ -75,7 +75,7 @@ FactionState* Faction::getState() {
  * @description Gets the stance of the faction.
  * @return FactionStance - Stance of the faction.
  */
-FactionStance Faction::getStance() {
+FactionStance ConcreteFaction::getStance() {
     return stance;
 }
 
@@ -83,6 +83,6 @@ FactionStance Faction::getStance() {
  * @description Gets the number of countries in the faction.
  * @return int - Strength of the faction.
  */
-int Faction::getStrength() {
+int ConcreteFaction::getStrength() {
     return countries.size();
 }

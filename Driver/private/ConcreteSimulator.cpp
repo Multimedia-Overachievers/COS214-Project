@@ -11,8 +11,8 @@
  * @brief Constructor that initializes the factions
  */
 ConcreteSimulator::ConcreteSimulator() {
-    factions.push_back(new Faction(this, "Allies"));
-    factions.push_back(new Faction(this, "Axis"));
+    factions.push_back(new ConcreteFaction(this, "Allies"));
+    factions.push_back(new ConcreteFaction(this, "Axis"));
 }
 
 /**
@@ -30,19 +30,23 @@ int ConcreteSimulator::TestFunction(int a, int b)
  * @description Notifies the simulator of a command.
  * @param command - Command to notify the simulator of.
  */
-void ConcreteSimulator::notify(std::string command) {
-    if (command == "attack")
-    {
-        // Do attack stuff
-    }
-    else if (command == "reStock")
-    {
-        // Do supply stuff
-    }
-    else
-    {
-        std::cout << "Invalid command" << std::endl;
-    }
+void ConcreteSimulator::notify(ConcreteFaction* enemyFaction) {
+//    if (command == "attack")
+//    {
+//        action(decideAction(enemyFaction));
+//    }
+//    else if (command == "reStock")
+//    {
+//        // Do supply stuff
+//    }
+//    else
+//    {
+//        std::cout << "Invalid command" << std::endl;
+//    }
+
+// @Ross - I have commented the above code out because I assume whether they attack or restock is now automated
+
+    action(decideAction(enemyFaction));
 }
 
 /**
@@ -58,7 +62,7 @@ void ConcreteSimulator::action(FactionAction *factionAction) {
  * @param faction - Faction to decide an action for.
  * @return FactionAction - Action to perform on the faction.
  */
-FactionAction* ConcreteSimulator::decideAction(Faction *faction) {
+FactionAction* ConcreteSimulator::decideAction(ConcreteFaction *faction) {
     double weights[2]; // Weights for the different actions 0 -> 0.5 = attack, 0.5 -> 1 = reStock
 
     if(faction->getStance() == FactionStance::Aggressive)

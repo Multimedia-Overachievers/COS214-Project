@@ -5,7 +5,6 @@
  */
 
 #pragma once
-#include "Simulator.h"
 #include "../../Manipulation/public/Country.h"
 #include "../../Creation/public/FactionState.h"
 #include "../public/enums.h"
@@ -13,6 +12,7 @@
 #include "../../Creation/public/HospitalFactory.h"
 #include "../../Creation/public/BarracksFactory.h"
 #include "./enums.h"
+#include "./ConcreteSimulator.h"
 #include <list>
 
 class Faction {
@@ -24,7 +24,7 @@ public:
     virtual int getStrength() = 0;
 
 protected:
-    Simulator* simulator;
+    ConcreteSimulator* simulator;
     std::list<Country*> countries;
     FactionStance stance;
 };

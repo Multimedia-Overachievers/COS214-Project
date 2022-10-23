@@ -14,8 +14,10 @@
 class FactionState
 {
 private:
-    FactionState(std::vector<Country*> countries);
     std::vector<Country*> getCountries();
+
+public:
+    FactionState(std::vector<Country*> countries);
 
 private:
     std::vector<Country*> countries;
