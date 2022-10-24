@@ -6,6 +6,7 @@
 
 #include "../public/CountryObserver.h"
 #include "../public/Country.h"
+#include "../../Creation/public/Squad.h"
 
 /**
  * @brief Country::Country
@@ -51,7 +52,11 @@ Troops *Country::removeTroop() {
  * @param troop
  */
 void Country::addTroop(Troops *troop) {
+    //call build on using the troops array
     this->troops.push_back(troop);
+    Squad* s = new Squad(troop->getName(), troop->getState());
+    s->build(this->troops);
+    this->troops_sized = s;
 }
 
 /**
@@ -76,4 +81,6 @@ Country::~Country() {
 
     for (auto troop : troops)
         delete troop;
+
+    delete troops_sized;
 }
