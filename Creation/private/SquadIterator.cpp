@@ -6,40 +6,48 @@
 
 #include "../public/SquadIterator.h"
 
-SquadIterator::SquadIterator(){
+SquadIterator::SquadIterator()
+{
     it = vector<Troops *>::iterator();
     mySoldiers = nullptr;
 }
 
-SquadIterator::SquadIterator(Soldiers * soldiers){
+SquadIterator::SquadIterator(Soldiers * soldiers)
+{
     it = soldiers->squads.begin();
     mySoldiers = soldiers;
 }
 
-SquadIterator::~SquadIterator(){
+SquadIterator::~SquadIterator()
+{
     it = vector<Troops *>::iterator();
     mySoldiers = nullptr;
 }
 
-Troops * SquadIterator::first(){
+Troops * SquadIterator::first()
+{
     it = mySoldiers->squads.begin();
     return *it;
 }
 
-Troops * SquadIterator::next(){
+Troops * SquadIterator::next()
+{
     it++;
     return *it;
 }
 
-bool SquadIterator::isDone(){
+bool SquadIterator::isDone()
+{
     return it == mySoldiers->squads.end();
 }
 
-Troops * SquadIterator::current(){
+Troops * SquadIterator::current()
+{
     return *it;
 }
 
-vector<Troops *>::iterator SquadIterator::at(){
+vector<Troops *>::iterator SquadIterator::at()
+{
     return it;
 }
 
