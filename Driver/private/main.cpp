@@ -1,6 +1,33 @@
 #include <iostream>
 
+#include "ConcreteSimulator.h"
+
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    
+    // === Objects ===
+    Simulator *simulator = new ConcreteSimulator();
+
+    // === Variables ===
+    const int MAX_TURNS = 20;
+    FactionName factionTurn = Allies;
+
+    // === Main Loop ===
+    for (int i = 0; i < MAX_TURNS; i++)
+    {
+        // -?Ross- Ask group about casting 
+        simulator->notify(((ConcreteSimulator*)simulator)->getFaction(factionTurn));
+        
+        // Switch turn
+        if (factionTurn == Allies)
+        {
+            factionTurn = Axis;
+        }
+        else
+        {
+            factionTurn = Allies;
+        }
+    }
+
     return 0;
 }
+

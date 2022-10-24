@@ -16,7 +16,7 @@ class ConcreteFaction: public Faction
     FactionState* getState() override;
 
 public:
-    ConcreteFaction(ConcreteSimulator* simulator, std::string name);
+    ConcreteFaction(ConcreteSimulator* simulator, FactionName name);
     FactionStance getStance() override;
     int getStrength() override;
 };

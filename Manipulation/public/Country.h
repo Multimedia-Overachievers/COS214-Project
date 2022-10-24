@@ -18,18 +18,21 @@ class Observer;
  */
 class Country {
 public:
-    explicit Country(CountryName name, Building *building1 = nullptr, Building *building2 = nullptr);
+    explicit Country(CountryName name, FactionName owner, Building *building1 = nullptr, Building *building2 = nullptr);
     bool hasTroops();
     Troops* removeTroop();
     void addTroop(Troops* troop);
     void notify();
     void invade(Country* country);
+    void conquer(Country* invader); 
     ~Country();
 private:
     vector<Building*> buildings;
     vector<Troops*> troops;
     CountryName name;
+    FactionName owner;
     Observer* observer;
+
 
     //Tays squad->build() sets the state of the troops automatically
     Troops* troops_sized;
