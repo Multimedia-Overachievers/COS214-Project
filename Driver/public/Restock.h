@@ -7,7 +7,8 @@
  *
  */
 
-class Restock: public FactionAction {
+class Restock: public FactionAction
+{
 private:
     Country* myCountry;
     ConcreteFaction* myFaction;
@@ -16,9 +17,9 @@ private:
     NAME troopName;
 public:
     friend class Country;
-    Restock(ConcreteFaction* myFaction, Country* myCountry,  STATE troopstate, NAME troopName);
+    Restock(ConcreteFaction* myFaction, Country* myCountry,  STATE troopstate, std::vector<Troops*> squads);
     ConcreteFaction* getFaction();
-    virtual void execute() = 0;
+    virtual void execute();
 };
 
 //faction->getStance() == FactionStance::Defensive

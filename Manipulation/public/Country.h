@@ -34,7 +34,6 @@ private:
     FactionName owner;
     Observer* observer;
 
-
     //Tays squad->build() sets the state of the troops automatically
     Troops* troops_sized;
 };

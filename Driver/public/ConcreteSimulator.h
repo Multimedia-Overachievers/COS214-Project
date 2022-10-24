@@ -10,6 +10,9 @@
 #include "./FactionAction.h"
 #include <vector>
 
+/**
+ * @brief The concrete simulator which simulates the game.
+ */
 class ConcreteSimulator : public Simulator
 {
 public:
@@ -17,9 +20,9 @@ public:
     ConcreteSimulator();
     static void action(FactionAction* factionAction);
     void notify(ConcreteFaction* enemyFaction) override;
-    static FactionAction* decideAction(ConcreteFaction* faction);
+    FactionAction* decideAction(ConcreteFaction* faction);
     ConcreteFaction* getFaction(FactionName name); // 0 = Allies, 1 = Axis
-    
+    ConcreteFaction* getOpposite(ConcreteFaction* faction);
 private:
     std::vector<ConcreteFaction*> factions;
 };

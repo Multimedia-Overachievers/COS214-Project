@@ -11,7 +11,8 @@
  * @param troopName The name that all the troops that are recruited will have
  */
 Recruit::Recruit(ConcreteFaction *myFaction, Country *myCountry, int numTroops, STATE troopstate, NAME troopName)
-                                                                                                        : FactionAction(myFaction){
+                                                                                            : FactionAction(myFaction)
+{
 
     mySoldiers = new Soldiers * [numTroops];
 
@@ -26,11 +27,11 @@ Recruit::Recruit(ConcreteFaction *myFaction, Country *myCountry, int numTroops, 
 /**
  * @brief Execute the action by creating the troops and adding them to the specified country
  */
-void Recruit::execute() {
+void Recruit::execute()
+{
     SquadIterator iter(*mySoldiers);
-    while (!iter.isDone()) {
+    while (!iter.isDone())
         myCountry->addTroop(iter.current());
-    }
 
     //Call add troop on country
     //Troops will change state depending on the size of the array

@@ -6,7 +6,8 @@
 #include "../../Driver/public/enums.h"
 #include "../../Creation/public/Soldiers.h"
 
-class Recruit: public FactionAction {
+class Recruit: public FactionAction
+{
 private:
     Country* myCountry;
     int numTroops;

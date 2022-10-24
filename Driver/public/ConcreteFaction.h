@@ -18,5 +18,7 @@ class ConcreteFaction: public Faction
 public:
     ConcreteFaction(ConcreteSimulator* simulator, FactionName name);
     FactionStance getStance() override;
+    FactionName getName() override;
+    Country* getCountry(int index);
     int getStrength() override;
 };

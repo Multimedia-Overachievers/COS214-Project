@@ -21,10 +21,13 @@ public:
     virtual void attack() = 0;
     virtual FactionState* getState() = 0;
     virtual FactionStance getStance() = 0;
+    virtual FactionName getName() = 0;
     virtual int getStrength() = 0;
+
 
 protected:
     ConcreteSimulator* simulator;
     std::list<Country*> countries;
     FactionStance stance;
+    FactionName name;
 };
