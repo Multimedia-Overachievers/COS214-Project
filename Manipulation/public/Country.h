@@ -27,6 +27,8 @@ public:
     void notify();
     void invade(Country* country);
     void conquer(Country* invader); 
+    int buffDMG(int damage);
+    int buffDefence(int defence);
     ~Country();
 private:
     map<Building, int> buildings;

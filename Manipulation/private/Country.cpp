@@ -74,37 +74,27 @@ void Country::notify()
 void Country::invade(Country *country) 
 {
     
-    // -?Ross- Ask Tay about getting buffs 
     if (country->hasTroops()) 
     {
-        int damage = this->troops_sized->getTotalDMG();   // Get damage from my troops
-        int defence = country->troops_sized->getTotalDMG(); // Get damage from enemy troops
+        int damage = this->buffDMG(this->troops_sized->getTotalDMG());   // Get damage from my troops
+        int defence = country->buffDMG(country->troops_sized->getTotalDMG()); // Get damage from enemy troops
 
-        int invaderHealth = this->troops_sized->getTotalHP(); // Get health from my troops
-        int defenderHealth = country->troops_sized->getTotalHP(); // Get health from enemy troops
-
-        // -?Ross- Ask group about retreating from battle
-        bool callOff = false;
+        int invaderHealth = this->buffDefence(this->troops_sized->getTotalHP()); // Get health from my troops
+        int defenderHealth = country->buffDefence(country->troops_sized->getTotalHP()); // Get health from enemy troops
         do
         {
             invaderHealth -= defence;
             defenderHealth -= damage;
-        } while ((invaderHealth > 0 && defenderHealth > 0) && !callOff);
+        } while ((invaderHealth > 0 && defenderHealth > 0));
 
         if (defenderHealth <= 0) 
         {
-            country->troops.clear(); // Remove all enemy troops
             this->conquer(country);  // Conquer the country
-        } 
-        else if (invaderHealth <= 0) 
-        {
-            this->troops.clear(); // Remove all my troops
         }
-        else if (callOff)
-        {
-            
-        }
-
+        
+        this->troops_sized->takeDMG(country->troops_sized->getTotalHP() - invaderHealth);
+        country->troops_sized->takeDMG(this->troops_sized->getTotalHP() - defenderHealth);
+        
         this->notify();
 
     }
@@ -128,4 +118,22 @@ Country::~Country()
         delete troop;
 
     delete troops_sized;
+}
+
+/**
+ * @brief Buffs the damage of the troops using the number of barracks. 5% per barracks
+ * @param damage
+ * @return
+ */
+int Country::buffDMG(int damage) {
+    return damage + (damage * (buildings[Barracks] * 0.05));
+}
+
+/**
+ * @brief Buffs the defence of the troops using the number of hospitals. 5% per hospital
+ * @param defence
+ * @return
+ */
+int Country::buffDefence(int defence) {
+    return defence + (defence * (buildings[Hospital] * 0.05));
 }

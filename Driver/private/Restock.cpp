@@ -24,9 +24,9 @@ void Restock::execute() {
         troops.push_back(new Soldiers(troopName, troopstate));
 
     //build the platooon
-    Soldiers* mySolodiers;
-    mySolodiers->build(troops);
+    Soldiers* mySoldiers;
+    mySoldiers->build(troops);
 
     //assign the new platoon to the country
-    myCountry->troops_sized = mySolodiers;
+    myCountry->troops_sized = mySoldiers;
 }

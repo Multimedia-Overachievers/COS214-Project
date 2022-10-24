@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.jsx": "typescriptreact",
+        "vector": "cpp",
+        "utility": "cpp",
+        "map": "cpp",
+        "list": "cpp",
+        "iterator": "cpp"
+    }
+}

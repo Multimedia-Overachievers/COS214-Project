@@ -10,7 +10,7 @@
  * @brief Construct a new Squad:: Squad object
  * 
  * @param name The name of the squad (enum) - default is SquadStd, options are SquadStd
- * @param state The state of the squad (enum) - default is READY, options are READY, Moving, Defeated
+ * @param state The state of the squad (enum) - default is Ready, options are Ready, Moving, Defeated
  */
 Squad::Squad(Name name = SquadStd, State state = Ready) : Troops(name, state)
 {
