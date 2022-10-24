@@ -16,6 +16,7 @@ MoveTroops::MoveTroops(ConcreteFaction* destinationFaction, Country* destination
                                                                                 : FactionAction(destinationFaction) {
     this->destinationCountry = destinationCountry;
     this->numTroops = numTroops;
+    this->sourceCountry = sourceCountry;
 }
 
 /**

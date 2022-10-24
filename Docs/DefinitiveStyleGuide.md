@@ -31,9 +31,9 @@ This is the c++ styling standards that you should try and use during the project
  *  Author: Name Surname (uXXXXXXXX)    <-- Author name and student number
  */
 
-#pragma once                <-- Compile Guard
+#pragma once                //<-- Compile Guard
 
-#include "./OtherHeader.h"       <-- Include statements | Always use relative paths
+#include "./OtherHeader.h"       //<-- Include statements | Always use relative paths
 
 ↓ Comment block to explain class
 /**                         
@@ -41,19 +41,21 @@ This is the c++ styling standards that you should try and use during the project
  */
 class ClassName
 {                           
-public:                     <-- Labels hugging the wall
+public:                     //<-- Labels hugging the wall
     ClassName();
     ~ClassName();
     void FunctionName();
-                            <--- Open line between labels 
+                            //<--- Open line between labels 
 private:
     int m_VariableName;
 };
 
+/*
 Ordering should be:
 - Public
 - Protected
 - Private
+*/
 ```
 
 ## Source File Formatting
@@ -65,7 +67,7 @@ Ordering should be:
  *  Author: Name Surname (uXXXXXXXX)    <-- Author name and student number
  */
 
-#include "../public/ClassHeader.h"      <-- Include statements | Always use relative paths
+#include "../public/ClassHeader.h"     // <-- Include statements | Always use relative paths
 
 ↓ Comment block to explain function
 /**
@@ -74,12 +76,21 @@ Ordering should be:
  * @return This is a return value that does something
  */
 void FunctionName(int ParameterName){
-    //...
+    if(condition)
+    {                                   //<-- Brackets under the if statement
+        // Code
+    }
+    else                                //<-- Else on its own line
+    {
+        // Code
+    }
 }
 
+/*
 Ordering within documentation should be:
 - brief
 - Parameters
 - Return   
+*/
 
 ```
