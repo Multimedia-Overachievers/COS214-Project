@@ -8,7 +8,7 @@
 
 ConcreteFaction::ConcreteFaction(ConcreteSimulator *simulator, FactionName name) {
     this->simulator = simulator;
-
+    this->name = name;
     // Generate buildings for the countries
     int numBuildings = 2;
     auto **buildingFactory = new BuildingFactory*[numBuildings];
@@ -18,7 +18,6 @@ ConcreteFaction::ConcreteFaction(ConcreteSimulator *simulator, FactionName name)
         } else {
             buildingFactory[i] = new BarracksFactory();
         }
-
     }
 
     Building *hospital = buildingFactory[0]->create();
@@ -47,13 +46,13 @@ ConcreteFaction::ConcreteFaction(ConcreteSimulator *simulator, FactionName name)
 }
 
 
-void ConcreteFaction::reStock() {
-    // simulator->notify("reStock");
-}
+// void ConcreteFaction::reStock() {
+//     // simulator->notify("reStock");
+// }
 
-void ConcreteFaction::attack() {
-    // simulator->notify("attack");
-}
+// void ConcreteFaction::attack() {
+//     // simulator->notify("attack");
+// }
 
 /**
  * @description Gets the current state of the faction.
@@ -74,6 +73,32 @@ FactionState* ConcreteFaction::getState() {
  */
 FactionStance ConcreteFaction::getStance() {
     return stance;
+}
+
+/**
+ * @brief Return the name of the faction.
+ * @return FactionName
+ */
+FactionName ConcreteFaction::getName() {
+    return name;
+}
+
+/**
+ * @brief Returns the country at the given index.
+ * @param index - Index of the country.
+ * @return Country*
+ */
+Country* ConcreteFaction::getCountry(int index) {
+    int i = 0;
+    for (Country* country : countries)
+    {
+        if (i == index)
+        {
+            return country;
+        }
+        i++;
+    }
+    return nullptr;
 }
 
 /**

@@ -101,47 +101,7 @@ void Country::invade(Country *country) {
         }
         else if (callOff)
         {
-            // Remove a percentage of troops from either side
-            Country* removeFrom = this; // First the Invader's loss
-            for(int i = 0; i < 2; i++) 
-            {
-                int loss = removeFrom->troops_sized->getTotalHP() - invaderHealth; // First the Invader's loss
-                while(loss > 0) // While the faction has squads to lose
-                { 
-                    if(loss > 500) // Remove an ARMY
-                    {
-                        // Remove an army
-                        loss -= 500;
-                    }
-                    else if(loss > 400) // Remove a BATTALION
-                    {
-                        // Remove a battalion
-                        loss -= 400;
-                    }
-                    else if(loss > 300) // Remove a COMPANY
-                    {
-                        // Remove a company
-                        loss -= 300;
-                    }
-                    else if(loss > 200) // Remove a PLATOON
-                    {
-                        // Remove a platoon
-                        loss -= 200;
-                    }
-                    else if(loss > 100) // Remove a SQUAD
-                    {
-                        // Remove a squad
-                        loss -= 100;
-                    }
-                    else // Damage a single squad
-                    {
-                        // Damage a single squad
-                        loss = 0;
-                    }
-
-                }
-                removeFrom = country; // Then the Defender's loss
-            }
+            
         }
 
         this->notify();

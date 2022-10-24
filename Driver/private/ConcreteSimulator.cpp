@@ -6,11 +6,14 @@
 
 #include "../public/ConcreteSimulator.h"
 #include "../public/FactionAction.h"
+#include "../public/AttackFromCountry.h"
+#include "../public/Restock.h"
 
 /**
  * @brief Constructor that initializes the factions
  */
-ConcreteSimulator::ConcreteSimulator() {
+ConcreteSimulator::ConcreteSimulator() 
+{
     factions.push_back(new ConcreteFaction(this, Allies));
     factions.push_back(new ConcreteFaction(this, Axis));
 }
@@ -30,7 +33,8 @@ int ConcreteSimulator::TestFunction(int a, int b)
  * @description Notifies the simulator of a command.
  * @param command - Command to notify the simulator of.
  */
-void ConcreteSimulator::notify(ConcreteFaction* enemyFaction) {
+void ConcreteSimulator::notify(ConcreteFaction* enemyFaction) 
+{
 //    if (command == "attack")
 //    {
 //        action(decideAction(enemyFaction));
@@ -53,7 +57,8 @@ void ConcreteSimulator::notify(ConcreteFaction* enemyFaction) {
  * @description Performs an action on a faction.
  * @param factionAction - Action to perform on a faction.
  */
-void ConcreteSimulator::action(FactionAction *factionAction) {
+void ConcreteSimulator::action(FactionAction *factionAction) 
+{
     factionAction->execute();
 }
 
@@ -62,7 +67,8 @@ void ConcreteSimulator::action(FactionAction *factionAction) {
  * @param faction - Faction to decide an action for.
  * @return FactionAction - Action to perform on the faction.
  */
-FactionAction* ConcreteSimulator::decideAction(ConcreteFaction *faction) {
+FactionAction* ConcreteSimulator::decideAction(ConcreteFaction *faction) 
+{
     double weights[2]; // Weights for the different actions 0 -> 0.5 = attack, 0.5 -> 1 = reStock
 
     if(faction->getStance() == FactionStance::Aggressive)
@@ -95,14 +101,25 @@ FactionAction* ConcreteSimulator::decideAction(ConcreteFaction *faction) {
     }
 
     double random = (double)rand() / RAND_MAX; // Random number between 0 and 1
-
+    
     if(random < weights[0])
     {
-        // return new AttackAction(faction);
+        int invadingCountry = rand() % 3; // Random number between 0 and 2
+        int defendingCountry = rand() % 3; // Random number between 0 and 2
+        
+        return new AttackFromCountry(faction, faction->getCountry(invadingCountry), this->getOpposite(faction)->getCountry(defendingCountry));
     }
     else
     {
-        //return new ReStockAction(faction);
+       // Random number between 5 and 15
+        int numSquads = rand() % 11 + 5;
+        std::vector<Troops*> squads;
+        for(int i = 0; i < numSquads; i++)
+        {
+            squads.push_back(new Squad(SQUAD, READY));
+        }
+
+        return new Restock(faction, faction->getCountry(rand() % 3), READY, squads); // Random number between 0 and 2
     }
     return nullptr;
 }
@@ -112,7 +129,8 @@ FactionAction* ConcreteSimulator::decideAction(ConcreteFaction *faction) {
  * @param name - Name of the faction to return as an enum
  * @return ConcreteFaction* - The faction at the index
  */
-ConcreteFaction* ConcreteSimulator::getFaction(FactionName name) {
+ConcreteFaction* ConcreteSimulator::getFaction(FactionName name) 
+{
     if(name == Allies)
     {
         return factions[0];
@@ -126,4 +144,26 @@ ConcreteFaction* ConcreteSimulator::getFaction(FactionName name) {
         return nullptr;
     }
 }
+
+/**
+ * @description Takes in a faction and returns the opposite faction
+ * @param faction - Faction to get the opposite of
+ * @return ConcreteFaction* - The opposite faction
+ */
+ConcreteFaction* ConcreteSimulator::getOpposite(ConcreteFaction* faction)
+{
+    if(faction->getName() == Allies)
+    {
+        return factions[1];
+    }
+    else if(faction->getName() == Axis)
+    {
+        return factions[0];
+    }
+    else
+    {
+        return nullptr;
+    }
+}
+
 

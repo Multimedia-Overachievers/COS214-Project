@@ -13,7 +13,7 @@ class AttackFromCountry: public FactionAction
 {
 public:
     AttackFromCountry(ConcreteFaction* myFaction, Country* attacker, Country* toAttack);
-    void execute() override;
+    virtual void execute() override;
 
 private:
     Country* attacker;
