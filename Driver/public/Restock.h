@@ -7,7 +7,8 @@
  *
  */
 
-class Restock: public FactionAction {
+class Restock: public FactionAction
+{
 private:
     Country* myCountry;
     ConcreteFaction* myFaction;

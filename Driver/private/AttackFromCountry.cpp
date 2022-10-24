@@ -13,7 +13,9 @@
 * @param attacker The country that is attacking.
 * @param toAttack The country to be attacked.
 */
-AttackFromCountry::AttackFromCountry(ConcreteFaction* myFaction, Country* attacker, Country* toAttack): FactionAction(myFaction){
+AttackFromCountry::AttackFromCountry(ConcreteFaction* myFaction, Country* attacker, Country* toAttack):
+                                                                                            FactionAction(myFaction)
+{
     this->attacker = attacker;
     this->toAttack = toAttack;
 }
@@ -21,6 +23,7 @@ AttackFromCountry::AttackFromCountry(ConcreteFaction* myFaction, Country* attack
 /**
  * @brief Calls invade on the one country to attack the other
  */
-void AttackFromCountry::execute() {
+void AttackFromCountry::execute()
+{
     attacker->invade(toAttack);
 }
