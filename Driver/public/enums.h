@@ -9,7 +9,8 @@
 /**
  * @brief Defines the two factions in the game
  */
-enum FactionName {
+enum FactionName 
+{
     Allies,
     Axis
 };
@@ -17,7 +18,8 @@ enum FactionName {
 /**
  * @brief Defines the different types of countries that took part in the war.
  */
-enum CountryName {
+enum CountryName 
+{
     Bulgaria,
     France,
     Germany,
@@ -31,9 +33,19 @@ enum CountryName {
 };
 
 /**
+ * @brief Defines the different types of buildings that can be built.
+ */
+enum Building 
+{
+    Barracks,
+    Hospital
+};
+
+/**
  * @brief Defines the various states a country can be in.
  */
-enum FactionStance{
+enum FactionStance
+{
     Defensive,
     Aggressive,
     Passive
@@ -42,22 +54,22 @@ enum FactionStance{
 /**
  * @brief Defines the various states a squad of troops can be in.
  */
-enum STATE {
-    MOVING, 
-    READY, 
-    DEFEATED
+enum State {
+    Moving, 
+    Ready, 
+    Defeated
 };
 
 
 /**
  * @brief Defines the various types of troops in a country.
  */
-enum NAME {
-    SQUAD,
-    PLATOON, 
-    COMPANY, 
-    BATTALION, 
-    ARMY
+enum Name {
+    SquadStd,
+    Platoon, 
+    Company, 
+    Battalion, 
+    Army
 };
 
 /**

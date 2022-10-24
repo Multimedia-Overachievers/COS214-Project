@@ -6,21 +6,23 @@
 
 #include "../public/Soldiers.h"
 
-Soldiers::Soldiers(NAME name = PLATOON, STATE state = READY) : Troops(name, state){
-    switch(name){
-        case PLATOON:
+Soldiers::Soldiers(Name name = Platoon, State state = Ready) : Troops(name, state)
+{
+    switch(name)
+    {
+        case Platoon:
             setDMG(PlatoonDmg);
             setHP(PlatoonHp);
             break;
-        case COMPANY:
+        case Company:
             setDMG(CompanyDmg);
             setHP(CompanyHp);
             break;
-        case BATTALION:
+        case Battalion:
             setDMG(BattalionDmg);
             setHP(BattalionHp);
             break;
-        case ARMY:
+        case Army:
             setDMG(ArmyDmg);
             setHP(ArmyHp);
             break;
@@ -31,21 +33,23 @@ Soldiers::Soldiers(NAME name = PLATOON, STATE state = READY) : Troops(name, stat
     }
 }
 
-Soldiers::Soldiers(NAME name = PLATOON) : Troops(name){
-    switch(name){
-        case PLATOON:
+Soldiers::Soldiers(Name name = Platoon) : Troops(name)
+{
+    switch(name)
+    {
+        case Platoon:
             setDMG(PlatoonDmg);
             setHP(PlatoonHp);
             break;
-        case COMPANY:
+        case Company:
             setDMG(CompanyDmg);
             setHP(CompanyHp);
             break;
-        case BATTALION:
+        case Battalion:
             setDMG(BattalionDmg);
             setHP(BattalionHp);
             break;
-        case ARMY:
+        case Army:
             setDMG(ArmyDmg);
             setHP(ArmyHp);
             break;
@@ -56,27 +60,33 @@ Soldiers::Soldiers(NAME name = PLATOON) : Troops(name){
     }
 }
 
-Soldiers::~Soldiers(){
+Soldiers::~Soldiers()
+{
     //delete squads;
-    for(int i = 0; i < squads.size(); i++){
+    for(int i = 0; i < squads.size(); i++)
+    {
         delete squads[i];
     }
     squads.clear();
 }
 
-int Soldiers::takeDMG(int total){
+int Soldiers::takeDMG(int total)
+{
     //if my state is not defeated
     //then take the damage
     //otherwise do nothing
-    if(getState() != DEFEATED || getState() != MOVING){
+    if(getState() != Defeated || getState() != Moving)
+    {
         int hp = getTotalHP();
         hp -= total;
-        if(hp <= 0){
-            setState(DEFEATED);
+        if(hp <= 0)
+        {
+            setState(Defeated);
             setDMG(0);
             setHP(0);
             //set all my squads to defeated
-            for(int i = 0; i < squads.size(); i++){
+            for(int i = 0; i < squads.size(); i++)
+            {
                 squads[i]->takeDMG(squads[i]->getTotalHP());
             }
         }
@@ -86,16 +96,20 @@ int Soldiers::takeDMG(int total){
             //if that squad is defeated, then move to the next one
             //if all squads are defeated, then set my state to defeated
             int i = 0;
-            while(total > 0){
-                if(i >= squads.size()){
-                    setState(DEFEATED);
+            while(total > 0)
+            {
+                if(i >= squads.size())
+                {
+                    setState(Defeated);
                     setDMG(0);
                     setHP(0);
                     break;
                 }
-                else if(squads[i]->getState() != DEFEATED || squads[i]->getState() != MOVING){
+                else if(squads[i]->getState() != Defeated || squads[i]->getState() != Moving)
+                {
                     total -= squads[i]->takeDMG(total);
-                    if(squads[i]->getState() == DEFEATED){
+                    if(squads[i]->getState() == Defeated)
+                    {
                         i++;
                     }
                 }
@@ -105,8 +119,10 @@ int Soldiers::takeDMG(int total){
             }
         }
         //clean up any squads that are defeated
-        for(int i = 0; i < squads.size(); i++){
-            if(squads[i]->getState() == DEFEATED){
+        for(int i = 0; i < squads.size(); i++)
+        {
+            if(squads[i]->getState() == Defeated)
+            {
                 delete squads[i];
                 squads.erase(squads.begin() + i);
             }
@@ -115,12 +131,16 @@ int Soldiers::takeDMG(int total){
     return getTotalHP();
 }
 
-void Soldiers::buffDMG(int buff){
+void Soldiers::buffDMG(int buff)
+{
     //if my state is not defeated
     //then buff the damage of all my squads
-    if(getState() != DEFEATED){
-        for(int i = 0; i < squads.size(); i++){
-            if(squads[i]->getState() != DEFEATED){
+    if(getState() != Defeated)
+    {
+        for(int i = 0; i < squads.size(); i++)
+        {
+            if(squads[i]->getState() != Defeated)
+            {
                 squads[i]->buffDMG(buff);
             }
         }
@@ -131,9 +151,9 @@ void Soldiers::buffDMG(int buff){
 void Soldiers::buffHP(int buff){
     //if my state is not defeated
     //then buff the hp of all my squads
-    if(getState() != DEFEATED){
+    if(getState() != Defeated){
         for(int i = 0; i < squads.size(); i++){
-            if(squads[i]->getState() != DEFEATED){
+            if(squads[i]->getState() != Defeated){
                 squads[i]->buffHP(buff);
             }
         }
@@ -159,7 +179,7 @@ vector<Troops *> Soldiers::disband(){
     //clean up any defeated squads and return the vector
     vector<Troops *> disbandedSquads;
     for(int i = 0; i < squads.size(); i++){
-        if(squads[i]->getState() == DEFEATED && squads[i]->getTotalHP() == 0){
+        if(squads[i]->getState() == Defeated && squads[i]->getTotalHP() == 0){
             delete squads[i];
             squads.erase(squads.begin() + i);
         }
@@ -173,7 +193,7 @@ vector<Troops *> Soldiers::disband(){
     }
     //clear out any squads that are defeated (again, for any defeated composites but not leaves)
     for(int i = 0; i < disbandedSquads.size(); i++){
-        if(disbandedSquads[i]->getState() == DEFEATED){
+        if(disbandedSquads[i]->getState() == Defeated){
             delete disbandedSquads[i];
             disbandedSquads.erase(squads.begin() + i);
         }
@@ -188,7 +208,7 @@ void Soldiers::build(vector<Troops *> squads){
     //build my squads
     //if my state is not defeated
     //add the squads to my vector
-    if(getState() != DEFEATED){
+    if(getState() != Defeated){
         for(int i = 0; i < squads.size(); i++){
             this->squads.push_back(squads[i]);
         }
@@ -201,7 +221,7 @@ void Soldiers::build(vector<Troops *> squads){
 void Soldiers::add(Troops * squad){
     //if my state is not defeated
     //then add the squad to my vector
-    if(getState() != DEFEATED){
+    if(getState() != Defeated){
         squads.push_back(squad);
     }
     //depending on the number of squads, set my name and my compositeBuff
@@ -211,7 +231,7 @@ void Soldiers::add(Troops * squad){
 void Soldiers::remove(Troops * squad){
     //if my state is not defeated
     //then remove the squad from my vector
-    if(getState() != DEFEATED){
+    if(getState() != Defeated){
         for(int i = 0; i < squads.size(); i++){
             if(squads[i] == squad){
                 squads.erase(squads.begin() + i);
@@ -226,7 +246,7 @@ void Soldiers::remove(Troops * squad){
 int Soldiers::getTotalHP(){
     //if my state is not defeated
     //then return the total hp of all my squads
-    if(getState() != DEFEATED){
+    if(getState() != Defeated){
         int total = getHP();
         for(int i = 0; i < squads.size(); i++){
             total += squads[i]->getTotalHP();
@@ -239,7 +259,7 @@ int Soldiers::getTotalHP(){
 int Soldiers::getTotalDMG(){
     //if my state is not defeated
     //then return the total damage of all my squads
-    if(getState() != DEFEATED){
+    if(getState() != Defeated){
         int total = getDMG();
         for(int i = 0; i < squads.size(); i++){
             total += squads[i]->getTotalDMG();
@@ -252,19 +272,19 @@ int Soldiers::getTotalDMG(){
 void Soldiers::changeState(){
     //change my state depending on the number of squads
     if(squads.size() < 2){
-        setName(PLATOON);
+        setName(Platoon);
         this->compositeBuff = 10;
     }
     else if(squads.size() < 6 && squads.size() > 2){
-        setName(COMPANY);
+        setName(Platoon);
         this->compositeBuff = 20;
     }
     else if(squads.size() < 24 && squads.size() > 6){
-        setName(BATTALION);
+        setName(Battalion);
         this->compositeBuff = 30;
     }
     else{
-        setName(ARMY);
+        setName(Army);
         this->compositeBuff = 40;
     }  
 }

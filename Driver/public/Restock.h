@@ -13,11 +13,11 @@ private:
     Country* myCountry;
     ConcreteFaction* myFaction;
     Soldiers** mySoldiers;
-    STATE troopstate;
-    NAME troopName;
+    State troopstate;
+    Name troopName;
 public:
     friend class Country;
-    Restock(ConcreteFaction* myFaction, Country* myCountry,  STATE troopstate, std::vector<Troops*> squads);
+    Restock(ConcreteFaction* myFaction, Country* myCountry,  State troopstate, std::vector<Troops*> squads);
     ConcreteFaction* getFaction();
     virtual void execute();
 };

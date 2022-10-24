@@ -2,7 +2,8 @@
 
 #include "ConcreteSimulator.h"
 
-int main() {
+int main() 
+{
     
     // === Objects ===
     Simulator *simulator = new ConcreteSimulator();

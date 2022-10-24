@@ -30,8 +30,8 @@ using namespace std;
 class Soldiers : public Troops
 {
 public:
-    Soldiers(NAME name, STATE state);
-    Soldiers(NAME name);
+    Soldiers(Name name, State state);
+    Soldiers(Name name);
     ~Soldiers();
     int takeDMG(int total);
     // void attack(Troops* enemy);

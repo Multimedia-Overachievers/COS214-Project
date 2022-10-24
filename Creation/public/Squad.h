@@ -26,8 +26,8 @@ using namespace std;
  */
 class Squad : public Troops{
 public:
-    Squad(NAME name, STATE state);
-    Squad(NAME name);
+    Squad(Name name, State state);
+    Squad(Name name);
     ~Squad();
     int takeDMG(int total);
     // void attack(Troops* enemy);

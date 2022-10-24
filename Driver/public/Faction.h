@@ -8,9 +8,6 @@
 #include "../../Manipulation/public/Country.h"
 #include "../../Creation/public/FactionState.h"
 #include "../public/enums.h"
-#include "../../Creation/public/BuildingFactory.h"
-#include "../../Creation/public/HospitalFactory.h"
-#include "../../Creation/public/BarracksFactory.h"
 #include "./enums.h"
 #include "./ConcreteSimulator.h"
 #include <list>

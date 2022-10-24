@@ -30,8 +30,8 @@ using namespace std;
 class Troops{
     friend class MoveTroops;
 public:
-    Troops(NAME name, STATE state);
-    Troops(NAME name);
+    Troops(Name name, State state);
+    Troops(Name name);
     virtual ~Troops();
     virtual int takeDMG(int total) = 0;
     // virtual void attack(Troops* enemy) = 0;
@@ -44,12 +44,12 @@ public:
     virtual void remove(Troops * squads) = 0;
     virtual int getTotalHP() = 0;
     virtual int getTotalDMG() = 0;
-    enum STATE getState(){return this->state;}
-    enum NAME getName(){return this->name;}
+    enum State getState(){return this->state;}
+    enum Name getName(){return this->name;}
 
 protected:
-    void setState(STATE state){this->state = state;}
-    void setName(NAME name){this->name = name;}
+    void setState(State state){this->state = state;}
+    void setName(Name name){this->name = name;}
     void setHP(int hp){this->hp = hp;}
     void setDMG(int dmg){this->dmg = dmg;}
     void setBuffDMG(int buff){this->buffDmg = buff;}
@@ -62,6 +62,6 @@ private:
     int hp;
     int buffDmg;
     int buffHp;
-    STATE state;
-    NAME name;
+    State state;
+    Name name;
 };

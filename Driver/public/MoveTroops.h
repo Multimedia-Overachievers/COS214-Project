@@ -5,7 +5,6 @@
  */
 
 #pragma once
-#include "../../Creation/public/Building.h"
 #include "./FactionAction.h"
 
 class MoveTroops: public FactionAction

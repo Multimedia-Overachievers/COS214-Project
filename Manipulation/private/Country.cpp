@@ -15,18 +15,14 @@
  * @param owner
  * @param troops
  */
-Country::Country(CountryName name, FactionName owner, Building *building1, Building *building2) {
+Country::Country(CountryName name, FactionName owner, int hospitals, int barracks) 
+{
     this->name = name;
     this->owner = owner;
 
-    if (building1 != nullptr)
-    {
-        buildings.push_back(building1);
-    }
-    if (building2 != nullptr)
-    {
-        buildings.push_back(building2);
-    }
+    buildings.insert(pair<Building, int>(Hospital, hospitals));
+    buildings.insert(pair<Building, int>(Barracks, barracks));
+    
     this->observer = new CountryObserver(this);
 }
 
@@ -34,7 +30,8 @@ Country::Country(CountryName name, FactionName owner, Building *building1, Build
  * @brief Checks if the country has troops
  * @return
  */
-bool Country::hasTroops() {
+bool Country::hasTroops() 
+{
     return !this->troops.empty();
 }
 
@@ -42,7 +39,8 @@ bool Country::hasTroops() {
  * @brief Removes a troop
  * @return
  */
-Troops *Country::removeTroop() {
+Troops *Country::removeTroop() 
+{
     Troops* troop = this->troops.back();
     this->troops.pop_back();
     return troop;
@@ -52,7 +50,8 @@ Troops *Country::removeTroop() {
  * @brief Adds a troop
  * @param troop
  */
-void Country::addTroop(Troops *troop) {
+void Country::addTroop(Troops *troop) 
+{
     //call build on using the troops array
     this->troops.push_back(troop);
     Squad* s = new Squad(troop->getName(), troop->getState());
@@ -63,7 +62,8 @@ void Country::addTroop(Troops *troop) {
 /**
  * @brief Notifies the observer of a change
  */
-void Country::notify() {
+void Country::notify() 
+{
     this->observer->update();
 }
 
@@ -71,7 +71,8 @@ void Country::notify() {
  * @brief Invades a country
  * @param country
  */
-void Country::invade(Country *country) {
+void Country::invade(Country *country) 
+{
     
     // -?Ross- Ask Tay about getting buffs 
     if (country->hasTroops()) 
@@ -114,14 +115,14 @@ void Country::invade(Country *country) {
  * @brief Changes the owner of the country to the invader
  * @param invader
  */
-void Country::conquer(Country *invader) {
+void Country::conquer(Country *invader) 
+{
     this->owner = invader->owner;
 }
 
-Country::~Country() {
+Country::~Country() 
+{
     delete this->observer;
-    for (auto building : buildings)
-        delete building;
 
     for (auto troop : troops)
         delete troop;

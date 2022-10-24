@@ -6,20 +6,21 @@
 
 #pragma once
 
-#include "../../Creation/public/Building.h"
 #include "../../Creation/public/Troops.h"
 #include "../../Driver/public/enums.h"
 #include <iostream>
+#include <map>
 
 class Observer;
 
 /**
  * @description Represents a country in the game
  */
-class Country {
+class Country 
+{
 public:
     friend class Restock;
-    explicit Country(CountryName name, FactionName owner, Building *building1 = nullptr, Building *building2 = nullptr);
+    explicit Country(CountryName name, FactionName owner, int hospitals, int barracks);
     bool hasTroops();
     Troops* removeTroop();
     void addTroop(Troops* troop);
@@ -28,7 +29,7 @@ public:
     void conquer(Country* invader); 
     ~Country();
 private:
-    vector<Building*> buildings;
+    map<Building, int> buildings;
     vector<Troops*> troops;
     CountryName name;
     FactionName owner;

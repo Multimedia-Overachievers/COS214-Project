@@ -116,10 +116,10 @@ FactionAction* ConcreteSimulator::decideAction(ConcreteFaction *faction)
         std::vector<Troops*> squads;
         for(int i = 0; i < numSquads; i++)
         {
-            squads.push_back(new Squad(SQUAD, READY));
+            squads.push_back(new Squad(Squad, Ready));
         }
 
-        return new Restock(faction, faction->getCountry(rand() % 3), READY, squads); // Random number between 0 and 2
+        return new Restock(faction, faction->getCountry(rand() % 3), Ready, squads); // Random number between 0 and 2
     }
     return nullptr;
 }
