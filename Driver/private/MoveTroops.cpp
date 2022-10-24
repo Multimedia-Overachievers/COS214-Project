@@ -33,6 +33,6 @@ void MoveTroops::execute()
     for (int i = 0; this->sourceCountry->hasTroops() && i < this->numTroops; i++) {
         Troops* myTroop = this->sourceCountry->removeTroop();
         myTroop->state = MOVING;
-        this->destinationCountry->addTroop(this->sourceCountry->removeTroop());
+        this->destinationCountry->addTroop(myTroop);
     }
 }
