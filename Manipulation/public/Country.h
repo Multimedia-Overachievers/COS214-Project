@@ -18,6 +18,7 @@ class Observer;
  */
 class Country {
 public:
+    friend class Restock;
     explicit Country(CountryName name, Building *building1 = nullptr, Building *building2 = nullptr);
     bool hasTroops();
     Troops* removeTroop();
