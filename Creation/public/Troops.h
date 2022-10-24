@@ -28,6 +28,7 @@ using namespace std;
  */
 
 class Troops{
+    friend class MoveTroops;
 public:
     Troops(NAME name, STATE state);
     Troops(NAME name);

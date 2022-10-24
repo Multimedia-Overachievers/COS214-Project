@@ -1,6 +1,7 @@
 #folders
 **/cmake-build-debug/
 **/.idea/
+Docs/html
 main
 output
 Build
