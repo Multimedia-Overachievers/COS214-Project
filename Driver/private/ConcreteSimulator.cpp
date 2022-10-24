@@ -11,8 +11,8 @@
  * @brief Constructor that initializes the factions
  */
 ConcreteSimulator::ConcreteSimulator() {
-    factions.push_back(new ConcreteFaction(this, "Allies"));
-    factions.push_back(new ConcreteFaction(this, "Axis"));
+    factions.push_back(new ConcreteFaction(this, Allies));
+    factions.push_back(new ConcreteFaction(this, Axis));
 }
 
 /**
@@ -98,7 +98,7 @@ FactionAction* ConcreteSimulator::decideAction(ConcreteFaction *faction) {
 
     if(random < weights[0])
     {
-        //return new AttackAction(faction);
+        // return new AttackAction(faction);
     }
     else
     {
@@ -106,3 +106,24 @@ FactionAction* ConcreteSimulator::decideAction(ConcreteFaction *faction) {
     }
     return nullptr;
 }
+
+/**
+ * @description Returns one of the two factions from the simulator
+ * @param name - Name of the faction to return as an enum
+ * @return ConcreteFaction* - The faction at the index
+ */
+ConcreteFaction* ConcreteSimulator::getFaction(FactionName name) {
+    if(name == Allies)
+    {
+        return factions[0];
+    }
+    else if(name == Axis)
+    {
+        return factions[1];
+    }
+    else
+    {
+        return nullptr;
+    }
+}
+

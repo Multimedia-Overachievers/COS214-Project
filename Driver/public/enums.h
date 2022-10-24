@@ -7,6 +7,14 @@
 #pragma once
 
 /**
+ * @brief Defines the two factions in the game
+ */
+enum FactionName {
+    Allies,
+    Axis
+};
+
+/**
  * @brief Defines the different types of countries that took part in the war.
  */
 enum CountryName {
@@ -42,12 +50,34 @@ enum STATE {
 
 
 /**
- * @brief Defines the various types of squads in a country.
+ * @brief Defines the various types of troops in a country.
  */
 enum NAME {
-    SQUAD, 
+    SQUAD,
     PLATOON, 
     COMPANY, 
     BATTALION, 
     ARMY
+};
+
+/**
+ * @brief Defines the default hit points for each type of troop 
+ */
+enum Hp {
+    SquadHp = 100,
+    PlatoonHp = 200,
+    CompanyHp = 300,
+    BattalionHp = 400,
+    ArmyHp = 500
+};
+
+/**
+ * @brief Defines the default damage for each type of troop 
+ */
+enum Dmg {
+    SquadDmg = 10,
+    PlatoonDmg = 20,
+    CompanyDmg = 30,
+    BattalionDmg = 40,
+    ArmyDmg = 50
 };

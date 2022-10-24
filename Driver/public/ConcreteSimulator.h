@@ -18,7 +18,8 @@ public:
     static void action(FactionAction* factionAction);
     void notify(ConcreteFaction* enemyFaction) override;
     static FactionAction* decideAction(ConcreteFaction* faction);
-
+    ConcreteFaction* getFaction(FactionName name); // 0 = Allies, 1 = Axis
+    
 private:
     std::vector<ConcreteFaction*> factions;
 };

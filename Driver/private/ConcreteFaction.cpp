@@ -6,7 +6,7 @@
 
 #include "../public/ConcreteFaction.h"
 
-ConcreteFaction::ConcreteFaction(ConcreteSimulator *simulator, std::string name) {
+ConcreteFaction::ConcreteFaction(ConcreteSimulator *simulator, FactionName name) {
     this->simulator = simulator;
 
     // Generate buildings for the countries
@@ -25,21 +25,17 @@ ConcreteFaction::ConcreteFaction(ConcreteSimulator *simulator, std::string name)
     Building *barracks = buildingFactory[1]->create();
 
     // Generate countries
-    if (name == "Allies")
+    if (name == Allies)
     {
-        countries.push_back(new Country(CountryName::France, hospital, hospital));
-        countries.push_back(new Country(CountryName::UnitedKingdom, barracks));
-        countries.push_back(new Country(CountryName::UnitedStates, barracks, hospital));
-    }
-    else if (name == "Axis")
-    {
-        countries.push_back(new Country(CountryName::Germany, hospital, hospital));
-        countries.push_back(new Country(CountryName::Italy, hospital));
-        countries.push_back(new Country(CountryName::Japan, barracks, hospital));
+        countries.push_back(new Country(CountryName::France, name, hospital, hospital));
+        countries.push_back(new Country(CountryName::UnitedKingdom, name, barracks));
+        countries.push_back(new Country(CountryName::UnitedStates, name, barracks, hospital));
     }
     else
     {
-        std::cout << "Invalid faction name" << std::endl;
+        countries.push_back(new Country(CountryName::Germany, name, hospital, hospital));
+        countries.push_back(new Country(CountryName::Italy, name, hospital));
+        countries.push_back(new Country(CountryName::Japan, name, barracks, hospital));
     }
 
     // @Keelan-Matthews make sure each country deletes its own buildings
@@ -50,12 +46,13 @@ ConcreteFaction::ConcreteFaction(ConcreteSimulator *simulator, std::string name)
     delete [] buildingFactory;
 }
 
+
 void ConcreteFaction::reStock() {
-    simulator->notify("reStock");
+    // simulator->notify("reStock");
 }
 
 void ConcreteFaction::attack() {
-    simulator->notify("attack");
+    // simulator->notify("attack");
 }
 
 /**

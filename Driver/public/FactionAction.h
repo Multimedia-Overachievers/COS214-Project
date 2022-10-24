@@ -7,7 +7,8 @@
 #pragma once
 #include "./ConcreteFaction.h"
 
-class FactionAction {
+class FactionAction
+{
 public:
     explicit FactionAction(ConcreteFaction* c);
     ConcreteFaction* getFaction();
