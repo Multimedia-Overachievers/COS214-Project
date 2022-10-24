@@ -23,6 +23,7 @@ using namespace std;
 
 class Troops 
 {
+    friend class MoveTroops;
     public:
         Troops(NAME name, STATE state);
         virtual ~Troops();
