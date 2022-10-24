@@ -5,6 +5,7 @@
  */
 
 #include "../public/MoveTroops.h"
+#include "../../Driver/public/enums.h"
 
 /**
 * @brief Constructor for the MoveTroops command
@@ -29,6 +30,9 @@ MoveTroops::MoveTroops(ConcreteFaction* destinationFaction, Country* destination
 void MoveTroops::execute()
 {
     //TODO: remove building buff before you move the troops
-    for (int i = 0; this->sourceCountry->hasTroops() && i < this->numTroops; i++)
+    for (int i = 0; this->sourceCountry->hasTroops() && i < this->numTroops; i++) {
+        Troops* myTroop = this->sourceCountry->removeTroop();
+        myTroop->state = MOVING;
         this->destinationCountry->addTroop(this->sourceCountry->removeTroop());
+    }
 }
