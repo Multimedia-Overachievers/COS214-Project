@@ -9,24 +9,24 @@
 Soldiers::Soldiers(NAME name = PLATOON, STATE state = READY) : Troops(name, state){
     switch(name){
         case PLATOON:
-            setDMG(20);
-            setHP(200);
+            setDMG(PlatoonDmg);
+            setHP(PlatoonHp);
             break;
         case COMPANY:
-            setDMG(30);
-            setHP(300);
+            setDMG(CompanyDmg);
+            setHP(CompanyHp);
             break;
         case BATTALION:
-            setDMG(40);
-            setHP(400);
+            setDMG(BattalionDmg);
+            setHP(BattalionHp);
             break;
         case ARMY:
-            setDMG(50);
-            setHP(500);
+            setDMG(ArmyDmg);
+            setHP(ArmyHp);
             break;
         default:
-            setDMG(20);
-            setHP(200);
+            setDMG(PlatoonDmg);
+            setHP(PlatoonHp);
             break;
     }
 }
@@ -34,24 +34,24 @@ Soldiers::Soldiers(NAME name = PLATOON, STATE state = READY) : Troops(name, stat
 Soldiers::Soldiers(NAME name = PLATOON) : Troops(name){
     switch(name){
         case PLATOON:
-            setDMG(20);
-            setHP(200);
+            setDMG(PlatoonDmg);
+            setHP(PlatoonHp);
             break;
         case COMPANY:
-            setDMG(30);
-            setHP(300);
+            setDMG(CompanyDmg);
+            setHP(CompanyHp);
             break;
         case BATTALION:
-            setDMG(40);
-            setHP(400);
+            setDMG(BattalionDmg);
+            setHP(BattalionHp);
             break;
         case ARMY:
-            setDMG(50);
-            setHP(500);
+            setDMG(ArmyDmg);
+            setHP(ArmyHp);
             break;
         default:
-            setDMG(20);
-            setHP(200);
+            setDMG(PlatoonDmg);
+            setHP(PlatoonHp);
             break;
     }
 }

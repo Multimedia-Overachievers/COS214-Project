@@ -7,13 +7,13 @@
 #include "../public/Squad.h"
 
 Squad::Squad(NAME name = SQUAD, STATE state = READY) : Troops(name, state){
-    setDMG(10);
-    setHP(100);
+    setDMG(SquadDmg);
+    setHP(SquadHp);
 }
 
 Squad::Squad(NAME name = SQUAD) : Troops(name){
-    setDMG(10);
-    setHP(100);
+    setDMG(SquadDmg);
+    setHP(SquadHp);
 }
 
 Squad::~Squad(){
