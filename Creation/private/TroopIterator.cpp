@@ -6,10 +6,6 @@
 
 #include "../public/TroopIterator.h"
 
-TroopIterator::TroopIterator()
-{
-}
+TroopIterator::TroopIterator() = default;
 
-TroopIterator::~TroopIterator()
-{
-}
+TroopIterator::~TroopIterator() = default;

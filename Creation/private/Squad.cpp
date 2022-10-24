@@ -6,44 +6,51 @@
 
 #include "../public/Squad.h"
 
-Squad::Squad(Name name = SquadStd, State state = Ready) : Troops(name, state)
+/**
+ * @brief Construct a new Squad:: Squad object
+ * 
+ * @param name The name of the squad (enum) - default is SQUAD, options are SQUAD
+ * @param state The state of the squad (enum) - default is READY, options are READY, MOVING, DEFEATED
+ */
+Squad::Squad(NAME name = SQUAD, STATE state = READY) : Troops(name, state)
 {
     setDMG(SquadDmg);
     setHP(SquadHp);
 }
 
-Squad::Squad(Name name = SquadStd) : Troops(name)
-{
-    setDMG(SquadDmg);
-    setHP(SquadHp);
-}
+Squad::~Squad() = default; //dtor
 
-Squad::~Squad(){}
-
+/**
+ * @brief This function is used to take damage from the enemy
+ * @details Provide the total damage the squad will take
+ * If the squad is defeated, it's state is set to DEFEATED, and it's hp and dmg are set to 0
+ * 
+ * @param total The total damage the squad will take
+ * @return The hp left after the damage is taken
+ */
 int Squad::takeDMG(int total)
 {
     int hp = getTotalHP();
-    hp -= total;
-    setHP(hp);
-    if(hp <= 0) 
+    if(getState() != MOVING && getState() != DEFEATED)
     {
-        setState(Defeated);
-        setDMG(0);
-        setHP(0);
+        hp -= total;
+        setHP(hp);
+        if(hp <= 0)
+        {
+            setState(DEFEATED);
+            setDMG(0);
+            setHP(0);
+        }
     }
     return hp;
 }
 
-void Squad::buffDMG(int buff)
-{
-    setBuffDMG(buff);
-}
-
-void Squad::buffHP(int buff)
-{
-    setBuffHP(buff);
-}
-
+/**
+ * @brief This function is used to generate a report of the squad
+ * @details This function will generate a report of the squad's name, state, hp and dmg
+ * 
+ * @return string 
+ */
 string Squad::getReport()
 {
     string report = "";
@@ -54,6 +61,12 @@ string Squad::getReport()
     return report;
 }
 
+/**
+ * @brief This function is used to disband the squad
+ * @details This function will return a vector containing this squad
+ * 
+ * @return vector<Troops *> containing the squad
+ */
 vector<Troops *> Squad::disband()
 {
     vector<Troops *> squads;
@@ -61,16 +74,27 @@ vector<Troops *> Squad::disband()
     return squads;
 }
 
+/**
+ * @brief This function is used to build the squad
+ * @details This function will do nothing, and the memory will be freed and all pointers cleared
+ * 
+ * @param squads = vector<Troops *> containing the squads, will be deleted (!)
+ */
 void Squad::build(vector<Troops *> squads)
 {
-    //do nothing
-    for(int i = 0; i < squads.size(); i++)
-    {
+    for(int i = 0; i < squads.size(); i++){
         delete squads[i];
     }
     squads.clear();
 }
 
+/**
+ * @brief This function is used to add a squad to the squad
+ * @details This function will recycle the squad if it's current state is DEFEATED
+ * Otherwise it will do nothing, and the memory will be freed and all pointers cleared
+ * 
+ * @param squad - the squad to be added, will be deleted (!)
+ */
 void Squad::add(Troops * squad)
 {
     //recycle me if my state is DEFATED
@@ -85,20 +109,15 @@ void Squad::add(Troops * squad)
     squad = nullptr;
 }
 
-void Squad::remove(Troops * squad)
+/**
+ * @brief This function is used to remove a squad from the squad
+ * @details This function does nothing and will return an empty vector
+ * 
+ * @param noToRemove - the number of squads to remove
+ * @return vector<Troops *> containing the squad - will be empty
+ */
+vector<Troops *> Squad::remove(int noToRemove)
 {
-    //do nothing
-    delete squad;
-    squad = nullptr;
-}
-
-int Squad::getTotalHP()
-{
-    return getHP();
-}
-
-int Squad::getTotalDMG()
-{
-    return getDMG();
+    return vector<Troops *>();
 }
 

@@ -11,11 +11,5 @@ Troops::Troops(Name name, State state){
     this->state = state;
 }
 
-Troops::Troops(Name name){
-    this->name = name;
-    this->state = Ready;
-}
-
-Troops::~Troops(){
-}
+Troops::~Troops() = default; //dtor
 
