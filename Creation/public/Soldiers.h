@@ -24,7 +24,7 @@ using namespace std;
 class Soldiers : public Troops
 {
     public:
-        Soldiers(NAME name, STATE state);
+        Soldiers(Name name, State state);
         ~Soldiers();
         int takeDMG(int total);
         string getReport();

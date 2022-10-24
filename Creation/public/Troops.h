@@ -25,7 +25,7 @@ class Troops
 {
     friend class MoveTroops;
     public:
-        Troops(NAME name, STATE state);
+        Troops(Name name, State state);
         virtual ~Troops();
         virtual int takeDMG(int total) = 0;
         virtual string getReport() = 0;
@@ -35,12 +35,12 @@ class Troops
         virtual vector<Troops *> remove(int noToRemove) = 0;
         virtual int getTotalHP() = 0;
         virtual int getTotalDMG() = 0;
-        enum STATE getState(){return this->state;}
-        enum NAME getName(){return this->name;}
+        enum State getState(){return this->state;}
+        enum Name getName(){return this->name;}
 
     protected:
-        void setState(STATE state){this->state = state;}
-        void setName(NAME name){this->name = name;}
+        void setState(State state){this->state = state;}
+        void setName(Name name){this->name = name;}
         void setHP(int hp){this->hp = hp;}
         void setDMG(int dmg){this->dmg = dmg;}
         int getHP(){return this->hp;}
@@ -49,6 +49,6 @@ class Troops
     private:
         int dmg;
         int hp;
-        STATE state;
-        NAME name;
+        State state;
+        Name name;
 };

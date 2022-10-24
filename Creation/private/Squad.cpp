@@ -9,10 +9,10 @@
 /**
  * @brief Construct a new Squad:: Squad object
  * 
- * @param name The name of the squad (enum) - default is SQUAD, options are SQUAD
- * @param state The state of the squad (enum) - default is READY, options are READY, MOVING, DEFEATED
+ * @param name The name of the squad (enum) - default is SquadStd, options are SquadStd
+ * @param state The state of the squad (enum) - default is READY, options are READY, Moving, Defeated
  */
-Squad::Squad(NAME name = SQUAD, STATE state = READY) : Troops(name, state)
+Squad::Squad(Name name = SquadStd, State state = Ready) : Troops(name, state)
 {
     setDMG(SquadDmg);
     setHP(SquadHp);
@@ -23,7 +23,7 @@ Squad::~Squad() = default; //dtor
 /**
  * @brief This function is used to take damage from the enemy
  * @details Provide the total damage the squad will take
- * If the squad is defeated, it's state is set to DEFEATED, and it's hp and dmg are set to 0
+ * If the squad is defeated, it's state is set to Defeated, and it's hp and dmg are set to 0
  * 
  * @param total The total damage the squad will take
  * @return The hp left after the damage is taken
@@ -31,13 +31,13 @@ Squad::~Squad() = default; //dtor
 int Squad::takeDMG(int total)
 {
     int hp = getTotalHP();
-    if(getState() != MOVING && getState() != DEFEATED)
+    if(getState() != Moving && getState() != Defeated)
     {
         hp -= total;
         setHP(hp);
         if(hp <= 0)
         {
-            setState(DEFEATED);
+            setState(Defeated);
             setDMG(0);
             setHP(0);
         }
@@ -90,7 +90,7 @@ void Squad::build(vector<Troops *> squads)
 
 /**
  * @brief This function is used to add a squad to the squad
- * @details This function will recycle the squad if it's current state is DEFEATED
+ * @details This function will recycle the squad if it's current state is Defeated
  * Otherwise it will do nothing, and the memory will be freed and all pointers cleared
  * 
  * @param squad - the squad to be added, will be deleted (!)

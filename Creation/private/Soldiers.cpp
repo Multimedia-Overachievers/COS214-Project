@@ -4,20 +4,22 @@
  *  Author: Tayla Orsmond (u21467456)
  */
 
+#include <iostream>
 #include "../public/Soldiers.h"
+
 
 /**
  * @brief Construct a new Soldiers:: Soldiers object
- * @details Defaults everything to SQUAD if no parameters are provided
+ * @details Defaults everything to SquadStd if no parameters are provided
  * 
- * @param name The name of the soldiers (enum) - default is SQUAD, options are SQUAD, PLATOON, COMPANY, BATTALION, ARMY
- * @param state The state of the soldiers (enum) - default is READY, options are READY, MOVING, DEFEATED
+ * @param name The name of the soldiers (enum) - default is SquadStd, options are SquadStd, Platoon, Company, Battalion, Army
+ * @param state The state of the soldiers (enum) - default is Readt, options are Ready, Moving, Defeated
  */
-Soldiers::Soldiers(NAME name = SQUAD, STATE state = READY) : Troops(name, state)
+Soldiers::Soldiers(Name name = SquadStd, State state = Ready) : Troops(name, state)
 {
     switch(name)
     {
-        case SQUAD:
+        case SquadStd:
             setDMG(SquadDmg);
             setHP(SquadHp);
             break;
@@ -40,32 +42,32 @@ Soldiers::Soldiers(NAME name = SQUAD, STATE state = READY) : Troops(name, state)
     }
 }
 
-Soldiers::Soldiers(Name name = Platoon) : Troops(name)
-{
-    switch(name)
-    {
-        case Platoon:
-            setDMG(PlatoonDmg);
-            setHP(PlatoonHp);
-            break;
-        case Company:
-            setDMG(CompanyDmg);
-            setHP(CompanyHp);
-            break;
-        case Battalion:
-            setDMG(BattalionDmg);
-            setHP(BattalionHp);
-            break;
-        case Army:
-            setDMG(ArmyDmg);
-            setHP(ArmyHp);
-            break;
-        default:
-            setDMG(PlatoonDmg);
-            setHP(PlatoonHp);
-            break;
-    }
-}
+// Soldiers::Soldiers(Name name = Platoon) : Troops(name)
+// {
+//     switch(name)
+//     {
+//         case Platoon:
+//             setDMG(PlatoonDmg);
+//             setHP(PlatoonHp);
+//             break;
+//         case Company:
+//             setDMG(CompanyDmg);
+//             setHP(CompanyHp);
+//             break;
+//         case Battalion:
+//             setDMG(BattalionDmg);
+//             setHP(BattalionHp);
+//             break;
+//         case Army:
+//             setDMG(ArmyDmg);
+//             setHP(ArmyHp);
+//             break;
+//         default:
+//             setDMG(PlatoonDmg);
+//             setHP(PlatoonHp);
+//             break;
+//     }
+// }
 
 /**
  * @brief Destroy the Soldiers:: Soldiers object
@@ -86,7 +88,7 @@ Soldiers::~Soldiers()
  * @brief This function allows soldiers to take damage
  * @details This function will take the total damage and distribute it to the squads
  * The first squad in the vector will be affected first, than any leftovers will be distributed to the next squad, and so on
- * MOVING and DEFEATED soldiers cannot take damage and will not be affected
+ * Moving and Defeated soldiers cannot take damage and will not be affected
  * The damage is first checked against the composite's total hp, if the damage is greater than the total hp, the composite is automatically defeated
  * Any squads that are defeated will be removed from the vector and deleted automatically
  * 
@@ -95,7 +97,7 @@ Soldiers::~Soldiers()
  */
 int Soldiers::takeDMG(int total)
 {
-    if(getState() != DEFEATED && getState() != MOVING)
+    if(getState() != Defeated && getState() != Moving)
     {
         int hp = getTotalHP();
         hp -= total;
@@ -144,7 +146,7 @@ int Soldiers::takeDMG(int total)
         }
         int left = clearSquads();
         if(left == 0){
-            setState(DEFEATED);
+            setState(Defeated);
             setDMG(0);
             setHP(0);
             squads.clear();
@@ -156,22 +158,22 @@ int Soldiers::takeDMG(int total)
     return getTotalHP();
 }
 
-void Soldiers::buffDMG(int buff)
-{
-    //if my state is not defeated
-    //then buff the damage of all my squads
-    if(getState() != Defeated)
-    {
-        for(int i = 0; i < squads.size(); i++)
-        {
-            if(squads[i]->getState() != Defeated)
-            {
-                squads[i]->buffDMG(buff);
-            }
-        }
-        setBuffDMG(buff);
-    }
-}
+// void Soldiers::buffDMG(int buff)
+// {
+//     //if my state is not defeated
+//     //then buff the damage of all my squads
+//     if(getState() != Defeated)
+//     {
+//         for(int i = 0; i < squads.size(); i++)
+//         {
+//             if(squads[i]->getState() != Defeated)
+//             {
+//                 squads[i]->buffDMG(buff);
+//             }
+//         }
+//         setBuffDMG(buff);
+//     }
+// }
 
 string Soldiers::getReport()
 {
@@ -191,7 +193,7 @@ string Soldiers::getReport()
 /**
  * @brief This function is used to disband the soldiers into squads
  * @details This function will disband the soldiers into squads, iterating down the composite and unraveling each one
- * Any DEFEATED squads will be removed from the vector and deleted automatically (memory will be cleared)
+ * Any Defeated squads will be removed from the vector and deleted automatically (memory will be cleared)
  * All other squads will be added to the vector and returned
  * 
  * @return vector<Troops *> All of the squads that were contained in the soldiers
@@ -218,21 +220,21 @@ vector<Troops *> Soldiers::disband()
 /**
  * @brief This function is used to build the soldiers composite
  * @details This function will build the soldiers composite, adding the given squads to the vector
- * Any squads that are DEFEATED will be removed from the vector and deleted automatically (memory will be cleared)
+ * Any squads that are Defeated will be removed from the vector and deleted automatically (memory will be cleared)
  * The soldiers will then be updated automatically with new state, hp, dmg and buffs as needed
- * DEFEATED soldiers will be recycled
+ * Defeated soldiers will be recycled
  * 
  * @param squads The squads to be added to the soldiers
  */
 void Soldiers::build(vector<Troops *> squads)
 {
-    if(getState() == DEFEATED)
+    if(getState() == Defeated)
     {
         clearSquads();
-        setState(READY);
+        setState(Ready);
     }
     for(int i = 0; i < squads.size(); i++){
-        if(squads[i]->getState() != DEFEATED){
+        if(squads[i]->getState() != Defeated){
             this->squads.push_back(squads[i]);
         }
         else{
@@ -249,22 +251,22 @@ void Soldiers::build(vector<Troops *> squads)
  * @brief This function is used to add a squad to the soldiers
  * @details This function will add a squad to the squads vector
  * The soldiers will then be updated automatically with new state, hp, dmg and buffs as needed
- * DEFEATED soldiers will be recycled
+ * Defeated soldiers will be recycled
  * 
  * @param squad The squad to be added to the soldiers
  */
 void Soldiers::add(Troops * squad)
 {
-    if(squad->getState() == DEFEATED)
+    if(squad->getState() == Defeated)
     {
         delete squad;
         squad == nullptr;
         return;
     }
-    if(getState() == DEFEATED)
+    if(getState() == Defeated)
     {
         clearSquads();
-        setState(READY);
+        setState(Ready);
     }
     squads.push_back(squad);
     setHP(getTotalHP());
@@ -275,7 +277,7 @@ void Soldiers::add(Troops * squad)
 /**
  * @brief This function is used to remove squads from the soldiers
  * @details This function will remove the given number of squads from the soldiers vector (starting at the end)
- * Any squads that are DEFEATED will be removed from the vector and deleted automatically (memory will be cleared)
+ * Any squads that are Defeated will be removed from the vector and deleted automatically (memory will be cleared)
  * The soldiers will then be updated automatically with new state, hp, dmg and buffs as needed
  * 
  * @param noToRemove The number of squads to remove
@@ -312,7 +314,7 @@ vector<Troops *> Soldiers::remove(int noToRemove)
  */
 int Soldiers::getTotalHP()
 {
-    if(getState() == DEFEATED)
+    if(getState() == Defeated)
     {
         return 0;
     }
@@ -332,7 +334,7 @@ int Soldiers::getTotalHP()
  */
 int Soldiers::getTotalDMG()
 {
-    if(getState() == DEFEATED)
+    if(getState() == Defeated)
     {
         return 0;
     }
@@ -371,9 +373,9 @@ void Soldiers::changeName()
 }
 
 /**
- * @brief This function is used to clear the squads vector of any DEFEATED squads
- * @details This function will iterate through the squads vector and remove any DEFEATED squads
- * Any squads that are DEFEATED will be removed from the vector and deleted automatically (memory will be cleared)
+ * @brief This function is used to clear the squads vector of any Defeated squads
+ * @details This function will iterate through the squads vector and remove any Defeated squads
+ * Any squads that are Defeated will be removed from the vector and deleted automatically (memory will be cleared)
  * 
  * @return int The number of squads left in the vector
  */
@@ -381,7 +383,7 @@ int Soldiers::clearSquads()
 {
     for(int i = 0; i < this->squads.size(); i++)
     {
-        if(this->squads[i]->getState() == DEFEATED || this->squads[i]->getTotalHP() == 0)
+        if(this->squads[i]->getState() == Defeated || this->squads[i]->getTotalHP() == 0)
         {
             delete this->squads[i];
             this->squads.erase(this->squads.begin() + i);
