@@ -35,21 +35,6 @@ int ConcreteSimulator::TestFunction(int a, int b)
  */
 void ConcreteSimulator::notify(ConcreteFaction* enemyFaction) 
 {
-//    if (command == "attack")
-//    {
-//        action(decideAction(enemyFaction));
-//    }
-//    else if (command == "reStock")
-//    {
-//        // Do supply stuff
-//    }
-//    else
-//    {
-//        std::cout << "Invalid command" << std::endl;
-//    }
-
-// @Ross - I have commented the above code out because I assume whether they attack or restock is now automated
-
     action(decideAction(enemyFaction));
 }
 
@@ -116,7 +101,7 @@ FactionAction* ConcreteSimulator::decideAction(ConcreteFaction *faction)
         std::vector<Troops*> squads;
         for(int i = 0; i < numSquads; i++)
         {
-            squads.push_back(new Squad(Squad, Ready));
+            squads.push_back(new Squad(SquadStd, Ready)); // @Ross-Tordiffe - I changed Squad to SquadStd because Squad is a class in the std namespace (not sure if this is the correct way to do it)
         }
 
         return new Restock(faction, faction->getCountry(rand() % 3), Ready, squads); // Random number between 0 and 2
