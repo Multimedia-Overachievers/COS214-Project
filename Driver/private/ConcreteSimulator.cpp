@@ -10,6 +10,15 @@
 #include "../public/Restock.h"
 
 /**
+ * @brief Gets the same instance of the singleton.
+ */
+ConcreteSimulator* ConcreteSimulator::getInstance()
+{
+    static ConcreteSimulator* instance = new ConcreteSimulator();
+    return instance;
+}
+
+/**
  * @brief Constructor that initializes the factions
  */
 ConcreteSimulator::ConcreteSimulator() 

@@ -17,12 +17,16 @@ class ConcreteSimulator : public Simulator
 {
 public:
     int TestFunction(int a, int b);
-    ConcreteSimulator();
     static void action(FactionAction* factionAction);
     void notify(ConcreteFaction* enemyFaction) override;
     FactionAction* decideAction(ConcreteFaction* faction);
     ConcreteFaction* getFaction(FactionName name); // 0 = Allies, 1 = Axis
     ConcreteFaction* getOpposite(ConcreteFaction* faction);
+    static ConcreteSimulator* getInstance();
+protected:
+    ConcreteSimulator();
+
 private:
     std::vector<ConcreteFaction*> factions;
+    ConcreteSimulator* instance;
 };

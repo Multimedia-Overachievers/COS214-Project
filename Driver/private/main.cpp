@@ -6,7 +6,7 @@ int main()
 {
     
     // === Objects ===
-    Simulator *simulator = new ConcreteSimulator();
+    Simulator* simulator = ConcreteSimulator::getInstance();
 
     // === Variables ===
     const int MAX_TURNS = 20;
