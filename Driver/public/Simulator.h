@@ -7,7 +7,8 @@
 #pragma once 
 #include <string>
 #include <iostream>
-#include "./ConcreteFaction.h"
+
+class ConcreteFaction;
 
 class Simulator
 {

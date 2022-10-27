@@ -9,13 +9,12 @@
 #include "../../Creation/public/FactionState.h"
 #include "../public/enums.h"
 #include "./enums.h"
-#include "./ConcreteSimulator.h"
 #include <list>
 
 class Faction {
 public:
-    virtual void reStock() = 0;
-    virtual void attack() = 0;
+    Faction() = default;
+    virtual ~Faction() = default;
     virtual FactionState* getState() = 0;
     virtual FactionStance getStance() = 0;
     virtual FactionName getName() = 0;
@@ -23,8 +22,7 @@ public:
     virtual void removeCountry(Country* country);
     virtual void addCountry(Country* country);
 
-protected:
-    ConcreteSimulator* simulator;
+protected: 
     std::list<Country*> countries;
     FactionStance stance;
     FactionName name;

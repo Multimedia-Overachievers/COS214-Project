@@ -102,7 +102,6 @@ int Soldiers::takeDMG(int total)
         int hp = getTotalHP();
         hp -= total;
         if(hp <= 0)
-        
         {
             setState(Defeated);
             setDMG(0);

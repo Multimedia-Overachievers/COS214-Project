@@ -7,8 +7,9 @@
 #pragma once
 #include "./Simulator.h"
 #include "./ConcreteFaction.h"
-#include "./FactionAction.h"
 #include <vector>
+
+class FactionAction;
 
 /**
  * @brief The concrete simulator which simulates the game.

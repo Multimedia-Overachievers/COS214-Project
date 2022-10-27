@@ -6,9 +6,8 @@
 
 #include "../public/ConcreteFaction.h"
 
-ConcreteFaction::ConcreteFaction(ConcreteSimulator *simulator, FactionName name) 
+ConcreteFaction::ConcreteFaction(FactionName name) 
 {
-    this->simulator = simulator;
     this->name = name;
 
     // Generate countries

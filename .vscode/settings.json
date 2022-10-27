@@ -5,6 +5,9 @@
         "utility": "cpp",
         "map": "cpp",
         "list": "cpp",
-        "iterator": "cpp"
+        "iterator": "cpp",
+        "chrono": "cpp",
+        "system_error": "cpp",
+        "xlocale": "cpp"
     }
 }

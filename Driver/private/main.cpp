@@ -1,10 +1,9 @@
 #include <iostream>
 
-#include "ConcreteSimulator.h"
+#include "../public/ConcreteSimulator.h"
 
 int main() 
 {
-    
     // === Objects ===
     Simulator* simulator = ConcreteSimulator::getInstance();
 

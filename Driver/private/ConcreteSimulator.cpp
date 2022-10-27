@@ -23,8 +23,8 @@ ConcreteSimulator* ConcreteSimulator::getInstance()
  */
 ConcreteSimulator::ConcreteSimulator() 
 {
-    factions.push_back(new ConcreteFaction(this, Allies));
-    factions.push_back(new ConcreteFaction(this, Axis));
+    factions.push_back(new ConcreteFaction(Allies));
+    factions.push_back(new ConcreteFaction(Axis));
 }
 
 /**
@@ -61,7 +61,7 @@ void ConcreteSimulator::action(FactionAction *factionAction)
  * @param faction - Faction to decide an action for.
  * @return FactionAction - Action to perform on the faction.
  */
-FactionAction* ConcreteSimulator::decideAction(ConcreteFaction *faction) 
+FactionAction* ConcreteSimulator::decideAction(ConcreteFaction *faction)
 {
     double weights[2]; // Weights for the different actions 0 -> 0.5 = attack, 0.5 -> 1 = reStock
 
