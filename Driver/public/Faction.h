@@ -20,7 +20,8 @@ public:
     virtual FactionStance getStance() = 0;
     virtual FactionName getName() = 0;
     virtual int getStrength() = 0;
-
+    virtual void removeCountry(Country* country);
+    virtual void addCountry(Country* country);
 
 protected:
     ConcreteSimulator* simulator;

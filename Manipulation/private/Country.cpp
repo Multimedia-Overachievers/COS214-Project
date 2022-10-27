@@ -96,9 +96,7 @@ void Country::invade(Country *country)
         country->troops_sized->takeDMG(this->troops_sized->getTotalHP() - defenderHealth);
         
         this->notify();
-
     }
-
 }
 
 /**

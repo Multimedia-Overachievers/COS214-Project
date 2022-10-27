@@ -21,4 +21,6 @@ public:
     FactionName getName() override;
     Country* getCountry(int index);
     int getStrength() override;
+    void removeCountry(Country* country) override;
+    void addCountry(Country* country) override;
 };

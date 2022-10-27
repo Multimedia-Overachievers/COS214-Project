@@ -10,6 +10,7 @@
 CountryObserver::CountryObserver(Country* country)
 {
     this->country = country;
+    this->owner = country->getOwner();
 }
 
 /**
@@ -17,6 +18,10 @@ CountryObserver::CountryObserver(Country* country)
  */
 void CountryObserver::update()
 {
-    std::cout << "Country has been updated" << std::endl;
+    if(this->owner != this->country->getOwner())
+    {
+        ConcreteSimulator* simulator = ConcreteSimulator::getInstance();
+        simulator->captureCountry(this->country, simulator->getFaction(this->owner));
+    }
 }
 

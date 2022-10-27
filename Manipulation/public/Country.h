@@ -20,7 +20,7 @@ class Country
 {
 public:
     friend class Restock;
-    explicit Country(CountryName name, FactionName owner, int hospitals, int barracks);
+    Country(CountryName name, FactionName owner, int hospitals, int barracks);
     bool hasTroops();
     Troops* removeTroop();
     void addTroop(Troops* troop);
@@ -29,7 +29,9 @@ public:
     void conquer(Country* invader); 
     int buffDMG(int damage);
     int buffDefence(int defence);
+    FactionName getOwner(){return this->owner;};
     ~Country();
+
 private:
     map<Building, int> buildings;
     vector<Troops*> troops;

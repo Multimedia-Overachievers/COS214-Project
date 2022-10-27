@@ -6,6 +6,7 @@
 
 #pragma once
 #include "./Observer.h"
+#include "../../Driver/public/ConcreteSimulator.h"
 
 //Forward declaration to avoid circular dependency
 class Country;
@@ -18,4 +19,5 @@ public:
 
 private:
     Country* country;
+    FactionName owner;
 };

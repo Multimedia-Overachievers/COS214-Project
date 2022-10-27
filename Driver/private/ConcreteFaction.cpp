@@ -101,3 +101,21 @@ int ConcreteFaction::getStrength()
 {
     return countries.size();
 }
+
+/**
+ * @description Removes a country from the faction.
+ * @param country - Country to remove.
+ */
+void ConcreteFaction::removeCountry(Country* country)
+{
+    countries.remove(country);
+}
+
+/**
+ * @description Adds a country to the faction.
+ * @param country - Country to add.
+ */
+void ConcreteFaction::addCountry(Country* country)
+{
+    countries.push_back(country);
+}

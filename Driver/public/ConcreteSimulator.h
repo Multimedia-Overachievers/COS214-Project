@@ -23,6 +23,8 @@ public:
     ConcreteFaction* getFaction(FactionName name); // 0 = Allies, 1 = Axis
     ConcreteFaction* getOpposite(ConcreteFaction* faction);
     static ConcreteSimulator* getInstance();
+    void captureCountry(Country* country, ConcreteFaction* faction);
+
 protected:
     ConcreteSimulator();
 

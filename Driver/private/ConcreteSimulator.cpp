@@ -160,4 +160,13 @@ ConcreteFaction* ConcreteSimulator::getOpposite(ConcreteFaction* faction)
     }
 }
 
-
+/**
+ * @description Returns the number of factions in the simulator
+ * @return int - Number of factions in the simulator
+ */
+void ConcreteSimulator::captureCountry(Country* country, ConcreteFaction* faction)
+{
+    faction->addCountry(country);
+    getOpposite(faction)->removeCountry(country);    
+    
+}
