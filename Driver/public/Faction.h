@@ -7,20 +7,18 @@
 #pragma once
 #include "../../Manipulation/public/Country.h"
 #include "../../Creation/public/FactionState.h"
-#include "../public/enums.h"
 #include "./enums.h"
 #include <list>
 
 class Faction {
 public:
-    Faction() = default;
-    virtual ~Faction() = default;
+    Faction(FactionName name) : name(name){ stance = FactionStance::Passive; };
     virtual FactionState* getState() = 0;
     virtual FactionStance getStance() = 0;
     virtual FactionName getName() = 0;
     virtual int getStrength() = 0;
-    virtual void removeCountry(Country* country);
-    virtual void addCountry(Country* country);
+    virtual void removeCountry(Country* country) = 0;
+    virtual void addCountry(Country* country) = 0;
 
 protected: 
     std::list<Country*> countries;

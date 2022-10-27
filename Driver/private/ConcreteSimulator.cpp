@@ -25,6 +25,7 @@ ConcreteSimulator::ConcreteSimulator()
 {
     factions.push_back(new ConcreteFaction(Allies));
     factions.push_back(new ConcreteFaction(Axis));
+    srand(time(NULL));
 }
 
 /**
@@ -64,7 +65,7 @@ void ConcreteSimulator::action(FactionAction *factionAction)
 FactionAction* ConcreteSimulator::decideAction(ConcreteFaction *faction)
 {
     double weights[2]; // Weights for the different actions 0 -> 0.5 = attack, 0.5 -> 1 = reStock
-
+    
     if(faction->getStance() == FactionStance::Aggressive)
     {
         weights[0] = 0.75; // 75%
@@ -81,6 +82,7 @@ FactionAction* ConcreteSimulator::decideAction(ConcreteFaction *faction)
         weights[1] = 1; // 75%
     }
 
+
     if(faction->getStrength() < 3)
     {
         weights[0] /= 0.25; // Make the faction (25%) more likely to reStock
@@ -95,13 +97,14 @@ FactionAction* ConcreteSimulator::decideAction(ConcreteFaction *faction)
     }
 
     double random = (double)rand() / RAND_MAX; // Random number between 0 and 1
-    
+
     if(random < weights[0])
     {
         int invadingCountry = rand() % 3; // Random number between 0 and 2
         int defendingCountry = rand() % 3; // Random number between 0 and 2
-        
-        return new AttackFromCountry(faction, faction->getCountry(invadingCountry), this->getOpposite(faction)->getCountry(defendingCountry));
+
+        FactionAction* action = new AttackFromCountry(faction, faction->getCountry(invadingCountry), this->getOpposite(faction)->getCountry(defendingCountry));       
+        return action;
     }
     else
     {
@@ -113,9 +116,9 @@ FactionAction* ConcreteSimulator::decideAction(ConcreteFaction *faction)
             squads.push_back(new Squad(SquadStd, Ready)); // @Ross-Tordiffe - I changed Squad to SquadStd because Squad is a class in the std namespace (not sure if this is the correct way to do it)
         }
 
-        return new Restock(faction, faction->getCountry(rand() % 3), Ready, squads); // Random number between 0 and 2
+        FactionAction* action = new Restock(faction, faction->getCountry(rand() % 3), Ready, squads);
+        return action; // Random number between 0 and 2
     }
-    return nullptr;
 }
 
 /**

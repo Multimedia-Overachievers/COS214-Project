@@ -11,7 +11,6 @@ class ConcreteFaction: public Faction
 {
 public:
     ConcreteFaction(FactionName name);
-    ~ConcreteFaction() override;
     FactionState* getState() override;
     FactionStance getStance() override;
     FactionName getName() override;
@@ -20,10 +19,3 @@ public:
     void removeCountry(Country* country) override;
     void addCountry(Country* country) override;
 };
-
-    // virtual FactionState* getState() = 0;
-    // virtual FactionStance getStance() = 0;
-    // virtual FactionName getName() = 0;
-    // virtual int getStrength() = 0;
-    // virtual void removeCountry(Country* country);
-    // virtual void addCountry(Country* country);

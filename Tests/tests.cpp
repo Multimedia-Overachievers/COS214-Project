@@ -3,8 +3,7 @@
 
 TEST(TestFunction, BasicTest)
 {
-    ConcreteSimulator simulator;
-    EXPECT_EQ(simulator.TestFunction(1, 2), 3);
+    EXPECT_EQ(ConcreteSimulator::getInstance()->TestFunction(1, 2), 3);
 }
 
 int main(int argc, char **argv)

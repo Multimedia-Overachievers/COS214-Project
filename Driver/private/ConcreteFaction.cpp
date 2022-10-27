@@ -6,10 +6,8 @@
 
 #include "../public/ConcreteFaction.h"
 
-ConcreteFaction::ConcreteFaction(FactionName name) 
+ConcreteFaction::ConcreteFaction(FactionName name) : Faction(name)
 {
-    this->name = name;
-
     // Generate countries
     if (name == Allies)
     {
@@ -23,23 +21,7 @@ ConcreteFaction::ConcreteFaction(FactionName name)
         countries.push_back(new Country(CountryName::Italy, name, 1, 0));
         countries.push_back(new Country(CountryName::Japan, name, 2, 2));
     }
-
-    // // @Keelan-Matthews make sure each country deletes its own buildings
-    // for (int i = 0; i < numBuildings; i++)
-    // {
-    //     delete buildingFactory[i];
-    // }
-    // delete [] buildingFactory;
 }
-
-
-// void ConcreteFaction::reStock() {
-//     // simulator->notify("reStock");
-// }
-
-// void ConcreteFaction::attack() {
-//     // simulator->notify("attack");
-// }
 
 /**
  * @description Gets the current state of the faction.

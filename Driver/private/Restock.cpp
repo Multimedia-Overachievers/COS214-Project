@@ -12,20 +12,21 @@ void Restock::execute() {
     //Add a variable number of troops
     int numTroops = rand() % 20 + 10;
 
+
     //create a vector of troops
     vector<Troops*> troops;
 
     //get the existing troops from the country
-    while (myCountry->hasTroops())
-        troops.push_back(myCountry->removeTroop());
+    while (myCountry->hasTroops()) troops.push_back(myCountry->removeTroop());
 
     //add the newly created troops
-    for (int i = 0; i < numTroops; i++)
-        troops.push_back(new Soldiers(troopName, troopstate));
+    for (int i = 0; i < numTroops; i++) troops.push_back(new Soldiers(troopName, troopstate));
 
     //build the platooon
-    Soldiers* mySoldiers;
+    Soldiers* mySoldiers = new Soldiers(troopName, troopstate);
     mySoldiers->build(troops);
+
+    std::cout << numTroops << std::endl;
 
     //assign the new platoon to the country
     myCountry->troops_sized = mySoldiers;
