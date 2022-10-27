@@ -2,7 +2,7 @@
 #include "../public/enums.h"
 #include "../../Creation/public/Soldiers.h"
 
-Restock::Restock(ConcreteFaction* myFaction, Country* myCountry,  State troopstate, std::vector<Troops*> squads) : FactionAction(myFaction) {
+Restock::Restock(Faction* myFaction, Country* myCountry,  State troopstate, std::vector<Troops*> squads) : FactionAction(myFaction) {
     this->myCountry = myCountry;
     this->troopstate = troopstate;
     this->troopName = troopName;
@@ -25,8 +25,6 @@ void Restock::execute() {
     //build the platooon
     Soldiers* mySoldiers = new Soldiers(troopName, troopstate);
     mySoldiers->build(troops);
-
-    std::cout << numTroops << std::endl;
 
     //assign the new platoon to the country
     myCountry->troops_sized = mySoldiers;

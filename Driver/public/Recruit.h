@@ -13,6 +13,6 @@ private:
     int numTroops;
     Soldiers** mySoldiers;
 public:
-    Recruit(ConcreteFaction* myFaction, Country* myCountry, int numTroops, State troopstate, Name troopName);
+    Recruit(Faction* myFaction, Country* myCountry, int numTroops, State troopstate, Name troopName);
     virtual void execute();
 };

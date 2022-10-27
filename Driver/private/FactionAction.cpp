@@ -10,16 +10,16 @@
 * Constructor for FactionAction
 * @param c passed in faction
 */
-FactionAction::FactionAction(ConcreteFaction* c)
+FactionAction::FactionAction(Faction* c)
 {
     myFaction = c;
 }
 
 /**
 * Method to get the currently stored faction
-* @return the ConcreteFaction stored
+* @return the Faction stored
 */
-ConcreteFaction* FactionAction::getFaction()
+Faction* FactionAction::getFaction()
 {
     return myFaction;
 }

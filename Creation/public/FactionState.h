@@ -7,19 +7,26 @@
 #pragma once
 
 #include "../../Manipulation/public/Country.h"
+#include "../../Driver/public/enums.h"
+#include <list>
 
 /**
  * @description Stores the state of a faction at a given time
  */
 class FactionState
 {
+    
 private:
-    std::vector<Country*> getCountries();
-
-public:
-    FactionState(std::vector<Country*> countries);
+    FactionState(std::list<Country*> countries, FactionStance stance, FactionName name);
+    std::list<Country*> getCountries();
+    FactionStance getStance();
+    FactionName getName();
+    void setStance(FactionStance stance);
 
 private:
-    std::vector<Country*> countries;
-    friend class Faction;
+    std::list<Country*> countries;
+    FactionStance stance;
+    FactionName name;
+    friend class ConcreteFaction;
+    friend class FactionObserver;
 };

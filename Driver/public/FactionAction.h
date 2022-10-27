@@ -5,15 +5,15 @@
  */
 
 #pragma once
-#include "./ConcreteFaction.h"
+#include "./Faction.h"
 
 class FactionAction
 {
 public:
-    explicit FactionAction(ConcreteFaction* c);
-    ConcreteFaction* getFaction();
+    explicit FactionAction(Faction* c);
+    Faction* getFaction();
     virtual void execute() = 0;
 
 protected:
-    ConcreteFaction* myFaction;
+    Faction* myFaction;
 };

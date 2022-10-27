@@ -5,28 +5,36 @@
  */
 
 #include "../public/ConcreteSimulator.h"
-#include "../public/FactionAction.h"
 #include "../public/AttackFromCountry.h"
 #include "../public/Restock.h"
-
-/**
- * @brief Gets the same instance of the singleton.
- */
-ConcreteSimulator* ConcreteSimulator::getInstance()
-{
-    static ConcreteSimulator* instance = new ConcreteSimulator();
-    return instance;
-}
 
 /**
  * @brief Constructor that initializes the factions
  */
 ConcreteSimulator::ConcreteSimulator() 
 {
-    factions.push_back(new ConcreteFaction(Allies));
-    factions.push_back(new ConcreteFaction(Axis));
+    ConcreteFaction* allies = new ConcreteFaction(Allies);
+    ConcreteFaction* axis = new ConcreteFaction(Axis);
+    factions.push_back(allies);
+    factions.push_back(axis);
     srand(time(NULL));
 }
+
+ConcreteSimulator* ConcreteSimulator::instance = nullptr;
+
+/**
+ * @brief Gets the same instance of the singleton.
+ */
+ConcreteSimulator* ConcreteSimulator::getInstance()
+{
+    if (instance == nullptr)
+    {
+        instance = new ConcreteSimulator();
+
+    }
+    return instance;
+}
+
 
 /**
  * @brief Basic function to show how google tests work.
@@ -43,9 +51,9 @@ int ConcreteSimulator::TestFunction(int a, int b)
  * @description Notifies the simulator of a command.
  * @param command - Command to notify the simulator of.
  */
-void ConcreteSimulator::notify(ConcreteFaction* enemyFaction) 
+void ConcreteSimulator::notify(Faction* faction) 
 {
-    action(decideAction(enemyFaction));
+    action(decideAction(faction));
 }
 
 /**
@@ -62,7 +70,7 @@ void ConcreteSimulator::action(FactionAction *factionAction)
  * @param faction - Faction to decide an action for.
  * @return FactionAction - Action to perform on the faction.
  */
-FactionAction* ConcreteSimulator::decideAction(ConcreteFaction *faction)
+FactionAction* ConcreteSimulator::decideAction(Faction *faction)
 {
     double weights[2]; // Weights for the different actions 0 -> 0.5 = attack, 0.5 -> 1 = reStock
     
@@ -126,7 +134,7 @@ FactionAction* ConcreteSimulator::decideAction(ConcreteFaction *faction)
  * @param name - Name of the faction to return as an enum
  * @return ConcreteFaction* - The faction at the index
  */
-ConcreteFaction* ConcreteSimulator::getFaction(FactionName name) 
+Faction* ConcreteSimulator::getFaction(FactionName name) 
 {
     if(name == Allies)
     {
@@ -147,7 +155,7 @@ ConcreteFaction* ConcreteSimulator::getFaction(FactionName name)
  * @param faction - Faction to get the opposite of
  * @return ConcreteFaction* - The opposite faction
  */
-ConcreteFaction* ConcreteSimulator::getOpposite(ConcreteFaction* faction)
+Faction* ConcreteSimulator::getOpposite(Faction* faction)
 {
     if(faction->getName() == Allies)
     {
@@ -167,7 +175,7 @@ ConcreteFaction* ConcreteSimulator::getOpposite(ConcreteFaction* faction)
  * @description Returns the number of factions in the simulator
  * @return int - Number of factions in the simulator
  */
-void ConcreteSimulator::captureCountry(Country* country, ConcreteFaction* faction)
+void ConcreteSimulator::captureCountry(Country* country, Faction* faction)
 {
     faction->addCountry(country);
     getOpposite(faction)->removeCountry(country);    

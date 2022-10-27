@@ -7,12 +7,12 @@
 #pragma once
 
 #include "./FactionAction.h"
-#include "./ConcreteFaction.h"
+#include "./Faction.h"
 
 class AttackFromCountry: public FactionAction 
 {
 public:
-    AttackFromCountry(ConcreteFaction* myFaction, Country* attacker, Country* toAttack);
+    AttackFromCountry(Faction* myFaction, Country* attacker, Country* toAttack);
     virtual void execute() override;
 
 private:

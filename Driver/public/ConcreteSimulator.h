@@ -18,18 +18,21 @@ class ConcreteSimulator : public Simulator
 {
 public:
     int TestFunction(int a, int b);
-    static void action(FactionAction* factionAction);
-    void notify(ConcreteFaction* enemyFaction) override;
-    FactionAction* decideAction(ConcreteFaction* faction);
-    ConcreteFaction* getFaction(FactionName name); // 0 = Allies, 1 = Axis
-    ConcreteFaction* getOpposite(ConcreteFaction* faction);
+    void action(FactionAction* factionAction) override;
+    void notify(Faction* faction) override;
+    FactionAction* decideAction(Faction* faction) override;
+    Faction* getFaction(FactionName name) override; // 0 = Allies, 1 = Axis
+    Faction* getOpposite(Faction* faction) override;
+    void captureCountry(Country* country, Faction* faction) override;
     static ConcreteSimulator* getInstance();
-    void captureCountry(Country* country, ConcreteFaction* faction);
 
 protected:
     ConcreteSimulator();
+    virtual ~ConcreteSimulator() = default;
+    ConcreteSimulator(const ConcreteSimulator& other) = default;
+    ConcreteSimulator& operator=(const ConcreteSimulator& other) = default;
 
 private:
-    std::vector<ConcreteFaction*> factions;
-    ConcreteSimulator* instance;
+    std::vector<Faction*> factions;
+    static ConcreteSimulator* instance;
 };

@@ -6,8 +6,9 @@
 
 #include "../public/ConcreteFaction.h"
 
-ConcreteFaction::ConcreteFaction(FactionName name) : Faction(name)
-{
+ConcreteFaction::ConcreteFaction(FactionName name)
+{   
+    this->name = name;
     // Generate countries
     if (name == Allies)
     {
@@ -29,12 +30,12 @@ ConcreteFaction::ConcreteFaction(FactionName name) : Faction(name)
  */
 FactionState* ConcreteFaction::getState() 
 {
-    std::vector<Country*> countries;
+    std::list<Country*> countries;
     for (Country* country : this->countries)
     {
         countries.push_back(country);
     }
-    return new FactionState(countries);
+    return new FactionState(countries, this->stance, this->name);
 }
 
 /**
@@ -83,6 +84,8 @@ int ConcreteFaction::getStrength()
     return countries.size();
 }
 
+
+
 /**
  * @description Removes a country from the faction.
  * @param country - Country to remove.
@@ -99,4 +102,12 @@ void ConcreteFaction::removeCountry(Country* country)
 void ConcreteFaction::addCountry(Country* country)
 {
     countries.push_back(country);
+}
+
+/**
+ * @description Notifies the observer of the faction.
+ */
+void ConcreteFaction::notify()
+{
+    observer->update();
 }

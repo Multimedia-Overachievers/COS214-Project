@@ -10,7 +10,7 @@
 class MoveTroops: public FactionAction
 {
 public:
-    MoveTroops(ConcreteFaction* destinationFaction, Country* destinationCountry, Country* sourceCountry, int numTroops);
+    MoveTroops(Faction* destinationFaction, Country* destinationCountry, Country* sourceCountry, int numTroops);
     virtual void execute();
 
 private:

@@ -13,7 +13,7 @@
 * @param destinationCountry The country to which the troops will be moved.
 * @param sourceCountry The country from which to take the troops.
 */
-MoveTroops::MoveTroops(ConcreteFaction* destinationFaction, Country* destinationCountry, Country* sourceCountry, int numTroops)
+MoveTroops::MoveTroops(Faction* destinationFaction, Country* destinationCountry, Country* sourceCountry, int numTroops)
                                                                                                         : FactionAction(destinationFaction)
 {
     this->destinationCountry = destinationCountry;

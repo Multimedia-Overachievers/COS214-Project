@@ -10,7 +10,7 @@
  * @param troopstate The state in which the troops will be created
  * @param troopName The name that all the troops that are recruited will have
  */
-Recruit::Recruit(ConcreteFaction *myFaction, Country *myCountry, int numTroops, State troopstate, Name troopName)
+Recruit::Recruit(Faction *myFaction, Country *myCountry, int numTroops, State troopstate, Name troopName)
                                                                                             : FactionAction(myFaction)
 {
 

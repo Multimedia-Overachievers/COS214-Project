@@ -14,8 +14,9 @@ public:
     FactionState* getState() override;
     FactionStance getStance() override;
     FactionName getName() override;
-    Country* getCountry(int index);
+    Country* getCountry(int index) override;
     int getStrength() override;
     void removeCountry(Country* country) override;
     void addCountry(Country* country) override;
+    void notify() override;
 };

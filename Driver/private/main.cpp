@@ -5,7 +5,7 @@
 int main() 
 {
     // === Objects ===
-    Simulator* simulator = ConcreteSimulator::getInstance();
+    ConcreteSimulator* simulator = ConcreteSimulator::getInstance();
 
     // === Variables ===
     const int MAX_TURNS = 20;
@@ -15,7 +15,11 @@ int main()
     for (int i = 0; i < MAX_TURNS; i++)
     {
         // -?Ross- Ask group about casting 
-        simulator->notify(((ConcreteSimulator*)simulator)->getFaction(factionTurn));
+        
+        std::cout << "Turn " << i << " - " << simulator->getFaction(factionTurn)->getName() << " turn" << std::endl;
+        Faction* faction = ConcreteSimulator::getInstance()->getFaction(factionTurn);
+        std::cout << "Faction: " << faction->getName() << std::endl;
+        ConcreteSimulator::getInstance()->notify(faction);
         
         // Switch turn
         if (factionTurn == Allies)
