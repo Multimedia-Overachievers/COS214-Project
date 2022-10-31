@@ -18,10 +18,18 @@ CountryObserver::CountryObserver(Country* country)
  */
 void CountryObserver::update()
 {
+    ConcreteSimulator* simulator = ConcreteSimulator::getInstance();
+
     if(this->owner != this->country->getOwner())
     {
-        ConcreteSimulator* simulator = ConcreteSimulator::getInstance();
         simulator->captureCountry(this->country, simulator->getFaction(this->owner));
+        simulator->setLastResult(ActionResult::Win);
+    }
+    else if(this->country->hasTroops()){
+        simulator->setLastResult(ActionResult::Loss);
+    }
+    else{
+        simulator->setLastResult(ActionResult::Draw);
     }
 }
 

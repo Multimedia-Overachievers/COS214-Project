@@ -6,9 +6,7 @@
 
 #pragma once
 #include "./Observer.h"
-// #include "../../Driver/public/ConcreteSimulator.h"
 
-//Forward declaration to avoid circular dependency
 class ConcreteFaction;
 
 class FactionObserver: public Observer
@@ -19,5 +17,4 @@ public:
 
 private:
     ConcreteFaction* faction;
-    FactionStance* stance;
 };
