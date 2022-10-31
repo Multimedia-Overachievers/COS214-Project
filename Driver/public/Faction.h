@@ -6,7 +6,7 @@
 
 #pragma once
 #include "../../Manipulation/public/Country.h"
-#include "../../Creation/public/FactionState.h"
+#include "./structs.h"
 #include "../../Manipulation/public/FactionObserver.h"
 #include "./enums.h"
 #include <list>
@@ -15,21 +15,21 @@ class Faction {
 public:
     Faction()
     { 
-        stance = FactionStance::Passive; 
         this->observer = new FactionObserver((ConcreteFaction*)this);
     };
-    virtual FactionState* getState() = 0;
-    virtual FactionStance getStance() = 0;
+    virtual FactionStore* getData() = 0;
+    virtual FactionState* getStance() = 0;
     virtual FactionName getName() = 0;
     virtual int getStrength() = 0;
     virtual Country* getCountry(int index) = 0;
     virtual void removeCountry(Country* country) = 0;
     virtual void addCountry(Country* country) = 0;
     virtual void notify() = 0;
+    virtual void changeState(ActionResult result, Faction* opposite = nullptr) = 0;
 
 protected: 
     std::list<Country*> countries;
-    FactionStance stance;
+    FactionState* stance;
     FactionName name;
     FactionObserver* observer;
 };

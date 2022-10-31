@@ -11,12 +11,13 @@ class ConcreteFaction: public Faction
 {
 public:
     ConcreteFaction(FactionName name);
-    FactionState* getState() override;
-    FactionStance getStance() override;
+    FactionStore* getData() override;
+    FactionState* getStance() override;
     FactionName getName() override;
     Country* getCountry(int index) override;
     int getStrength() override;
     void removeCountry(Country* country) override;
     void addCountry(Country* country) override;
     void notify() override;
+    void changeState(ActionResult result, Faction* opposite = nullptr) override;
 };

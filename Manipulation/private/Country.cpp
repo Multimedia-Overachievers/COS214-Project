@@ -73,7 +73,6 @@ void Country::notify()
  */
 void Country::invade(Country *country) 
 {
-    
     if (country->hasTroops()) 
     {
         int damage = this->buffDMG(this->troops_sized->getTotalDMG());   // Get damage from my troops
@@ -96,6 +95,7 @@ void Country::invade(Country *country)
         country->troops_sized->takeDMG(this->troops_sized->getTotalHP() - defenderHealth);
         
         this->notify();
+        
     }
 }
 

@@ -25,24 +25,29 @@ ConcreteFaction::ConcreteFaction(FactionName name)
 }
 
 /**
- * @description Gets the current state of the faction.
- * @return FactionState
+ * @brief Gets the current data of the faction.
+ * @return FactionStore
  */
-FactionState* ConcreteFaction::getState() 
+FactionStore* ConcreteFaction::getData() 
 {
     std::list<Country*> countries;
     for (Country* country : this->countries)
     {
         countries.push_back(country);
     }
-    return new FactionState(countries, this->stance, this->name);
+    
+    FactionStore* store = new FactionStore();
+    store->countries = countries;
+    store->name = this->name;
+    store->stance = this->stance;
+    return store;
 }
 
 /**
- * @description Gets the stance of the faction.
+ * @brief Gets the stance of the faction.
  * @return FactionStance - Stance of the faction.
  */
-FactionStance ConcreteFaction::getStance() 
+FactionState* ConcreteFaction::getStance() 
 {
     return stance;
 }
@@ -76,7 +81,7 @@ Country* ConcreteFaction::getCountry(int index)
 }
 
 /**
- * @description Gets the number of countries in the faction.
+ * @brief Gets the number of countries in the faction.
  * @return int - Strength of the faction.
  */
 int ConcreteFaction::getStrength() 
@@ -87,7 +92,7 @@ int ConcreteFaction::getStrength()
 
 
 /**
- * @description Removes a country from the faction.
+ * @brief Removes a country from the faction.
  * @param country - Country to remove.
  */
 void ConcreteFaction::removeCountry(Country* country)
@@ -96,7 +101,7 @@ void ConcreteFaction::removeCountry(Country* country)
 }
 
 /**
- * @description Adds a country to the faction.
+ * @brief Adds a country to the faction.
  * @param country - Country to add.
  */
 void ConcreteFaction::addCountry(Country* country)
@@ -105,9 +110,19 @@ void ConcreteFaction::addCountry(Country* country)
 }
 
 /**
- * @description Notifies the observer of the faction.
+ * @brief Notifies the observer of the faction.
  */
 void ConcreteFaction::notify()
 {
     observer->update();
+}
+
+/**
+ * @brief Changes the current state of the faction.
+ * 
+ */
+void ConcreteFaction::changeState(ActionResult result, Faction* opposite = nullptr)
+{
+    // get the current state
+    // if defensive, morale == 33, if neutral, morale == 67, if offensive, morale == 6
 }
