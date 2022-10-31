@@ -124,5 +124,6 @@ void ConcreteFaction::notify()
 void ConcreteFaction::changeState(ActionResult result, Faction* opposite = nullptr)
 {
     // get the current state
-    // if defensive, morale == 33, if neutral, morale == 67, if offensive, morale == 6
+    // if defensive, morale == 33, if neutral, morale == 67, if aggressive, morale == 100
+
 }

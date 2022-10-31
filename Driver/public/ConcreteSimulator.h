@@ -25,6 +25,8 @@ public:
     Faction* getOpposite(Faction* faction) override;
     void captureCountry(Country* country, Faction* faction) override;
     static ConcreteSimulator* getInstance();
+    void setLastResult(ActionResult result);
+    ActionResult getLastResult();
 
 protected:
     ConcreteSimulator();
@@ -35,4 +37,5 @@ protected:
 private:
     std::vector<Faction*> factions;
     static ConcreteSimulator* instance;
+    ActionResult lastResult;
 };

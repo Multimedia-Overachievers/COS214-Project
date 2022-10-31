@@ -28,4 +28,6 @@ void Restock::execute() {
 
     //assign the new platoon to the country
     myCountry->troops_sized = mySoldiers;
+
+    ConcreteSimulator::getInstance()->setLastResult(ActionResult::None);
 }

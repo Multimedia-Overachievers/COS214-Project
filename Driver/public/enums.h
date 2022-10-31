@@ -42,16 +42,6 @@ enum Building
 };
 
 /**
- * @brief Defines the various states a country can be in.
- */
-enum FactionStance
-{
-    Defensive,
-    Aggressive,
-    Passive
-};
-
-/**
  * @brief Defines the various states a squad of troops can be in.
  */
 enum State {
@@ -92,4 +82,14 @@ enum Dmg {
     CompanyDmg = 30,
     BattalionDmg = 40,
     ArmyDmg = 50
+};
+
+/**
+ * @brief Defines the result of a battle
+ */
+enum ActionResult {
+    Win,
+    Loss,
+    Draw,
+    None
 };

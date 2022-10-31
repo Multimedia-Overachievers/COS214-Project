@@ -73,22 +73,23 @@ void ConcreteSimulator::action(FactionAction *factionAction)
 FactionAction* ConcreteSimulator::decideAction(Faction *faction)
 {
     double weights[2]; // Weights for the different actions 0 -> 0.5 = attack, 0.5 -> 1 = reStock
-    
-    if(faction->getStance() == FactionStance::Aggressive)
-    {
-        weights[0] = 0.75; // 75%
-        weights[1] = 1; // 25%
-    }
-    else if(faction->getStance() == FactionStance::Passive)
-    {
-        weights[0] = 0.5; // 50% 
-        weights[1] = 1; // 50%
-    }
-    else if(faction->getStance() == FactionStance::Defensive)
-    {   
-        weights[0] = 0.25; // 25%
-        weights[1] = 1; // 75%
-    }
+    weights[0] = 0.25; // 25%
+    weights[1] = 1; // 75%
+    // if(faction->getStance() == FactionStance::Aggressive)
+    // {
+    //     weights[0] = 0.75; // 75%
+    //     weights[1] = 1; // 25%
+    // }
+    // else if(faction->getStance() == FactionStance::Passive)
+    // {
+    //     weights[0] = 0.5; // 50% 
+    //     weights[1] = 1; // 50%
+    // }
+    // else if(faction->getStance() == FactionStance::Defensive)
+    // {   
+    //     weights[0] = 0.25; // 25%
+    //     weights[1] = 1; // 75%
+    // }
 
 
     if(faction->getStrength() < 3)
@@ -180,4 +181,22 @@ void ConcreteSimulator::captureCountry(Country* country, Faction* faction)
     faction->addCountry(country);
     getOpposite(faction)->removeCountry(country);    
     
+}
+
+/**
+ * @brief Sets the outcome of the last battle for weighting purposes
+ * 
+ * @param result - The result of the last battle
+ */
+void ConcreteSimulator::setLastResult(ActionResult result){
+    lastResult = result;
+}
+
+/**
+ * @brief Gets the outcome of the last battle for weighting purposes
+ * 
+ * @return ActionResult - The result of the last battle
+ */
+ActionResult ConcreteSimulator::getLastResult(){
+    return lastResult;
 }
