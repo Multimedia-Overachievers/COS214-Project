@@ -11,17 +11,17 @@
  * @param allies
  * @param axis
  */
-MapState::MapState(FactionState* allies, FactionState* axis) 
+MapState::MapState(FactionStore* allies, FactionStore* axis) 
 {
-    this->factionStates[0] = allies;
-    this->factionStates[1] = axis;
+    this->factionStores[0] = allies;
+    this->factionStores[1] = axis;
 }
 
 /**
  * Gets the faction states
  * @return factionStates
  */
-FactionState** MapState::getFactionStates()
+FactionStore** MapState::getFactionStores()
 {
-    return this->factionStates;
+    return this->factionStores;
 }

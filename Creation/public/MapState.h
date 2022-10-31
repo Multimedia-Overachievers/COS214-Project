@@ -5,7 +5,7 @@
  */
 
 #pragma once
-#include "./FactionState.h"
+#include "../../Driver/public/structs.h"
 
 /**
  * @description Stores the state of the world at a given time
@@ -13,11 +13,11 @@
 class MapState
 {
 private:
-    MapState(FactionState* allies, FactionState* axis);
-    FactionState** getFactionStates();
+    MapState(FactionStore* allies, FactionStore* axis);
+    FactionStore** getFactionStores();
 
 private:
-    FactionState* factionStates[2];
+    FactionStore* factionStores[2];
     friend class Simulation;
     // Other world states from simulation
 };
