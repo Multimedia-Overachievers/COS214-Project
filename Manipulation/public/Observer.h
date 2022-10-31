@@ -5,6 +5,7 @@
  */
 
 #pragma once
+#include "../../Driver/public/ConcreteSimulator.h"
 
 /**
  * @brief Abstract class that defines the interface for all observers
