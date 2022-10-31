@@ -17,6 +17,7 @@ ConcreteSimulator::ConcreteSimulator()
     ConcreteFaction* axis = new ConcreteFaction(Axis);
     factions.push_back(allies);
     factions.push_back(axis);
+    this->lastResult = ActionResult::None;
     srand(time(NULL));
 }
 
