@@ -24,6 +24,8 @@ Simulation::~Simulation()
 {
     delete this->factions[0];
     delete this->factions[1];
+    this->factions[0] = nullptr;
+    this->factions[1] = nullptr;
 }
 
 
@@ -37,4 +39,15 @@ MapState* Simulation::saveLog()
     FactionStore* axis = this->factions[1]->getData();
     MapState* state = new MapState(allies, axis);
     return state;
+}
+
+/**
+ * Loads a previous state of the simulation
+ * @param state
+ */
+void Simulation::loadLog(MapState* state)
+{
+    FactionStore** factionStores = state->getFactionStores();
+    this->factions[0]->setData(factionStores[0]);
+    this->factions[1]->setData(factionStores[1]);
 }

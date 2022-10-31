@@ -12,6 +12,7 @@ class ConcreteFaction: public Faction
 public:
     ConcreteFaction(FactionName name);
     FactionStore* getData() override;
+    void setData(FactionStore* store) override;
     FactionState* getStance() override;
     FactionName getName() override;
     Country* getCountry(int index) override;
@@ -20,4 +21,5 @@ public:
     void addCountry(Country* country) override;
     void notify() override;
     void changeState(ActionResult result, Faction* opposite) override;
+
 };

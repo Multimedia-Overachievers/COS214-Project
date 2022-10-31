@@ -50,6 +50,17 @@ FactionStore* ConcreteFaction::getData()
 }
 
 /**
+ * @brief Sets the data of the faction.
+ * @param store FactionStore
+ */
+void ConcreteFaction::setData(FactionStore* store)
+{
+    this->countries = store->countries;
+    this->name = store->name;
+    this->stance = store->stance;
+}
+
+/**
  * @brief Gets the stance of the faction.
  * @return FactionStance - Stance of the faction.
  */

@@ -18,6 +18,7 @@ public:
         this->observer = new FactionObserver((ConcreteFaction*)this);
     };
     virtual FactionStore* getData() = 0;
+    virtual void setData(FactionStore* store) = 0;
     virtual FactionState* getStance() = 0;
     virtual FactionName getName() = 0;
     virtual int getStrength() = 0;
