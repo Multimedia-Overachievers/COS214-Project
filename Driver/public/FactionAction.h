@@ -5,7 +5,8 @@
  */
 
 #pragma once
-#include "./Faction.h"
+
+class Faction;
 
 class FactionAction
 {

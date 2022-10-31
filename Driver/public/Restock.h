@@ -2,10 +2,7 @@
 #include "FactionAction.h"
 #include "../../Creation/public/Soldiers.h"
 
-/*
- * Currently, restock will simply add
- *
- */
+class Country;
 
 class Restock: public FactionAction
 {

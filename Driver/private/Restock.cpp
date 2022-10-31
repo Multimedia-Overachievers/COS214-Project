@@ -1,6 +1,8 @@
-#include "../public/Restock.h"
 #include "../public/enums.h"
+#include "../../Manipulation/public/Country.h"
 #include "../../Creation/public/Soldiers.h"
+#include "../public/ConcreteSimulator.h"
+#include "../public/Restock.h"
 
 Restock::Restock(Faction* myFaction, Country* myCountry,  State troopstate, std::vector<Troops*> squads) : FactionAction(myFaction) {
     this->myCountry = myCountry;

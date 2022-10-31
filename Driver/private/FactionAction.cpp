@@ -4,6 +4,7 @@
  *  Author: Thomas Isebeck (u20446332)
  */
 
+#include "../public/ConcreteFaction.h"
 #include "../public/FactionAction.h"
 
 /**

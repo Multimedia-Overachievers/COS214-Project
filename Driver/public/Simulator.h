@@ -10,8 +10,6 @@
 #include <string>
 #include <iostream>
 
-class ConcreteFaction;
-
 class Simulator
 {
 public:

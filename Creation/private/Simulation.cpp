@@ -33,8 +33,8 @@ Simulation::~Simulation()
  */
 MapState* Simulation::saveLog()
 {
-    FactionState* allies = this->factions[0]->getState();
-    FactionState* axis = this->factions[1]->getState();
+    FactionStore* allies = this->factions[0]->getData();
+    FactionStore* axis = this->factions[1]->getData();
     MapState* state = new MapState(allies, axis);
     return state;
 }

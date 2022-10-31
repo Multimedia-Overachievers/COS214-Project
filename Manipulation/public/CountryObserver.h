@@ -7,7 +7,6 @@
 #pragma once
 #include "./Observer.h"
 
-//Forward declaration to avoid circular dependency
 class Country;
 
 class CountryObserver: public Observer

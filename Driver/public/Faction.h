@@ -6,8 +6,8 @@
 
 #pragma once
 #include "../../Manipulation/public/Country.h"
-#include "./structs.h"
 #include "../../Manipulation/public/FactionObserver.h"
+#include "./structs.h"
 #include "./enums.h"
 #include <list>
 

@@ -11,7 +11,7 @@
 #include <iostream>
 #include <map>
 
-class Observer;
+class CountryObserver;
 
 /**
  * @description Represents a country in the game
@@ -37,7 +37,7 @@ private:
     vector<Troops*> troops;
     CountryName name;
     FactionName owner;
-    Observer* observer;
+    CountryObserver* observer;
 
     //Tays squad->build() sets the state of the troops automatically
     Troops* troops_sized;

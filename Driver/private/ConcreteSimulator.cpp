@@ -4,9 +4,9 @@
  *  Author: Keelan Matthews (u21549967)
  */
 
-#include "../public/ConcreteSimulator.h"
 #include "../public/AttackFromCountry.h"
 #include "../public/Restock.h"
+#include "../public/ConcreteSimulator.h"
 
 /**
  * @brief Constructor that initializes the factions

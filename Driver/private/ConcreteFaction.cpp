@@ -13,14 +13,20 @@ ConcreteFaction::ConcreteFaction(FactionName name)
     if (name == Allies)
     {
         countries.push_back(new Country(CountryName::France, name, 3, 0)); 
-        countries.push_back(new Country(CountryName::UnitedKingdom, name, 2, 0));
-        countries.push_back(new Country(CountryName::UnitedStates, name, 2, 1));
+        countries.push_back(new Country(CountryName::UnitedKingdom, name, 2, 1));
+        countries.push_back(new Country(CountryName::UnitedStates, name, 0, 3));
+        countries.push_back(new Country(CountryName::SovietUnion, name, 1, 2));
+        countries.push_back(new Country(CountryName::Belgium, name, 2, 0));
+        countries.push_back(new Country(CountryName::Netherlands, name, 1, 1));
     }
     else
     {
         countries.push_back(new Country(CountryName::Germany, name, 0, 3));
-        countries.push_back(new Country(CountryName::Italy, name, 1, 0));
-        countries.push_back(new Country(CountryName::Japan, name, 2, 2));
+        countries.push_back(new Country(CountryName::Italy, name, 2, 1));
+        countries.push_back(new Country(CountryName::Japan, name, 1, 2));
+        countries.push_back(new Country(CountryName::Romania, name, 1, 1));
+        countries.push_back(new Country(CountryName::Hungary, name, 2, 0));
+        countries.push_back(new Country(CountryName::Bulgaria, name, 0, 2));
     }
 }
 
@@ -121,9 +127,12 @@ void ConcreteFaction::notify()
  * @brief Changes the current state of the faction.
  * 
  */
-void ConcreteFaction::changeState(ActionResult result, Faction* opposite = nullptr)
+void ConcreteFaction::changeState(ActionResult result, Faction* opposite)
 {
     // get the current state
-    // if defensive, morale == 33, if neutral, morale == 67, if aggressive, morale == 100
+    // if defensive, morale == 25, if neutral, morale == 50, if aggressive, morale == 75
+    // if opposite is null, morale *= 1.2
+    // if the result is a win, morale *= 1.4, if the result is a loss, morale *= 0.6, if the result is a draw, morale *= 0.9
 
+    
 }

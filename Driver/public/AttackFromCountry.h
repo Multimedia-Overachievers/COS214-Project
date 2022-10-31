@@ -5,9 +5,9 @@
  */
 
 #pragma once
-
 #include "./FactionAction.h"
-#include "./Faction.h"
+
+class Country;
 
 class AttackFromCountry: public FactionAction 
 {

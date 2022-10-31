@@ -7,6 +7,8 @@
 #pragma once
 #include "./FactionAction.h"
 
+class Country;
+
 class MoveTroops: public FactionAction
 {
 public:

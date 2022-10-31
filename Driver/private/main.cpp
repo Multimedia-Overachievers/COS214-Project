@@ -8,12 +8,17 @@ int main()
     const int MAX_TURNS = 20;
     FactionName factionTurn = Allies;
 
+    // === Create the simulator ===
+    ConcreteSimulator* simulator = ConcreteSimulator::getInstance();
+
     // === Main Loop ===
     for (int i = 0; i < MAX_TURNS; i++)
     {
-        Faction* faction = ConcreteSimulator::getInstance()->getFaction(factionTurn);
-        ConcreteSimulator::getInstance()->notify(faction);
+        Faction* faction = simulator->getFaction(factionTurn);
+        simulator->notify(faction);
         faction->notify();
+
+        std::cout << "Turn " << i << " complete." << std::endl;
         
         // Switch turn
         if (factionTurn == Allies)

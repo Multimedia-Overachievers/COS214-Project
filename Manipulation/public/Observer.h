@@ -5,7 +5,7 @@
  */
 
 #pragma once
-#include "../../Driver/public/ConcreteSimulator.h"
+#include "../../Driver/public/enums.h"
 
 /**
  * @brief Abstract class that defines the interface for all observers

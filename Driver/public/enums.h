@@ -20,16 +20,21 @@ enum FactionName
  */
 enum CountryName 
 {
-    Bulgaria,
+    // Allies
     France,
+    UnitedKingdom,
+    UnitedStates,
+    SovietUnion,
+    Belgium,
+    Netherlands,
+    
+    // Axis
     Germany,
     Italy,
     Japan,
-    OttomanEmpire,
-    Portugal,
-    Russia,
-    UnitedKingdom,
-    UnitedStates
+    Romania,
+    Hungary,
+    Bulgaria,
 };
 
 /**

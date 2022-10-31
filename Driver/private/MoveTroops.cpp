@@ -4,8 +4,9 @@
  *  Author: Thomas Isebeck (u20446332)
  */
 
-#include "../public/MoveTroops.h"
+#include "../../Manipulation/public/Country.h"
 #include "../../Driver/public/enums.h"
+#include "../public/MoveTroops.h"
 
 /**
 * @brief Constructor for the MoveTroops command

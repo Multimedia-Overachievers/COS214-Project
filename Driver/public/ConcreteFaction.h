@@ -19,5 +19,5 @@ public:
     void removeCountry(Country* country) override;
     void addCountry(Country* country) override;
     void notify() override;
-    void changeState(ActionResult result, Faction* opposite = nullptr) override;
+    void changeState(ActionResult result, Faction* opposite) override;
 };

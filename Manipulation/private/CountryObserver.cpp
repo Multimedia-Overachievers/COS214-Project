@@ -4,6 +4,7 @@
  *  Author: Francois Smith (u21649988)
  */
 
+#include "../../Driver/public/ConcreteSimulator.h"
 #include "../public/Country.h"
 #include "../public/CountryObserver.h"
 
