@@ -34,3 +34,5 @@ int main()
     return 0;
 }
 
+// Misc commits for progress tracking
+// Started class diagram implementation
