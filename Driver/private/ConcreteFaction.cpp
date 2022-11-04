@@ -9,6 +9,8 @@
 ConcreteFaction::ConcreteFaction(FactionName name)
 {   
     this->name = name;
+    this->name = name;
+    
     // Generate countries
     if (name == Allies)
     {

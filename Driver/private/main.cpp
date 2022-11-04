@@ -37,16 +37,16 @@
 // // Misc commits for progress tracking
 // // Started class diagram implementation
 
-
-
-
 #include <SFML/Graphics.hpp>
 
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Red);
+    
+    sf::Texture texture;
+    if (!texture.loadFromFile("cute_image.jpg"))
+        return EXIT_FAILURE;
+    sf::Sprite sprite(texture);
 
     while (window.isOpen())
     {
@@ -58,7 +58,6 @@ int main()
         }
 
         window.clear();
-        window.draw(shape);
         window.display();
     }
 
