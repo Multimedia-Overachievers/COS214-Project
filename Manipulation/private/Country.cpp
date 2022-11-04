@@ -107,7 +107,7 @@ void Country::invade(Country *country)
  */
 void Country::conquer(Country *invader) 
 {
-    this->owner = invader->owner;
+    setOwner(invader->owner);
 }
 
 Country::~Country() 

@@ -32,6 +32,7 @@ public:
     FactionName getOwner(){return this->owner;};
     ~Country();
     CountryName getName(){return this->name;};
+    void setOwner(FactionName owner){this->owner = owner;};
 
 private:
     map<Building, int> buildings;
