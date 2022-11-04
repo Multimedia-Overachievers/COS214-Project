@@ -52,7 +52,7 @@ Troops *Country::removeTroop()
  * @brief Adds a troop
  * @param troop
  */
-void Country::addTroop(Troops *troop) 
+void Country::addTroop(Troops* troop) 
 {
     //call build on using the troops array
     this->troops.push_back(troop);
@@ -75,7 +75,7 @@ void Country::notify()
  */
 void Country::invade(Country *country) 
 {
-    if (country->hasTroops()) 
+    if(country->hasTroops()) 
     {
         int damage = this->buffDMG(this->troops_sized->getTotalDMG());   // Get damage from my troops
         int defence = country->buffDMG(country->troops_sized->getTotalDMG()); // Get damage from enemy troops
@@ -95,10 +95,12 @@ void Country::invade(Country *country)
         
         this->troops_sized->takeDMG(country->troops_sized->getTotalHP() - invaderHealth);
         country->troops_sized->takeDMG(this->troops_sized->getTotalHP() - defenderHealth);
-        
-        this->notify();
-        
     }
+    else{
+        this->conquer(country);
+    }
+
+    this->notify();
 }
 
 /**
@@ -114,7 +116,7 @@ Country::~Country()
 {
     delete this->observer;
 
-    for (auto troop : troops)
+    for (auto troop: troops)
         delete troop;
 
     delete troops_sized;

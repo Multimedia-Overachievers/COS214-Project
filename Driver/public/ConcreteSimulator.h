@@ -17,7 +17,6 @@ class FactionAction;
 class ConcreteSimulator : public Simulator
 {
 public:
-    int TestFunction(int a, int b);
     void action(FactionAction* factionAction) override;
     void notify(Faction* faction) override;
     FactionAction* decideAction(Faction* faction) override;

@@ -80,7 +80,7 @@ vector<Troops *> Squad::disband()
  * 
  * @param squads = vector<Troops *> containing the squads, will be deleted (!)
  */
-void Squad::build(vector<Troops *> squads)
+void Squad::build(vector<Troops *>& squads)
 {
     for(int i = 0; i < squads.size(); i++){
         delete squads[i];

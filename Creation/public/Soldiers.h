@@ -29,7 +29,7 @@ class Soldiers : public Troops
         int takeDMG(int total);
         string getReport();
         vector<Troops *> disband();
-        void build(vector<Troops *> squads);
+        void build(vector<Troops *>& squads);
         void add(Troops * squad);
         vector<Troops *> remove(int noToRemove);
         int getTotalHP();

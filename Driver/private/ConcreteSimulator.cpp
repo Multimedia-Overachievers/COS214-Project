@@ -39,25 +39,16 @@ ConcreteSimulator* ConcreteSimulator::getInstance()
     return instance;
 }
 
-
-/**
- * @brief Basic function to show how google tests work.
- * @param a - First number to add.
- * @param b - Second number to add.
- * @return int - Sum of a and b.
- */
-int ConcreteSimulator::TestFunction(int a, int b)
-{
-    return a + b;
-}
-
 /**
  * @description Notifies the simulator of a command.
  * @param command - Command to notify the simulator of.
  */
 void ConcreteSimulator::notify(Faction* faction) 
 {
-    action(decideAction(faction));
+    FactionAction* actionWD = decideAction(faction);
+    action(actionWD);
+    std::cout << std::endl;
+    actionWD->print();
 }
 
 /**
@@ -77,8 +68,8 @@ void ConcreteSimulator::action(FactionAction *factionAction)
 FactionAction* ConcreteSimulator::decideAction(Faction *faction)
 {
     double weights[2]; // Weights for the different actions 0 -> 0.5 = attack, 0.5 -> 1 = reStock
-    weights[0] = 0.25; // 25%
-    weights[1] = 1; // 75%
+    weights[0] = 0.25; // 75%
+    weights[1] = 1; // 25%
     // if(faction->getStance() == FactionStance::Aggressive)
     // {
     //     weights[0] = 0.75; // 75%
@@ -96,21 +87,22 @@ FactionAction* ConcreteSimulator::decideAction(Faction *faction)
     // }
 
 
-    if(faction->getStrength() < 3)
+    if(faction->getStrength() <= 3)
     {
         weights[0] /= 0.25; // Make the faction (25%) more likely to reStock
     }
-    else if(faction->getStrength() > 3 && faction->getStrength() <= 5)
+    else if(faction->getStrength() >= 4 && faction->getStrength() <= 6)
     {
         // No change
     }
-    else if(faction->getStrength() > 6)
+    else if(faction->getStrength() >= 7)
     {
         weights[0] *= 0.25; // Make the faction (25%) more likely to attack
     }
 
     double random = (double)rand() / RAND_MAX; // Random number between 0 and 1
-
+    
+    std::cout << "Weights: " << weights[0] << " Random: " << random << endl; 
     if(random < weights[0])
     {
         int invadingCountry = rand() % 3; // Random number between 0 and 2

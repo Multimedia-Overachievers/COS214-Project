@@ -17,6 +17,9 @@ AttackFromCountry::AttackFromCountry(Faction* myFaction, Country* attacker, Coun
 {
     this->attacker = attacker;
     this->toAttack = toAttack;
+
+    //DEBUG_
+    type = "AttackFromCountry";
 }
 
 /**
@@ -24,5 +27,6 @@ AttackFromCountry::AttackFromCountry(Faction* myFaction, Country* attacker, Coun
  */
 void AttackFromCountry::execute()
 {
+    std::cout << convert_country[attacker->getName()] << " is attacking " << convert_country[toAttack->getName()] << std::endl;
     attacker->invade(toAttack);
 }

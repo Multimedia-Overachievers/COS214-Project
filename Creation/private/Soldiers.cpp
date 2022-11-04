@@ -225,7 +225,7 @@ vector<Troops *> Soldiers::disband()
  * 
  * @param squads The squads to be added to the soldiers
  */
-void Soldiers::build(vector<Troops *> squads)
+void Soldiers::build(vector<Troops*>& squads)
 {
     if(getState() == Defeated)
     {
