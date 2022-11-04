@@ -99,6 +99,14 @@ enum ActionResult {
     None
 };
 
+/**
+ * @brief Defines the different types of fonts.
+ */
+enum FontType {
+    Cinzel = 0,
+    Alegreya,
+    Literata
+};
 
 #ifndef GLOB_CONST_H
 #define GLOB_CONST_H 
@@ -126,5 +134,60 @@ enum ActionResult {
         stringify(Romania),
         stringify(Hungary),
         stringify(Bulgaria),
+    };
+
+    inline const char* convert_building[] =
+    {
+        stringify(Barracks),
+        stringify(Hospital),
+    };
+
+    inline const char* convert_state[] =
+    {
+        stringify(Moving),
+        stringify(Ready),
+        stringify(Defeated),
+    };
+
+    inline const char* convert_name[] =
+    {
+        stringify(SquadStd),
+        stringify(Platoon),
+        stringify(Company),
+        stringify(Battalion),
+        stringify(Army),
+    };
+
+    inline const char* convert_hp[] =
+    {
+        stringify(SquadHp),
+        stringify(PlatoonHp),
+        stringify(CompanyHp),
+        stringify(BattalionHp),
+        stringify(ArmyHp),
+    };
+
+    inline const char* convert_dmg[] =
+    {
+        stringify(SquadDmg),
+        stringify(PlatoonDmg),
+        stringify(CompanyDmg),
+        stringify(BattalionDmg),
+        stringify(ArmyDmg),
+    };
+
+    inline const char* convert_action_result[] =
+    {
+        stringify(Win),
+        stringify(Loss),
+        stringify(Draw),
+        stringify(None),
+    };
+
+    inline const char* convert_font_type[] =
+    {
+        stringify(Cinzel),
+        stringify(Alegreya),
+        stringify(Literata),
     };
 #endif  

@@ -1,47 +1,14 @@
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include "../public/ConcreteSimulator.h"
 
-
-// int main() 
-// {
-//     // === Variables ===
-//     const int MAX_TURNS = 20;
-//     FactionName factionTurn = Allies;
-
-//     // === Create the simulator ===
-//     ConcreteSimulator* simulator = ConcreteSimulator::getInstance();
-
-//     // === Main Loop ===
-//     for (int i = 0; i < MAX_TURNS; i++)
-//     {
-//         Faction* faction = simulator->getFaction(factionTurn);
-//         simulator->notify(faction);
-//         faction->notify();
-
-//         std::cout << "Turn " << i << " complete." << std::endl;
-        
-//         // Switch turn
-//         if (factionTurn == Allies)
-//         {
-//             factionTurn = Axis;
-//         }
-//         else
-//         {
-//             factionTurn = Allies;
-//         }
-//     }
-
-//     return 0;
-// }
-
-
-#include <SFML/Graphics.hpp>
-
-void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator){  
+void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator)
+{  
     float x[] = {215, 164, 63, 701, 342, 355, 391, 381, 668, 611, 546, 647};
-    float y[] = {310, 104, 307, 0, 305, 267, 240, 431, 626, 396, 401, 500};
+    float y[] = {310, 104, 307, 0, 305, 267, 238, 431, 626, 396, 401, 499};
     
-    for(int i = 0; i < 12; i++){
+    for(int i = 0; i < 12; i++)
+    {
         sf::Texture texture;
         texture.loadFromFile(simulator->getImagePath((CountryName)i));
         sf::Sprite sprite(texture);
@@ -58,62 +25,99 @@ void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator){
     window.draw(sprite);
 }
 
-void swapFactions(ConcreteSimulator* simulator){
-    //random number between 0 and 12
-    int random = rand() % 12;
-    if(simulator->countries[random]->getOwner() == FactionName::Allies){
-        simulator->countries[random]->setOwner(FactionName::Axis);
-        simulator->captureCountry(simulator->countries[random], simulator->getFaction(Axis));
-    }
-    else{
-        simulator->countries[random]->setOwner(FactionName::Allies);
-        simulator->captureCountry(simulator->countries[random], simulator->getFaction(Allies));
-    }
+void nextRound(ConcreteSimulator* simulator, FactionName factionTurn)
+{
+    Faction* faction = simulator->getFaction(factionTurn);
+    simulator->notify(faction);
+    faction->notify();
 }
 
+sf::Text* createText(std::string text, int size, int x, int y, FontType fontType){
+    sf::Font* font = new sf::Font();
+    switch(fontType)
+    {
+        default: case FontType::Literata:
+            font->loadFromFile("../Media/Fonts/Literata.ttf");
+            break;
+        case FontType::Cinzel:
+            font->loadFromFile("../Media/Fonts/Cinzel.ttf");
+            break;
+        case FontType::Alegreya:
+            font->loadFromFile("../Media/Fonts/Alegreya.ttf");
+            break;
+    }
+    
+    //create text
+    sf::Text* textPtr = new sf::Text();
+    textPtr->setFont(*font);
+    textPtr->setString(text);
+    textPtr->setCharacterSize(size);
+    textPtr->setFillColor(sf::Color::White);
+    textPtr->setPosition(x, y);
+
+    return textPtr;
+}
 
 int main()
 {
+    //======================== SFML Variable setup ========================
     sf::RenderWindow window(sf::VideoMode(900, 900), "Memento Mori | Project");
-
+    sf::Clock clock;
+    sf::Time timeSinceLastUpdate = sf::Time::Zero;
+    sf::Time timePerFrame = sf::seconds(4.0f);
+    
+    //======================== Simulator Setup ========================
     ConcreteSimulator* simulator = ConcreteSimulator::getInstance();
-
-    sf::Font font;
-    if (!font.loadFromFile("../Media/Fonts/Cinzel.ttf"))
-        return EXIT_FAILURE;
-    sf::Text text("Europe 1936", font, 50);
+    const int MAX_TURNS = 20;
+    int currentTurn = 0;
+    FactionName factionTurn = Allies;
 
     while (window.isOpen())
     {
         sf::Event event;
         while (window.pollEvent(event))
         {   
-            static bool lock = false;
-            if (event.type == sf::Event::Closed)
-                window.close();
-
-            if (event.type == sf::Event::MouseButtonPressed)
+            static bool lock;
+            switch (event.type)
             {
-                if (event.mouseButton.button == sf::Mouse::Left && lock != true) 
-                {
-                    swapFactions(simulator);
-                    lock = true;
-                }   
-            }
-
-            if (event.type == sf::Event::MouseButtonReleased)
-            {
-                if (event.mouseButton.button == sf::Mouse::Left)
-                {
-                    lock = false; 
-                }
+                case sf::Event::MouseButtonPressed:
+                    if (event.mouseButton.button == sf::Mouse::Left && lock != true) 
+                    {
+                        lock = true;
+                    }   
+                    break;
+                case sf::Event::MouseButtonReleased:
+                    if (event.mouseButton.button == sf::Mouse::Left)
+                    {
+                        lock = false; 
+                    }
+                    break;
+                case sf::Event::Closed:
+                    window.close();
+                    break;
             }
         }
 
-        sf::Color color(255, 255, 255);
-        window.clear(color);
+        timeSinceLastUpdate += clock.restart();
+        while (timeSinceLastUpdate > timePerFrame)
+        {
+            timeSinceLastUpdate -= timePerFrame;
+            nextRound(simulator, factionTurn);
+            if (factionTurn == Allies) factionTurn = Axis;
+            else factionTurn = Allies;
+            std::cout << "Turn " << currentTurn << " complete." << std::endl;
+            currentTurn++;
+
+            if(currentTurn == MAX_TURNS)
+            {
+                std::cout << "Game Over" << std::endl;
+                window.close();
+            }
+        }
+
+        window.clear(sf::Color(69, 153, 186));
         setupMap(window, simulator);
-        window.draw(text);
+        window.draw(*createText("Europe", 50, 10, 10, FontType::Cinzel));
         window.display();
     }
 
