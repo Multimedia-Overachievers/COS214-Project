@@ -21,5 +21,5 @@ public:
     void addCountry(Country* country) override;
     void notify() override;
     void changeState(ActionResult result, Faction* opposite) override;
-
+    void createCountries() override;
 };

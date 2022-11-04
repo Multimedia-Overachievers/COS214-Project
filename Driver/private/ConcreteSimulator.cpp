@@ -31,7 +31,10 @@ ConcreteSimulator* ConcreteSimulator::getInstance()
     if (instance == nullptr)
     {
         instance = new ConcreteSimulator();
-
+        for (Faction* faction : instance->factions)
+        {
+            faction->createCountries();
+        }
     }
     return instance;
 }
@@ -200,4 +203,34 @@ void ConcreteSimulator::setLastResult(ActionResult result){
  */
 ActionResult ConcreteSimulator::getLastResult(){
     return lastResult;
+}
+
+/**
+ * @brief Constructs an image path baeed on passed in country
+ * @return std::string - The path to the image
+ */
+std::string ConcreteSimulator::getImagePath(CountryName country){
+    std::string path = "../Media/";
+    Country* countryPtr = nullptr;
+    for(Country* c : countries){
+        if(c->getName() == country){
+            countryPtr = c;
+            break;
+        }
+    }
+
+    if(countryPtr == nullptr){
+        return "";
+    }
+    else{
+      
+        std::string countryName = convert_country[countryPtr->getName()];
+        std::string factionName = convert_faction[countryPtr->getOwner()];
+        path += countryName;
+        path += factionName;
+        path += ".png";
+        return path;
+    }
+
+    return path;
 }

@@ -9,10 +9,14 @@
 ConcreteFaction::ConcreteFaction(FactionName name)
 {   
     this->name = name;
-    this->name = name;
-    
-    // Generate countries
-    if (name == Allies)
+}
+
+/**
+ * @brief Instantiates the countries for the faction.
+ */
+void ConcreteFaction::createCountries()
+{
+    if(this->name == Allies)
     {
         countries.push_back(new Country(CountryName::France, name, 3, 0)); 
         countries.push_back(new Country(CountryName::UnitedKingdom, name, 2, 1));

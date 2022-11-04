@@ -27,12 +27,16 @@ public:
     static ConcreteSimulator* getInstance();
     void setLastResult(ActionResult result);
     ActionResult getLastResult();
+    std::string getImagePath(CountryName country);
 
 protected:
     ConcreteSimulator();
     virtual ~ConcreteSimulator() = default;
     ConcreteSimulator(const ConcreteSimulator& other) = default;
     ConcreteSimulator& operator=(const ConcreteSimulator& other) = default;
+
+public:
+    std::vector<Country*> countries;
 
 private:
     std::vector<Faction*> factions;

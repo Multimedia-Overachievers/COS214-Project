@@ -11,7 +11,7 @@
  */
 enum FactionName 
 {
-    Allies,
+    Allies = 0,
     Axis
 };
 
@@ -21,7 +21,7 @@ enum FactionName
 enum CountryName 
 {
     // Allies
-    France,
+    France = 0,
     UnitedKingdom,
     UnitedStates,
     SovietUnion,
@@ -98,3 +98,33 @@ enum ActionResult {
     Draw,
     None
 };
+
+
+#ifndef GLOB_CONST_H
+#define GLOB_CONST_H 
+    #define stringify( name ) # name
+    
+    inline const char* convert_faction[] =
+    {
+        stringify(Allies),
+        stringify(Axis),
+    };
+
+    inline const char* convert_country[] =
+    {
+        stringify(France),
+        stringify(UnitedKingdom),
+        stringify(UnitedStates),
+        stringify(SovietUnion),
+        stringify(Belgium),
+        stringify(Netherlands),
+        
+
+        stringify(Germany),
+        stringify(Italy),
+        stringify(Japan),
+        stringify(Romania),
+        stringify(Hungary),
+        stringify(Bulgaria),
+    };
+#endif  

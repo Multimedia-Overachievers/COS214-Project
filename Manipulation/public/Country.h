@@ -31,6 +31,7 @@ public:
     int buffDefence(int defence);
     FactionName getOwner(){return this->owner;};
     ~Country();
+    CountryName getName(){return this->name;};
 
 private:
     map<Building, int> buildings;

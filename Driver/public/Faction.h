@@ -27,6 +27,8 @@ public:
     virtual void addCountry(Country* country) = 0;
     virtual void notify() = 0;
     virtual void changeState(ActionResult result, Faction* opposite = nullptr) = 0;
+    virtual void createCountries() = 0;
+    
 
 protected: 
     std::list<Country*> countries;

@@ -4,6 +4,7 @@
  *  Author: Keelan Matthews (u21549967)
  */
 
+#include "../../Driver/public/ConcreteSimulator.h"
 #include "../public/CountryObserver.h"
 #include "../public/Country.h"
 #include "../../Creation/public/Squad.h"
@@ -23,6 +24,7 @@ Country::Country(CountryName name, FactionName owner, int hospitals, int barrack
     buildings.insert(pair<Building, int>(Hospital, hospitals));
     buildings.insert(pair<Building, int>(Barracks, barracks));
     
+    ConcreteSimulator::getInstance()->countries.push_back(this);
     this->observer = new CountryObserver(this);
 }
 
