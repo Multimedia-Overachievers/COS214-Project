@@ -36,73 +36,83 @@
 
 
 #include <SFML/Graphics.hpp>
-#include <map>
 
-void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator){
-    /*
-        France ,
-        UnitedKingdom,
-        UnitedStates,
-        SovietUnion,
-        Belgium,
-        Netherlands,
-        
-        // Axis
-        Germany,
-        Italy,
-        Japan,
-        Romania,
-        Hungary,
-        Bulgaria,
-    */
-   
-    std::map<int, int> coords = {
-        {215, 310}, // France
-        {164, 104}, // UnitedKingdom
-        {63, 307},  // SovietUnion
-        {701, 0},   // UnitedStates
-        {342, 305}, // Belgium
-        {355, 267}, // Netherlands
-        {391, 240}, // Germany
-        {381, 431}, // Italy
-        {668, 626}, // Japan
-        {611, 396}, // Romania
-        {546, 401}, // Hungary
-        {647, 500}  // Bulgaria
-    };
+void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator){  
+    float x[] = {215, 164, 63, 701, 342, 355, 391, 381, 668, 611, 546, 647};
+    float y[] = {310, 104, 307, 0, 305, 267, 240, 431, 626, 396, 401, 500};
     
-    // //for each on enum country
-    // for (int it = 0; it < 12; it++){
-    // {
-    //     CountryName country = static_cast<CountryName>(it);
-    //     std::cout << convert_country[country] << std::endl;
-    // }
+    for(int i = 0; i < 12; i++){
+        sf::Texture texture;
+        texture.loadFromFile(simulator->getImagePath((CountryName)i));
+        sf::Sprite sprite(texture);
+
+        sprite.setPosition(x[i], y[i]);
+        window.draw(sprite);
+    }
+
+    //setup neutral teritory image
+    sf::Texture texture;
+    texture.loadFromFile("../Media/Neutral.png");
+    sf::Sprite sprite(texture);
+    sprite.setPosition(373, 0);
+    window.draw(sprite);
 }
+
+void swapFactions(ConcreteSimulator* simulator){
+    //random number between 0 and 12
+    int random = rand() % 12;
+    if(simulator->countries[random]->getOwner() == FactionName::Allies){
+        simulator->countries[random]->setOwner(FactionName::Axis);
+        simulator->captureCountry(simulator->countries[random], simulator->getFaction(Axis));
+    }
+    else{
+        simulator->countries[random]->setOwner(FactionName::Allies);
+        simulator->captureCountry(simulator->countries[random], simulator->getFaction(Allies));
+    }
+}
+
 
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(900, 900), "Memento Mori | Project");
-    ConcreteSimulator* simulator = ConcreteSimulator::getInstance();
 
-    //setupMap(window, simulator);
-    //simulator->getImagePath(CountryName::Germany)
+    ConcreteSimulator* simulator = ConcreteSimulator::getInstance();
 
     sf::Font font;
     if (!font.loadFromFile("../Media/Fonts/Cinzel.ttf"))
         return EXIT_FAILURE;
-    sf::Text text("bitaly", font, 50);
+    sf::Text text("Europe 1936", font, 50);
 
     while (window.isOpen())
     {
         sf::Event event;
         while (window.pollEvent(event))
-        {
+        {   
+            static bool lock = false;
             if (event.type == sf::Event::Closed)
                 window.close();
+
+            if (event.type == sf::Event::MouseButtonPressed)
+            {
+                if (event.mouseButton.button == sf::Mouse::Left && lock != true) 
+                {
+                    swapFactions(simulator);
+                    lock = true;
+                }   
+            }
+
+            if (event.type == sf::Event::MouseButtonReleased)
+            {
+                if (event.mouseButton.button == sf::Mouse::Left)
+                {
+                    lock = false; 
+                }
+            }
         }
 
-        window.clear();
-        //window.draw(sprite);
+        sf::Color color(255, 255, 255);
+        window.clear(color);
+        setupMap(window, simulator);
         window.draw(text);
         window.display();
     }
