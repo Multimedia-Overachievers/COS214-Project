@@ -30,8 +30,8 @@ MoveTroops::MoveTroops(Faction* destinationFaction, Country* destinationCountry,
 */
 void MoveTroops::execute()
 {
-    //TODO: remove building buff before you move the troops
-    for (int i = 0; this->sourceCountry->hasTroops() && i < this->numTroops; i++) {
+    for (int i = 0; this->sourceCountry->hasTroops() && i < this->numTroops; i++)
+    {
         Troops* myTroop = this->sourceCountry->removeTroop();
         myTroop->setState(Moving);
         this->destinationCountry->addTroop(myTroop);

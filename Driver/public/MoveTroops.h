@@ -9,6 +9,10 @@
 
 class Country;
 
+/**
+ * @brief A concrete command to move troops between countries.
+ */
+
 class MoveTroops: public FactionAction
 {
 public:

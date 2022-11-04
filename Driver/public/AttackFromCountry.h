@@ -9,6 +9,10 @@
 
 class Country;
 
+/**
+ * @brief A concrete command to allow countries to attack one another.
+ */
+
 class AttackFromCountry: public FactionAction 
 {
 public:

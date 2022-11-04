@@ -4,6 +4,11 @@
 
 class Country;
 
+/**
+ * @brief A concrete command to regenerate troops.
+ * Particularly when a country is running low on troops.
+ */
+
 class Restock: public FactionAction
 {
 private:
