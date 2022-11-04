@@ -19,10 +19,12 @@ void Restock::execute() {
     vector<Troops*> troops;
 
     //get the existing troops from the country
-    while (myCountry->hasTroops()) troops.push_back(myCountry->removeTroop());
+    while (myCountry->hasTroops())
+        troops.push_back(myCountry->removeTroop());
 
     //add the newly created troops
-    for (int i = 0; i < numTroops; i++) troops.push_back(new Soldiers(troopName, troopstate));
+    for (int i = 0; i < numTroops; i++)
+        troops.push_back(new Soldiers(troopName, troopstate));
 
     //build the platooon
     Soldiers* mySoldiers = new Soldiers(troopName, troopstate);

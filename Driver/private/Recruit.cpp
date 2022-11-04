@@ -17,7 +17,8 @@ Recruit::Recruit(Faction *myFaction, Country *myCountry, int numTroops, State tr
     mySoldiers = new Soldiers * [numTroops];
 
     //create the Troops and store in an array
-    for (int i = 0; i < numTroops; i++) {
+    for (int i = 0; i < numTroops; i++)
+    {
         //store in an array for execution
         mySoldiers[i] = new Soldiers(troopName, troopstate);
     }
