@@ -7,6 +7,8 @@
 #pragma once
 
 #include "./FactionState.h"
+#include "./DefensiveState.h"
+#include "./NeutralState.h"
 
 /**                         
  * @brief This class handles the aggressive attack strategy of a faction
