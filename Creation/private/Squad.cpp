@@ -54,15 +54,16 @@ int Squad::takeDMG(int total)
 string Squad::getReport()
 {
     string state;
-    switch(getState()){
-        case Ready:
-            state = "Ready";
-            break;
-        case Moving:
-            state = "Moving";
-            break;
-        case Defeated:
-            state = "Defeated";
+    switch (getState())
+    {
+    case Ready:
+        state = "Ready";
+        break;
+    case Moving:
+        state = "Moving";
+        break;
+    case Defeated:
+        state = "Defeated";
     }
     return "Squad: " + state + "\tHP: " + to_string(getTotalHP()) + "\tDMG: " + to_string(getTotalDMG()) + "\n";
 }
@@ -103,7 +104,7 @@ void Squad::build(vector<Troops *> squads)
  *
  * @param squad - the squad to be added, will be deleted (!)
  */
-void Squad::add(Troops * squad)
+void Squad::add(Troops *squad)
 {
     // recycle me if my state is DEFATED
     // otherwise do nothing
@@ -165,17 +166,18 @@ int Squad::getTotalDMG()
  *
  * @return int - the number of squads in the squad
  */
-int Squad::getTotalTroops(){
+int Squad::getTotalTroops()
+{
     return 1;
 }
 
 /**
  * @brief This function is used to create an iterator for the squad
  * @details This function will return a new SquadIterator
- * 
+ *
  * @return TroopIterator* - the iterator for the squad
  */
-TroopIterator * Squad::createIterator()
+TroopIterator *Squad::createIterator()
 {
     return new SquadIterator(this);
 }
@@ -183,7 +185,7 @@ TroopIterator * Squad::createIterator()
 /**
  * @brief This function is used to get the squads in the squad
  * @details This function will return a vector containing the squad
- * 
+ *
  * @return vector<Troops *> - a vector containing the squad
  */
 vector<Troops *> Squad::getTroops()

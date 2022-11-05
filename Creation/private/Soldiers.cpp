@@ -62,7 +62,7 @@ Soldiers::Soldiers(Name name, State state) : Troops(name, state)
  */
 Soldiers::~Soldiers()
 {
-    TroopIterator * it = createIterator();
+    TroopIterator *it = createIterator();
     it->first();
     while (!it->isDone())
     {
@@ -91,15 +91,18 @@ int Soldiers::takeDMG(int total)
     if (getState() != Defeated && getState() != Moving)
     {
         hp -= total;
+        TroopIterator *it = createIterator();
         if (hp <= 0)
         { // if the damage is greater than the total hp, the composite is automatically defeated
             setState(Defeated);
             setDMG(0);
             setHP(0);
             // set all my squads to defeated
-            for (int i = 0; i < squads.size(); i++)
+            it->first();
+            while (!it->isDone())
             {
-                squads[i]->takeDMG(total);
+                it->current()->takeDMG(total);
+                it->next();
             }
         }
         else
@@ -108,22 +111,19 @@ int Soldiers::takeDMG(int total)
             // start at the first squad
             // if that squad is defeated, let the next squad take the damage and so on
             int i = 0;
+            it->first();
             do
             {
-                if (squads[i]->getState() == Defeated || squads[i]->getState() == Moving)
-                { // skip this squad if it is defeated or moving
-                    i++;
-                }
-                else
+                if (squads[i]->getState() != Defeated || squads[i]->getState() != Moving)
                 {
-                    int DMGTaken = squads[i]->getTotalHP(); // get the total hp of the squad before attacking
-                    squads[i]->takeDMG(total);              // attack the squad
+                    int DMGTaken = it->current()->getTotalHP(); // get the total hp of the squad before attacking
+                    it->current()->takeDMG(total);              // attack the squad
                     // if the squad is defeated, subtract the damage taken (original HP) from the total damage needed to be distributed and move on to the next squad
                     // if it is not defeated, the total damage will move to <= 0 and thus the loop will end
                     total -= DMGTaken;
-                    i++;
                 }
-            } while (total > 0 && i < squads.size());
+                it->next();
+            } while (total > 0 && !it->isDone());
             // recalculate the total hp and dmg of the composite
             setHP(hp);
             setDMG(getTotalDMG());
@@ -131,6 +131,7 @@ int Soldiers::takeDMG(int total)
         // clean up any squads that are defeated
         clearSquads();
         changeName();
+        delete it;
     }
     return hp;
 }
@@ -172,10 +173,14 @@ string Soldiers::getReport()
     report += "Soldiers: " + name + " of " + to_string(squads.size()) + " troops\n";
     report += "\t HP: " + to_string(getTotalHP()) + " DMG: " + to_string(getTotalDMG()) + " State: " + state + "\n";
     // get the report of the squads
-    for (int i = 0; i < squads.size(); i++)
+    TroopIterator *it = createIterator();
+    it->first();
+    while (!it->isDone())
     {
-        report += "\t" + squads[i]->getReport();
+        report += it->current()->getReport();
+        it->next();
     }
+    delete it;
     return report;
 }
 
@@ -196,14 +201,18 @@ vector<Troops *> Soldiers::disband()
     {
         return vector<Troops *>();
     }
-    for (int i = 0; i < squads.size(); i++)
+    TroopIterator *it = createIterator();
+    it->first();
+    while (!it->isDone())
     {
-        vector<Troops *> temp = squads[i]->disband();
+        vector<Troops *> temp = it->current()->disband();
         move(temp.begin(), temp.end(), back_inserter(disbandedSquads));
         temp.clear();
+        it->next();
     }
     squads.clear();
     changeName();
+    delete it;
     return disbandedSquads;
 }
 
@@ -291,15 +300,18 @@ vector<Troops *> Soldiers::remove(int noToRemove)
     { // bounds checking
         noToRemove = this->squads.size();
     }
-    for (int i = 0; i < noToRemove; i++)
+    TroopIterator *it = createIterator();
+    it->first();
+    while (!it->isDone() && noToRemove > 0)
     {
-        removedSquads.push_back(this->squads[i]);
-        squads[i] = nullptr;
+        removedSquads.push_back(squads[it->getIndex()]);
+        squads.erase(squads.begin() + it->getIndex());
+        it->next();
     }
-    this->squads.erase(this->squads.begin(), this->squads.begin() + noToRemove);
     setHP(getTotalHP());
     setDMG(getTotalDMG());
     changeName();
+    delete it;
     return removedSquads;
 }
 
@@ -316,10 +328,14 @@ int Soldiers::getTotalHP()
         return 0;
     }
     int total = this->bonusHP;
-    for (int i = 0; i < squads.size(); i++)
+    TroopIterator *it = createIterator();
+    it->first();
+    while (!it->isDone())
     {
-        total += squads[i]->getTotalHP();
+        total += it->current()->getTotalHP();
+        it->next();
     }
+    delete it;
     return total;
 }
 
@@ -336,10 +352,14 @@ int Soldiers::getTotalDMG()
         return 0;
     }
     int total = this->bonusDMG;
-    for (int i = 0; i < squads.size(); i++)
+    TroopIterator *it = createIterator();
+    it->first();
+    while (!it->isDone())
     {
-        total += squads[i]->getTotalDMG();
+        total += it->current()->getTotalDMG();
+        it->next();
     }
+    delete it;
     return total;
 }
 
@@ -349,19 +369,19 @@ int Soldiers::getTotalDMG()
  *
  * @return int The total number of squads in the soldiers
  */
-int Soldiers::getTotalTroops(){
+int Soldiers::getTotalTroops()
+{
     int total = 0;
-    for (int i = 0; i < squads.size(); i++)
+    TroopIterator *it = createIterator();
+    it->first();
+    while (!it->isDone())
     {
-        total += squads[i]->getTotalTroops();
+        total += it->current()->getTotalTroops();
+        it->next();
     }
+    delete it;
     return total;
 }
-
-// TroopIterator * Soldiers::createIterator()
-// {
-//     return new SquadIterator(this);
-// }
 
 /**
  * @brief This function is used to change the state of the soldiers
@@ -371,10 +391,14 @@ int Soldiers::getTotalTroops(){
 void Soldiers::changeState()
 {
     Troops::changeState();
-    for (int i = 0; i < squads.size(); i++)
+    TroopIterator *it = createIterator();
+    it->first();
+    while (!it->isDone())
     {
-        squads[i]->changeState();
+        it->current()->changeState();
+        it->next();
     }
+    delete it;
 }
 
 /**
@@ -426,15 +450,19 @@ void Soldiers::changeName()
  */
 int Soldiers::clearSquads()
 {
-    for (int i = 0; i < this->squads.size(); i++)
+    TroopIterator *it = createIterator();
+    it->first();
+    while (!it->isDone())
     {
-        if (this->squads[i]->getState() == Defeated)
+        if (it->current()->getState() == Defeated)
         {
-            delete this->squads[i];
-            this->squads[i] = nullptr;
-            this->squads.erase(this->squads.begin() + i);
+            delete it->current();
+            squads[it->getIndex()] = nullptr;
+            squads.erase(squads.begin() + it->getIndex());
         }
+        it->next();
     }
+    delete it;
     return this->squads.size();
 }
 
@@ -443,7 +471,7 @@ int Soldiers::clearSquads()
  * @details This function will create a squadIterator for the soldiers
  * The squadIterator will be used to iterate through the squads vector
  * @attention The squadIterator will be deleted automatically when the soldiers is deleted
- * 
+ *
  * @return TroopIterator * The squadIterator for the soldiers
  */
 TroopIterator *Soldiers::createIterator()

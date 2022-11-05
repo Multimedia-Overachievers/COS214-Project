@@ -6,10 +6,10 @@
 
 #include "../public/Troops.h"
 
-Troops::Troops(Name name, State state){
+Troops::Troops(Name name, State state)
+{
     this->name = name;
     this->state = state;
 }
 
-Troops::~Troops() = default; //dtor
-
+Troops::~Troops() = default; // dtor
