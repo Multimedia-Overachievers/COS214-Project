@@ -149,3 +149,24 @@ void ConcreteFaction::changeState(ActionResult result, Faction* opposite)
 {
     stance->handleState(result, opposite, stance);
 }
+
+/**
+ * @brief returns the total number of troops from every country in a faction
+ * 
+ * @return int 
+ */
+int ConcreteFaction::getTotalTroops()
+{
+    int total = 0;
+    list<Country*>::iterator it;
+
+    for (it = this->countries.begin(); it != this->countries.end(); ++it)
+    {
+        if ((*it) != nullptr)
+        {
+            total += (*it)->getNumTroops();
+        }
+    }
+
+    return total;
+}

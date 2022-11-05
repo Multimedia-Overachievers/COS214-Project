@@ -97,14 +97,44 @@ int FactionState::getMorale()
  * if morale < 50, defensive; if morale >= 50 && morale < 75, neutral; if morale >= 75, aggressive
  * if opposite is null, morale *= 1.2
  * if the result is a win, morale *= 1.4, if the result is a loss, morale *= 0.6, if the result is a draw, morale *= 0.9
+ * if numTroops < 300, morale *= 0.8; if numTroops >= 300 && numTroops < 700, morale *= 1; if numTroops >= 700, morale *= 1.2
+ * if numCountries < 4, morale *= 0.8; if numCountries >= 4 && numCountries < 7, morale *= 1; if numCountries >= 7, morale *= 1.2
 */
 int FactionState::calculateMorale(ActionResult result, Faction* faction)
 {   
     double newMorale = this->getMorale();
     int numCountries = faction->getStrength();
-    int numTroops = 0; // replace with getTroops function when that gets implemented
+    int numTroops = faction->getTotalTroops();
 
     if (faction == nullptr)
+    {
+        newMorale *= 1.2;
+    }
+
+    // Total number of troops
+    if (numTroops < 300)
+    {
+        newMorale *= 0.8;
+    }
+    else if (numTroops >= 300 && numTroops < 700)
+    {
+        newMorale *= 1;
+    }
+    else if (numTroops >= 700)
+    {
+        newMorale *= 1.2;
+    }
+
+    // Total number of countries
+    if (numCountries < 4)
+    {
+        newMorale *= 0.8;
+    }
+    else if (numCountries >= 4 && numCountries < 7)
+    {
+        newMorale *= 1;
+    }
+    else if (numCountries >= 7)
     {
         newMorale *= 1.2;
     }
