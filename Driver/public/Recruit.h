@@ -11,7 +11,9 @@ class Recruit: public FactionAction
 private:
     Country* myCountry;
     int numTroops;
-    Soldiers** mySoldiers;
+    vector<Soldiers*> mySoldiers;
+    State troopstate;
+    Name troopName;
 public:
     Recruit(Faction* myFaction, Country* myCountry, int numTroops, State troopstate, Name troopName);
     virtual void execute();

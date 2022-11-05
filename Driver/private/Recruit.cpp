@@ -13,16 +13,11 @@
 Recruit::Recruit(Faction *myFaction, Country *myCountry, int numTroops, State troopstate, Name troopName)
                                                                                             : FactionAction(myFaction)
 {
-
-    mySoldiers = new Soldiers * [numTroops];
-
-    //create the Troops and store in an array
-    for (int i = 0; i < numTroops; i++)
-    {
-        //store in an array for execution
-        mySoldiers[i] = new Soldiers(troopName, troopstate);
-    }
-
+    this->myFaction = myFaction;
+    this->myCountry = myCountry;
+    this->numTroops = numTroops;
+    this->troopName = troopName;
+    this->troopstate = troopstate;
 }
 
 /**
@@ -30,12 +25,8 @@ Recruit::Recruit(Faction *myFaction, Country *myCountry, int numTroops, State tr
  */
 void Recruit::execute()
 {
-    SquadIterator iter(*mySoldiers);
-    while (!iter.isDone())
-        myCountry->addTroop(iter.current());
-
-    //Call add troop on country
-    //Troops will change state depending on the size of the array
+    for (int i = 0; i < numTroops; i++)
+        myCountry->addTroop(new Squad(this->troopName, this->troopstate));
 }
 
 //No need to deallocate array, as Country will delete the created pointers
