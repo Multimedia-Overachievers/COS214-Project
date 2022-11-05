@@ -13,26 +13,28 @@
  * @details This class is used to iterate through the troops
  * This is the Iterator in the Iterator Design Pattern
  * This is an abstract class
- * 
+ *
  * @author Tayla Orsmond
  * @date 11/05/2022
- * 
+ *
  */
 class Troops;
 class Soldiers;
-class TroopIterator{
+class TroopIterator
+{
     friend class Troops;
     friend class Soldiers;
+
 public:
     virtual ~TroopIterator();
-    virtual Troops * first() = 0;
-    virtual Troops * next() = 0;
+    virtual Troops *first() = 0;
+    virtual Troops *next() = 0;
     virtual bool isDone() = 0;
-    virtual Troops* current() = 0;
-    
+    virtual Troops *current() = 0;
+
 protected:
     TroopIterator();
-    TroopIterator(Troops * soldiers);
-    Troops * mytroops;
+    TroopIterator(Troops *soldiers);
+    Troops *mytroops;
     int index;
 };

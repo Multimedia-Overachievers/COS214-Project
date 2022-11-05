@@ -8,13 +8,14 @@
 
 TroopIterator::TroopIterator() = default;
 
-TroopIterator::TroopIterator(Troops * soldiers)
+TroopIterator::TroopIterator(Troops *soldiers)
 {
     index = 0;
     mytroops = soldiers;
 }
 
-TroopIterator::~TroopIterator(){
+TroopIterator::~TroopIterator()
+{
     index = 0;
     mytroops = nullptr;
 }
