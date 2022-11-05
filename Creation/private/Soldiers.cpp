@@ -320,6 +320,7 @@ void Soldiers::build(Troops *squad)
 /**
  * @brief This function is used to add a number of squads to the soldiers
  * @details This function will add a number of squads to the squads vector
+ * @note This function adds default squads
  * 
  * @param noToAdd The number of squads to add 
  */
