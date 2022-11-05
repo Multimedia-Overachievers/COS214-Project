@@ -11,13 +11,11 @@
  * @param troopstate The state in which the troops will be created
  * @param troopName The name that all the troops that are recruited will have
  */
-Recruit::Recruit(Faction *myFaction, Country *myCountry, int numTroops, Name troopName)
-                                                                        : FactionAction(myFaction)
+Recruit::Recruit(Faction *myFaction, Country *myCountry, int numTroops) : FactionAction(myFaction)
 {
     this->myFaction = myFaction;
     this->myCountry = myCountry;
     this->numTroops = numTroops;
-    this->troopName = troopName;
 }
 
 /**
@@ -25,15 +23,7 @@ Recruit::Recruit(Faction *myFaction, Country *myCountry, int numTroops, Name tro
  */
 void Recruit::execute()
 {
-    vector<Troops*> newTroops;
-
-    while (myCountry->hasTroops())
-        newTroops.push_back(myCountry->removeTroop());
-
-    for (int i = 0; i < numTroops; i++)
-        newTroops.push_back(new Squad(this->troopName, Ready));
-
-        myCountry->addTroops(newTroops);
+    myCountry->addTroops(numTroops);
 }
 
 //No need to deallocate array, as Country will delete the created pointers
