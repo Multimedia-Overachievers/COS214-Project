@@ -1,6 +1,7 @@
 #include "../public/Recruit.h"
 #include "../../Creation/public/Troops.h"
 #include "../../Creation/public/SquadIterator.h"
+#include "../../Driver/public/enums.h"
 
 /**
  * @brief Instantiate a recruit object
@@ -10,14 +11,13 @@
  * @param troopstate The state in which the troops will be created
  * @param troopName The name that all the troops that are recruited will have
  */
-Recruit::Recruit(Faction *myFaction, Country *myCountry, int numTroops, State troopstate, Name troopName)
-                                                                                            : FactionAction(myFaction)
+Recruit::Recruit(Faction *myFaction, Country *myCountry, int numTroops, Name troopName)
+                                                                        : FactionAction(myFaction)
 {
     this->myFaction = myFaction;
     this->myCountry = myCountry;
     this->numTroops = numTroops;
     this->troopName = troopName;
-    this->troopstate = troopstate;
 }
 
 /**
@@ -25,8 +25,15 @@ Recruit::Recruit(Faction *myFaction, Country *myCountry, int numTroops, State tr
  */
 void Recruit::execute()
 {
+    vector<Troops*> newTroops;
+
+    while (myCountry->hasTroops())
+        newTroops.push_back(myCountry->removeTroop());
+
     for (int i = 0; i < numTroops; i++)
-        myCountry->addTroop(new Squad(this->troopName, this->troopstate));
+        newTroops.push_back(new Squad(this->troopName, Ready));
+
+        myCountry->addTroops(newTroops);
 }
 
 //No need to deallocate array, as Country will delete the created pointers

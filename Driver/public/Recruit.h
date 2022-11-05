@@ -15,6 +15,6 @@ private:
     State troopstate;
     Name troopName;
 public:
-    Recruit(Faction* myFaction, Country* myCountry, int numTroops, State troopstate, Name troopName);
+    Recruit(Faction *myFaction, Country *myCountry, int numTroops, Name troopName);
     virtual void execute();
 };

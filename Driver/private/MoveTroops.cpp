@@ -30,10 +30,11 @@ MoveTroops::MoveTroops(Faction* destinationFaction, Country* destinationCountry,
 */
 void MoveTroops::execute()
 {
-    for (int i = 0; this->sourceCountry->hasTroops() && i < this->numTroops; i++)
+    vector<Troops*> removed = this->sourceCountry->removeTroops(numTroops);
+
+    for (Troops* troop : removed)
     {
-        Troops* myTroop = this->sourceCountry->removeTroop();
-        myTroop->setState(Moving);
-        this->destinationCountry->addTroop(myTroop);
+        troop->setState(Moving);
+        this->destinationCountry->addTroops(troop);
     }
 }
