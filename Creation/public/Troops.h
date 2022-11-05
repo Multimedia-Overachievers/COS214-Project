@@ -42,17 +42,6 @@ public:
     virtual int getTotalTroops() = 0;
     enum State getState() { return this->state; }
     enum Name getName() { return this->name; }
-    void changeState()
-    {
-        if (this->state == State::Moving)
-        {
-            this->state = State::Ready;
-        }
-        else if (this->state == State::Ready)
-        {
-            this->state = State::Moving;
-        }
-    };
 
 protected:
     void setState(State state) { this->state = state; }

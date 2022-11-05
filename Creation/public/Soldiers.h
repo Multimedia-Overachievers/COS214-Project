@@ -38,9 +38,9 @@ public:
     int getTotalHP();
     int getTotalDMG();
     int getTotalTroops();
-    void changeState();
 
 private:
+    void setState(State state);
     void changeName();
     int clearSquads();
     TroopIterator *createIterator();
