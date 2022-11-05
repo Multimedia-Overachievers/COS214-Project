@@ -28,7 +28,7 @@ Country::Country(CountryName name, FactionName owner, int hospitals, int barrack
 
     ConcreteSimulator::getInstance()->countries.push_back(this);
     this->observer = new CountryObserver(this);
-    this->troops = nullptr;
+    this->myTroops = nullptr;
 }
 
 /**
@@ -37,7 +37,7 @@ Country::Country(CountryName name, FactionName owner, int hospitals, int barrack
  */
 bool Country::hasTroops()
 {
-    return this->troops != nullptr && this->troops->getTotalTroops() > 0;
+    return this->myTroops != nullptr && this->myTroops->getTotalTroops() > 0;
 }
 
 /**
@@ -48,7 +48,7 @@ bool Country::hasTroops()
  */
 vector<Troops *> Country::removeAllTroops()
 {
-    return this->troops->disband();
+    return this->myTroops->disband();
 }
 
 /**
@@ -59,7 +59,7 @@ vector<Troops *> Country::removeAllTroops()
  */
 vector<Troops *> Country::removeTroops(int noToRemove)
 {
-    return this->troops->disband(noToRemove);
+    return this->myTroops->disband(noToRemove);
 }
 
 /**
@@ -70,11 +70,11 @@ vector<Troops *> Country::removeTroops(int noToRemove)
  */
 void Country::addTroops(vector<Troops *> troops)
 {
-    if (troops == nullptr)
+    if (this->myTroops == nullptr)
     {
-        this->troops = new Soldiers();
+        this->myTroops = new Soldiers();
     }
-    this->troops->build(troops);
+    this->myTroops->build(troops);
 }
 
 /**
@@ -85,11 +85,11 @@ void Country::addTroops(vector<Troops *> troops)
  */
 void Country::addTroops(Troops *troop)
 {
-    if (troops == nullptr)
+    if (this->myTroops == nullptr)
     {
-        this->troops = new Soldiers();
+        this->myTroops = new Soldiers();
     }
-    this->troops->build(troop);
+    this->myTroops->build(troop);
 }
 
 /**
@@ -100,11 +100,11 @@ void Country::addTroops(Troops *troop)
  */
 void Country::addTroops(int noToAdd)
 {
-    if (troops == nullptr)
+    if (this->myTroops == nullptr)
     {
-        this->troops = new Soldiers();
+        this->myTroops = new Soldiers();
     }
-    this->troops->build(noToAdd);
+    this->myTroops->build(noToAdd);
 }
 
 /**
@@ -161,7 +161,7 @@ void Country::invade(Country *country)
  */
 int Country::takeDMG(int damage)
 {
-    return this->troops->takeDMG(damage);
+    return this->myTroops->takeDMG(damage);
 }
 
 /**
@@ -176,7 +176,7 @@ void Country::conquer(Country *invader)
 Country::~Country()
 {
     delete this->observer;
-    delete troops;
+    delete this->myTroops;
 }
 
 /**
@@ -186,7 +186,7 @@ Country::~Country()
  */
 int Country::buffDMG()
 {
-    int damage = this->troops->getTotalDMG();
+    int damage = this->myTroops->getTotalDMG();
     return damage + (damage * (buildings[Barracks] * 0.05));
 }
 
@@ -197,7 +197,7 @@ int Country::buffDMG()
  */
 int Country::buffDefence()
 {
-    int defence = this->troops->getTotalHP();
+    int defence = this->myTroops->getTotalHP();
     return defence + (defence * (buildings[Hospital] * 0.05));
 }
 
@@ -207,5 +207,5 @@ int Country::buffDefence()
  */
 int Country::getNumTroops()
 {
-    return troops->getTotalTroops();
+    return this->myTroops->getTotalTroops();
 }
