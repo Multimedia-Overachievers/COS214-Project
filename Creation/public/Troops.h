@@ -17,7 +17,7 @@ using namespace std;
  * This is an abstract class
  * 
  * @author Tayla Orsmond
- * @date 10/24/2022
+ * @date 11/05/2022
  * 
  */
 
@@ -30,13 +30,23 @@ class Troops
         virtual int takeDMG(int total) = 0;
         virtual string getReport() = 0;
         virtual vector<Troops *> disband() = 0;
-        virtual void build(vector<Troops *>& squads) = 0;
+        virtual void build(vector<Troops *> squads) = 0;
         virtual void add(Troops * squad) = 0;
         virtual vector<Troops *> remove(int noToRemove) = 0;
         virtual int getTotalHP() = 0;
         virtual int getTotalDMG() = 0;
+        // virtual TroopIterator* createIterator() = 0;
+        // virtual int getTotalTroops() = 0;
         enum State getState(){return this->state;}
         enum Name getName(){return this->name;}
+        void changeState(){
+            if(this->state == State::Moving){
+                this->state = State::Ready;
+            }
+            else if(this->state == State::Ready){
+                this->state = State::Moving;
+            }
+        };
 
     protected:
         void setState(State state){this->state = state;}
