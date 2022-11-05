@@ -1,31 +1,31 @@
 /*
- *  AggressiveState.cpp
+ *  DefensiveState.cpp
  *  Created on: 05/11/2022.
  *  Author: Dhairiya Chhipa (u21437841)
  */
 
-#include "../public/AggressiveState.h"
+#include "../public/DefensiveState.h"
 
 /**
- * @brief Construct a new Aggressive State:: Aggressive State object
+ * @brief Construct a new Defensive State:: Defensive State object
  * 
  */
-AggressiveState::AggressiveState() {};
+DefensiveState::DefensiveState() {};
 
 /**
- * @brief Destroy the Aggressive State:: Aggressive State object
+ * @brief Destroy the Defensive State:: Defensive State object
  * 
  */
-AggressiveState::~AggressiveState() {};
+DefensiveState::~DefensiveState() {};
 
 /**
- * @brief Handles the changing from the agressive state to another state
+ * @brief Handles the changing from the defensive state to another state
  * 
  * @param result State object, can be 'AggressiveState', 'NeutralState', 'DefensiveState'
  * @param faction Faction object
  * @param state FactionName enum, can be 'Allies', 'Axis'
  */
-void AggressiveState::handleState(ActionResult result, Faction* faction, FactionState* state)
+void DefensiveState::handleState(ActionResult result, Faction* faction, FactionState* state)
 {
     int morale = calculateMorale(result, faction);
     FactionState* newState = nullptr;
@@ -33,7 +33,8 @@ void AggressiveState::handleState(ActionResult result, Faction* faction, Faction
 
     if (morale <= 25)
     {
-        newState = new DefensiveState();
+        state->printState(faction->getName(), "defensive", false);
+        return;
     }
     else if (morale > 25 && morale <= 50)
     {
@@ -41,11 +42,10 @@ void AggressiveState::handleState(ActionResult result, Faction* faction, Faction
     }
     else if (morale >= 75)
     {
-        state->printState(faction->getName(), "aggressive", false);
-        return;
+        newState = new AggressiveState();
     }
 
     deletePreviousState(oldState);
     state = newState;
-    state->printState(faction->getName(), "aggressive", true);
+    state->printState(faction->getName(), "defensive", true);
 }

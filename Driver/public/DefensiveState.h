@@ -7,6 +7,8 @@
 #pragma once
 
 #include "./FactionState.h"
+#include "./AggressiveState.h"
+#include "./NeutralState.h"
 
 /**                         
  * @brief This class handles the passive attack strategy of a faction
@@ -15,6 +17,6 @@ class DefensiveState : public FactionState
 {                           
 public:
     DefensiveState();
-    void handleState(ActionResult, Faction*, FactionState*) override;
     virtual ~DefensiveState();
+    void handleState(ActionResult, Faction*, FactionState*) override;
 };
