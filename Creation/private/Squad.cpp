@@ -168,3 +168,27 @@ int Squad::getTotalDMG()
 int Squad::getTotalTroops(){
     return 1;
 }
+
+/**
+ * @brief This function is used to create an iterator for the squad
+ * @details This function will return a new SquadIterator
+ * 
+ * @return TroopIterator* - the iterator for the squad
+ */
+TroopIterator * Squad::createIterator()
+{
+    return new SquadIterator(this);
+}
+
+/**
+ * @brief This function is used to get the squads in the squad
+ * @details This function will return a vector containing the squad
+ * 
+ * @return vector<Troops *> - a vector containing the squad
+ */
+vector<Troops *> Squad::getTroops()
+{
+    vector<Troops *> squads;
+    squads.push_back(this);
+    return squads;
+}

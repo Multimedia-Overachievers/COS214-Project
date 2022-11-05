@@ -6,8 +6,6 @@
 
 #pragma once
 #include "./TroopIterator.h"
-#include "./Soldiers.h"
-#include "./Squad.h"
 
 /**
  * @brief The SquadIterator class
@@ -16,22 +14,20 @@
  * This class inherits from the TroopIterator class
  * 
  * @author Tayla Orsmond
- * @date 10/19/2022
+ * @date 11/05/2022
  * 
  */
-class Soldiers;
 class SquadIterator : public TroopIterator{
+    friend class Troops;
+    friend class Soldiers;
+    friend class Squad;
 public:
-    SquadIterator();
-    SquadIterator(Soldiers * soldiers);
     ~SquadIterator();
     Troops * first();
     Troops * next();
     bool isDone();
-    Troops * current();
-    vector<Troops *>::iterator at();
-    
+    Troops * current();    
 private:
-    vector<Troops *>::iterator it;
-    Soldiers * mySoldiers;
+    SquadIterator();
+    SquadIterator(Troops * soldiers);
 };

@@ -6,48 +6,43 @@
 
 #include "../public/SquadIterator.h"
 
-SquadIterator::SquadIterator()
-{
-    it = vector<Troops *>::iterator();
-    mySoldiers = nullptr;
-}
+SquadIterator::SquadIterator() : TroopIterator() {}
 
-SquadIterator::SquadIterator(Soldiers * soldiers)
-{
-    it = soldiers->squads.begin();
-    mySoldiers = soldiers;
-}
+SquadIterator::SquadIterator(Troops * soldiers) : TroopIterator(soldiers) {}
 
-SquadIterator::~SquadIterator()
-{
-    it = vector<Troops *>::iterator();
-    mySoldiers = nullptr;
-}
+SquadIterator::~SquadIterator() = default;
 
 Troops * SquadIterator::first()
 {
-    it = mySoldiers->squads.begin();
-    return *it;
+    index = 0;
+    if(mytroops->getTroops().size() > 0)
+    {
+        return mytroops->getTroops().at(index);
+    }
+    return nullptr;
 }
 
 Troops * SquadIterator::next()
 {
-    it++;
-    return *it;
+    index++;
+    if (index < mytroops->getTroops().size())
+    {
+        return mytroops->getTroops().at(index);
+    }
+    return nullptr;
 }
 
 bool SquadIterator::isDone()
 {
-    return it == mySoldiers->squads.end();
+    return index >= mytroops->getTroops().size();
 }
 
 Troops * SquadIterator::current()
 {
-    return *it;
-}
-
-vector<Troops *>::iterator SquadIterator::at()
-{
-    return it;
+    if (index < mytroops->getTroops().size())
+    {
+        return mytroops->getTroops().at(index);
+    }
+    return nullptr;
 }
 

@@ -36,11 +36,12 @@ class Soldiers : public Troops
         int getTotalHP();
         int getTotalDMG();
         int getTotalTroops();
-        // TroopIterator* createIterator();
         void changeState();
     private:
         void changeName();
         int clearSquads();
+        TroopIterator * createIterator();
+        vector<Troops *> getTroops();
         vector<Troops *> squads;
         int bonusHP;
         int bonusDMG;

@@ -20,10 +20,12 @@ using namespace std;
  * @date 11/05/2022
  * 
  */
-
+class TroopIterator;
 class Troops 
 {
     friend class MoveTroops;
+    friend class TroopIterator;
+    friend class SquadIterator;
     public:
         Troops(Name name = SquadStd, State state = Ready);
         virtual ~Troops();
@@ -36,7 +38,6 @@ class Troops
         virtual int getTotalHP() = 0;
         virtual int getTotalDMG() = 0;
         virtual int getTotalTroops() = 0;
-        // virtual TroopIterator * createIterator() = 0;
         enum State getState(){return this->state;}
         enum Name getName(){return this->name;}
         void changeState(){
@@ -57,6 +58,8 @@ class Troops
         int getDMG(){return this->dmg;}
 
     private:
+        virtual TroopIterator * createIterator() = 0;
+        virtual vector<Troops *> getTroops() = 0;
         int dmg;
         int hp;
         State state;

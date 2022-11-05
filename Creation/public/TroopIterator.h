@@ -7,7 +7,7 @@
 #pragma once
 #include <vector>
 #include <string>
-
+#include "./Troops.h"
 /**
  * @brief The TroopIterator class
  * @details This class is used to iterate through the troops
@@ -15,19 +15,24 @@
  * This is an abstract class
  * 
  * @author Tayla Orsmond
- * @date 10/19/2022
+ * @date 11/05/2022
  * 
  */
 class Troops;
+class Soldiers;
 class TroopIterator{
+    friend class Troops;
+    friend class Soldiers;
 public:
     virtual ~TroopIterator();
     virtual Troops * first() = 0;
     virtual Troops * next() = 0;
     virtual bool isDone() = 0;
     virtual Troops* current() = 0;
-    virtual std::vector<Troops *>::iterator at() = 0;
     
 protected:
     TroopIterator();
+    TroopIterator(Troops * soldiers);
+    Troops * mytroops;
+    int index;
 };

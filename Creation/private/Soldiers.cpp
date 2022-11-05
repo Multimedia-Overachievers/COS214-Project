@@ -62,11 +62,16 @@ Soldiers::Soldiers(Name name, State state) : Troops(name, state)
  */
 Soldiers::~Soldiers()
 {
-    for (int i = 0; i < squads.size(); i++)
+    TroopIterator * it = createIterator();
+    it->first();
+    while (!it->isDone())
     {
-        delete squads[i];
+        delete it->current();
+        it->next();
     }
     squads.clear();
+    delete it;
+    it = nullptr;
 }
 
 /**
@@ -431,4 +436,27 @@ int Soldiers::clearSquads()
         }
     }
     return this->squads.size();
+}
+
+/**
+ * @brief This function is used to create a squadIterator for the soldiers
+ * @details This function will create a squadIterator for the soldiers
+ * The squadIterator will be used to iterate through the squads vector
+ * @attention The squadIterator will be deleted automatically when the soldiers is deleted
+ * 
+ * @return TroopIterator * The squadIterator for the soldiers
+ */
+TroopIterator *Soldiers::createIterator()
+{
+    return new SquadIterator(this);
+}
+/**
+ * @brief This function is used to get the squads vector
+ * @details This function will return the squads vector
+ *
+ * @return vector<Troops *> The squads vector
+ */
+vector<Troops *> Soldiers::getTroops()
+{
+    return this->squads;
 }

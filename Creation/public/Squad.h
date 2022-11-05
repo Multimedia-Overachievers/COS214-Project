@@ -6,6 +6,7 @@
 
 #pragma once
 #include "./Troops.h"
+#include "./SquadIterator.h"
 
 using namespace std;
 /**
@@ -32,5 +33,7 @@ class Squad : public Troops
         int getTotalHP();
         int getTotalDMG();
         int getTotalTroops();
-        // TroopIterator * createIterator();
+    private:
+        TroopIterator * createIterator();
+        vector<Troops *> getTroops();
 };
