@@ -23,23 +23,25 @@ using namespace std;
  */
 class Soldiers : public Troops
 {
+    friend class SquadIterator;
     public:
         Soldiers(Name name, State state);
         ~Soldiers();
         int takeDMG(int total);
         string getReport();
         vector<Troops *> disband();
-        void build(vector<Troops *>& squads);
+        void build(vector<Troops *> squads);
         void add(Troops * squad);
         vector<Troops *> remove(int noToRemove);
         int getTotalHP();
         int getTotalDMG();
-        TroopIterator* createIterator();
-        
+        // TroopIterator* createIterator();
+        int getTotalTroops();
+        void changeState();
     private:
         void changeName();
         int clearSquads();
         vector<Troops *> squads;
-        int compositeBuff;
-        friend class SquadIterator;
+        int bonusHP;
+        int bonusDMG;
 };
