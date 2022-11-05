@@ -35,8 +35,8 @@ class Soldiers : public Troops
         vector<Troops *> remove(int noToRemove);
         int getTotalHP();
         int getTotalDMG();
-        // TroopIterator* createIterator();
         int getTotalTroops();
+        // TroopIterator* createIterator();
         void changeState();
     private:
         void changeName();

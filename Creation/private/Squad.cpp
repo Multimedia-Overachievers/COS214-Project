@@ -158,3 +158,13 @@ int Squad::getTotalDMG()
     }
     return this->getDMG();
 }
+
+/**
+ * @brief This function is used to get the number of squads in the squad
+ * @details This function will return 1 (the squad itself)
+ *
+ * @return int - the number of squads in the squad
+ */
+int Squad::getTotalTroops(){
+    return 1;
+}

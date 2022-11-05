@@ -7,7 +7,6 @@
 #include <iostream>
 #include "../public/Soldiers.h"
 
-
 /**
  * @brief Construct a new Soldiers:: Soldiers object
  * @details Defaults everything to SquadStd if no parameters are provided
@@ -340,6 +339,40 @@ int Soldiers::getTotalDMG()
 }
 
 /**
+ * @brief This function is used to get the total number of squads in the soldiers
+ * @details This function will get the total number of squads in the soldiers by iterating through the squads and adding their number
+ *
+ * @return int The total number of squads in the soldiers
+ */
+int Soldiers::getTotalTroops(){
+    int total = 0;
+    for (int i = 0; i < squads.size(); i++)
+    {
+        total += squads[i]->getTotalTroops();
+    }
+    return total;
+}
+
+// TroopIterator * Soldiers::createIterator()
+// {
+//     return new SquadIterator(this);
+// }
+
+/**
+ * @brief This function is used to change the state of the soldiers
+ * @details This function will change the state of the soldiers and all squads in the vector
+ *
+ */
+void Soldiers::changeState()
+{
+    Troops::changeState();
+    for (int i = 0; i < squads.size(); i++)
+    {
+        squads[i]->changeState();
+    }
+}
+
+/**
  * @brief This function is used to dynamically change the name of the soldiers
  * The name of the composite (and its buff if it has one) will be changed to reflect the number of squads it contains
  *
@@ -398,23 +431,4 @@ int Soldiers::clearSquads()
         }
     }
     return this->squads.size();
-}
-
-// TroopIterator * Soldiers::createIterator()
-// {
-//     return new SquadIterator(this);
-// }
-
-/**
- * @brief This function is used to change the state of the soldiers
- * @details This function will change the state of the soldiers and all squads in the vector
- *
- */
-void Soldiers::changeState()
-{
-    Troops::changeState();
-    for (int i = 0; i < squads.size(); i++)
-    {
-        squads[i]->changeState();
-    }
 }

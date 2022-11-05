@@ -35,8 +35,8 @@ class Troops
         virtual vector<Troops *> remove(int noToRemove) = 0;
         virtual int getTotalHP() = 0;
         virtual int getTotalDMG() = 0;
-        // virtual TroopIterator* createIterator() = 0;
-        // virtual int getTotalTroops() = 0;
+        virtual int getTotalTroops() = 0;
+        // virtual TroopIterator * createIterator() = 0;
         enum State getState(){return this->state;}
         enum Name getName(){return this->name;}
         void changeState(){

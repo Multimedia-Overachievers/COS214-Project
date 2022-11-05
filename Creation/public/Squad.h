@@ -31,5 +31,6 @@ class Squad : public Troops
         vector<Troops *> remove(int noToRemove);
         int getTotalHP();
         int getTotalDMG();
-        //TroopIterator * createIterator();
+        int getTotalTroops();
+        // TroopIterator * createIterator();
 };
