@@ -25,7 +25,7 @@ class Troops
 {
     friend class MoveTroops;
     public:
-        Troops(Name name, State state);
+        Troops(Name name = SquadStd, State state = Ready);
         virtual ~Troops();
         virtual int takeDMG(int total) = 0;
         virtual string getReport() = 0;

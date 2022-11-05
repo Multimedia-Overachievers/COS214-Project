@@ -18,14 +18,14 @@ using namespace std;
  * This class inherits from the Troops class
  * 
  * @author Tayla Orsmond
- * @date 10/24/2022
+ * @date 11/05/2022
  * 
  */
 class Soldiers : public Troops
 {
     friend class SquadIterator;
     public:
-        Soldiers(Name name, State state);
+        Soldiers(Name name = SquadStd, State state = Ready);
         ~Soldiers();
         int takeDMG(int total);
         string getReport();
