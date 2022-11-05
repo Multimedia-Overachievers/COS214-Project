@@ -10,7 +10,7 @@
  * @brief Construct a new Defensive State:: Defensive State object
  * 
  */
-DefensiveState::DefensiveState() {};
+DefensiveState::DefensiveState(int newMorale) : FactionState(newMorale) {};
 
 /**
  * @brief Destroy the Defensive State:: Defensive State object
@@ -27,23 +27,23 @@ DefensiveState::~DefensiveState() {};
  */
 void DefensiveState::handleState(ActionResult result, Faction* faction, FactionState* state)
 {
-    int morale = calculateMorale(result, faction);
+    int newMorale = calculateMorale(result, faction);
     FactionState* newState = nullptr;
     FactionState* oldState = state;
     string stateName = "defensive";
 
-    if (morale <= 25)
+    if (newMorale < 50)
     {
-        state->printState(faction->getName(), stateName, false);
+        this->printState(faction->getName(), stateName, false);
         return;
     }
-    else if (morale > 25 && morale <= 50)
+    else if (newMorale >= 50 && newMorale < 75)
     {
-        newState = new NeutralState();
+        newState = new NeutralState(newMorale);
     }
-    else if (morale >= 75)
+    else if (newMorale >= 75)
     {
-        newState = new AggressiveState();
+        newState = new AggressiveState(newMorale);
     }
 
     deletePreviousState(oldState);

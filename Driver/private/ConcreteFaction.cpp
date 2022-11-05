@@ -9,6 +9,7 @@
 ConcreteFaction::ConcreteFaction(FactionName name)
 {   
     this->name = name;
+    this->stance = new NeutralState(50);
 }
 
 /**

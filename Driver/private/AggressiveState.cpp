@@ -10,7 +10,7 @@
  * @brief Construct a new Aggressive State:: Aggressive State object
  * 
  */
-AggressiveState::AggressiveState() {};
+AggressiveState::AggressiveState(int newMorale) : FactionState(newMorale) {};
 
 /**
  * @brief Destroy the Aggressive State:: Aggressive State object
@@ -22,27 +22,27 @@ AggressiveState::~AggressiveState() {};
  * @brief Handles the changing from the agressive state to another state
  * 
  * @param result State object, can be 'AggressiveState', 'NeutralState', 'DefensiveState'
- * @param faction Faction object
+ * @param faction Opposite Faction object
  * @param state FactionName enum, can be 'Allies', 'Axis'
  */
 void AggressiveState::handleState(ActionResult result, Faction* faction, FactionState* state)
 {
-    int morale = calculateMorale(result, faction);
+    int newMorale = calculateMorale(result, faction);
     FactionState* newState = nullptr;
     FactionState* oldState = state;
     string stateName = "aggressive";
 
-    if (morale <= 25)
+    if (newMorale < 50)
     {
-        newState = new DefensiveState();
+        newState = new DefensiveState(newMorale);
     }
-    else if (morale > 25 && morale <= 50)
+    else if (newMorale >= 50 && newMorale < 75)
     {
-        newState = new NeutralState();
+        newState = new NeutralState(newMorale);
     }
-    else if (morale >= 75)
+    else if (newMorale >= 75)
     {
-        state->printState(faction->getName(), stateName, false);
+        this->printState(faction->getName(), stateName, false);
         return;
     }
 

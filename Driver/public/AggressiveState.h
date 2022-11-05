@@ -16,7 +16,7 @@
 class AggressiveState : public FactionState
 {                           
 public:
-    AggressiveState();
+    AggressiveState(int);
     virtual ~AggressiveState();
     void handleState(ActionResult, Faction*, FactionState*) override;
 };

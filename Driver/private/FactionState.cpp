@@ -10,7 +10,10 @@
  * @brief Construct a new Faction State:: Faction State object
  * 
  */
-FactionState::FactionState() {};
+FactionState::FactionState(int newMorale) 
+{
+    morale = newMorale;
+};
 
 /**
  * @brief Destroy the Faction State:: Faction State object
@@ -75,12 +78,55 @@ void FactionState::deletePreviousState(FactionState* state)
 }
 
 /**
- * @brief Calculate the morale of a faction based on: the number of troops, number of countries in the faction and the result of a battle
+ * @brief Returns the current morale of a Faction
  * 
- * @param faction Faction object
  * @return int 
  */
+int FactionState::getMorale()
+{
+    return morale;
+}
+
+/**
+ * @brief Calculate the morale of a faction based on: the number of troops, number of countries in the faction and the result of a battle
+ * 
+ * @param faction Opposite Faction object
+ * @return int 
+ */
+/*
+ * if morale < 50, defensive; if morale >= 50 && morale < 75, neutral; if morale >= 75, aggressive
+ * if opposite is null, morale *= 1.2
+ * if the result is a win, morale *= 1.4, if the result is a loss, morale *= 0.6, if the result is a draw, morale *= 0.9
+*/
 int FactionState::calculateMorale(ActionResult result, Faction* faction)
 {   
+    double newMorale = this->getMorale();
     int numCountries = faction->getStrength();
+    int numTroops = 0; // replace with getTroops function when that gets implemented
+
+    if (faction == nullptr)
+    {
+        newMorale *= 1.2;
+    }
+
+    switch (result)
+    {
+        case Win:
+            newMorale *= 1.4;
+            break;
+
+        case Loss:
+            newMorale *= 0.6;
+            break;
+
+        case Draw:
+            newMorale *= 0.6;
+            break;  
+        
+        default:
+            newMorale *= 1;
+            break;
+    }
+
+    return (int) newMorale;
 }   

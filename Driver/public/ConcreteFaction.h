@@ -6,6 +6,7 @@
 
 #pragma once
 #include "./Faction.h"
+#include "./NeutralState.h"
 
 class ConcreteFaction: public Faction 
 {
