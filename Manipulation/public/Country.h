@@ -33,6 +33,7 @@ public:
     ~Country();
     CountryName getName(){return this->name;};
     void setOwner(FactionName owner){this->owner = owner;};
+    int getNumTroops();
 
 private:
     map<Building, int> buildings;

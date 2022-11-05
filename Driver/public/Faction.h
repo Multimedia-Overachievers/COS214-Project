@@ -11,7 +11,8 @@
 #include "./enums.h"
 #include <list>
 
-class Faction {
+class Faction 
+{
 public:
     Faction()
     { 
@@ -28,8 +29,8 @@ public:
     virtual void notify() = 0;
     virtual void changeState(ActionResult result, Faction* opposite = nullptr) = 0;
     virtual void createCountries() = 0;
+    virtual int getTotalTroops() = 0;
     
-
 protected: 
     std::list<Country*> countries;
     FactionState* stance;

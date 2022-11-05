@@ -139,3 +139,23 @@ int Country::buffDMG(int damage) {
 int Country::buffDefence(int defence) {
     return defence + (defence * (buildings[Hospital] * 0.05));
 }
+
+/**
+ * @brief Returns the total number of troops a country has
+ * 
+ * @return int 
+ */
+int Country::getNumTroops()
+{
+    int total = 0;
+
+    for (int i = 0; i < this->troops.size(); i++)
+    {
+        if(this->troops.at(i) != nullptr)
+        {
+            total += this->troops.at(i)->getTotalTroops();
+        }
+    }
+
+    return total;
+}

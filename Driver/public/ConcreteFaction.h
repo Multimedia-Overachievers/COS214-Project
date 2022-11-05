@@ -23,4 +23,5 @@ public:
     void notify() override;
     void changeState(ActionResult result, Faction* opposite) override;
     void createCountries() override;
+    int getTotalTroops() override;
 };
