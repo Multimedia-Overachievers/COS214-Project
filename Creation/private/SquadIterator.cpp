@@ -8,21 +8,21 @@
 
 SquadIterator::SquadIterator() : TroopIterator() {}
 
-SquadIterator::SquadIterator(Troops * soldiers) : TroopIterator(soldiers) {}
+SquadIterator::SquadIterator(Troops *soldiers) : TroopIterator(soldiers) {}
 
 SquadIterator::~SquadIterator() = default;
 
-Troops * SquadIterator::first()
+Troops *SquadIterator::first()
 {
     index = 0;
-    if(mytroops->getTroops().size() > 0)
+    if (mytroops->getTroops().size() > 0)
     {
         return mytroops->getTroops().at(index);
     }
     return nullptr;
 }
 
-Troops * SquadIterator::next()
+Troops *SquadIterator::next()
 {
     index++;
     if (index < mytroops->getTroops().size())
@@ -37,7 +37,7 @@ bool SquadIterator::isDone()
     return index >= mytroops->getTroops().size();
 }
 
-Troops * SquadIterator::current()
+Troops *SquadIterator::current()
 {
     if (index < mytroops->getTroops().size())
     {
@@ -46,3 +46,7 @@ Troops * SquadIterator::current()
     return nullptr;
 }
 
+int SquadIterator::getIndex()
+{
+    return index;
+}

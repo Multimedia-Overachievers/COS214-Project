@@ -12,22 +12,26 @@
  * @details This class is used to iterate through the squads
  * This is the ConcreteIterator in the Iterator Design Pattern
  * This class inherits from the TroopIterator class
- * 
+ *
  * @author Tayla Orsmond
  * @date 11/05/2022
- * 
+ *
  */
-class SquadIterator : public TroopIterator{
+class SquadIterator : public TroopIterator
+{
     friend class Troops;
     friend class Soldiers;
     friend class Squad;
+
 public:
     ~SquadIterator();
-    Troops * first();
-    Troops * next();
+    Troops *first();
+    Troops *next();
     bool isDone();
-    Troops * current();    
+    Troops *current();
+    int getIndex();
+
 private:
     SquadIterator();
-    SquadIterator(Troops * soldiers);
+    SquadIterator(Troops *soldiers);
 };
