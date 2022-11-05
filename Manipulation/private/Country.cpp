@@ -59,7 +59,7 @@ vector<Troops *> Country::removeAllTroops()
  */
 vector<Troops *> Country::removeTroops(int noToRemove)
 {
-    return troops->disband(noToRemove);
+    return this->troops->disband(noToRemove);
 }
 
 /**
@@ -72,9 +72,9 @@ void Country::addTroops(vector<Troops *> troops)
 {
     if (troops == nullptr)
     {
-        troops = new Soldiers();
+        this->troops = new Soldiers();
     }
-    troops->build(troops);
+    this->troops->build(troops);
 }
 
 /**
@@ -87,9 +87,9 @@ void Country::addTroops(Troops *troop)
 {
     if (troops == nullptr)
     {
-        troops = new Soldiers();
+        this->troops = new Soldiers();
     }
-    troops->build(troop);
+    this->troops->build(troop);
 }
 
 /**
@@ -102,9 +102,9 @@ void Country::addTroops(int noToAdd)
 {
     if (troops == nullptr)
     {
-        troops = new Soldiers();
+        this->troops = new Soldiers();
     }
-    troops->build(noToAdd);
+    this->troops->build(noToAdd);
 }
 
 /**
