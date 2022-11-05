@@ -82,8 +82,24 @@ vector<Troops *> Squad::disband()
 }
 
 /**
+ * @brief This function is used to remove a number of squads from the squad
+ * @details This function does nothing and will return a vector containing this squad
+ *
+ * @param noToRemove - the number of squads to remove
+ * @return vector<Troops *> containing the squad
+ */
+vector<Troops *> Squad::disband(int noToRemove)
+{
+    vector<Troops *> squads;
+    squads.push_back(this);
+    return squads;
+}
+
+/**
  * @brief This function is used to build the squad
- * @details This function will do nothing, and the memory will be freed and all pointers cleared
+ * @details This function will do nothing, because you cannot add squads to a squad
+ * The memory will be freed and all pointers cleared
+ * @note Assume anything you add to a squad is deleted
  *
  * @param squads = vector<Troops *> containing the squads, will be deleted (!)
  */
@@ -104,7 +120,7 @@ void Squad::build(vector<Troops *> squads)
  *
  * @param squad - the squad to be added, will be deleted (!)
  */
-void Squad::add(Troops *squad)
+void Squad::build(Troops *squad)
 {
     // recycle me if my state is DEFATED
     // otherwise do nothing
@@ -119,15 +135,15 @@ void Squad::add(Troops *squad)
 }
 
 /**
- * @brief This function is used to remove a squad from the squad
- * @details This function does nothing and will return an empty vector
+ * @brief This function is used to add a number of squads to the squad (does nothing)
+ * @details This function does nothing, because you cannot add squads to a squad
+ * @note Assume anything you add to a squad is deleted
  *
- * @param noToRemove - the number of squads to remove
- * @return vector<Troops *> containing the squad - will be empty
+ * @param noToAdd - the number of squads to add
  */
-vector<Troops *> Squad::remove(int noToRemove)
+void Squad::build(int noToAdd)
 {
-    return vector<Troops *>();
+    // do nothing
 }
 
 /**

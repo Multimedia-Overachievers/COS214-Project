@@ -33,9 +33,10 @@ public:
     virtual int takeDMG(int total) = 0;
     virtual string getReport() = 0;
     virtual vector<Troops *> disband() = 0;
+    virtual vector<Troops *> disband(int noToRemove) = 0;
     virtual void build(vector<Troops *> squads) = 0;
-    virtual void add(Troops *squad) = 0;
-    virtual vector<Troops *> remove(int noToRemove) = 0;
+    virtual void build(Troops *squad) = 0;
+    virtual void build(int noToAdd) = 0;
     virtual int getTotalHP() = 0;
     virtual int getTotalDMG() = 0;
     virtual int getTotalTroops() = 0;

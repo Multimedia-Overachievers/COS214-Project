@@ -31,9 +31,10 @@ public:
     int takeDMG(int total);
     string getReport();
     vector<Troops *> disband();
+    vector<Troops *> disband(int noToRemove);
     void build(vector<Troops *> squads);
-    void add(Troops *squad);
-    vector<Troops *> remove(int noToRemove);
+    void build(Troops *squad);
+    void build(int noToAdd);
     int getTotalHP();
     int getTotalDMG();
     int getTotalTroops();

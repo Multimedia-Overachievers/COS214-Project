@@ -190,6 +190,7 @@ string Soldiers::getReport()
  * Any Defeated squads will be removed from the vector and deleted automatically (memory will be cleared)
  * All other squads will be added to the vector and returned
  * @warning This disbands the soldiers entirely, so the soldiers will be empty after this function is called
+ * @warning Any memory passed back is your problem now, so make sure to delete it when you are done with it
  *
  * @return vector<Troops *> All of the squads that were contained in the soldiers
  */
@@ -214,6 +215,44 @@ vector<Troops *> Soldiers::disband()
     changeName();
     delete it;
     return disbandedSquads;
+}
+
+/**
+ * @brief This function is used to remove a numer of squads from the soldiers
+ * @details This function will remove the given number of squads from the soldiers vector (starting at the beginning)
+ * Any squads that are Defeated will be removed from the vector and deleted automatically (memory will be cleared)
+ * The soldiers will then be updated automatically with new state, hp, dmg and buffs as needed
+ * @attention May return an empty vector if there are no squads to remove
+ * @warning Any memory passed back is your problem now, so make sure to delete it when you are done with it
+ *
+ * @param noToRemove The number of squads to remove
+ * @return vector<Troops *> The squads that were removed
+ */
+vector<Troops *> Soldiers::disband(int noToRemove)
+{
+    int left = clearSquads();
+    if (left == 0)
+    {
+        return vector<Troops *>();
+    }
+    vector<Troops *> removedSquads;
+    if (noToRemove > this->squads.size())
+    { // bounds checking
+        noToRemove = this->squads.size();
+    }
+    TroopIterator *it = createIterator();
+    it->first();
+    while (!it->isDone() && noToRemove > 0)
+    {
+        removedSquads.push_back(squads[it->getIndex()]);
+        squads.erase(squads.begin() + it->getIndex());
+        it->next();
+    }
+    setHP(getTotalHP());
+    setDMG(getTotalDMG());
+    changeName();
+    delete it;
+    return removedSquads;
 }
 
 /**
@@ -259,7 +298,7 @@ void Soldiers::build(vector<Troops *> squads)
  *
  * @param squad The squad to be added to the soldiers
  */
-void Soldiers::add(Troops *squad)
+void Soldiers::build(Troops *squad)
 {
     if (squad->getState() == Defeated)
     {
@@ -279,40 +318,25 @@ void Soldiers::add(Troops *squad)
 }
 
 /**
- * @brief This function is used to remove squads from the soldiers
- * @details This function will remove the given number of squads from the soldiers vector (starting at the beginning)
- * Any squads that are Defeated will be removed from the vector and deleted automatically (memory will be cleared)
- * The soldiers will then be updated automatically with new state, hp, dmg and buffs as needed
- * @attention May return an empty vector if there are no squads to remove
- *
- * @param noToRemove The number of squads to remove
- * @return vector<Troops *> The squads that were removed
+ * @brief This function is used to add a number of squads to the soldiers
+ * @details This function will add a number of squads to the squads vector
+ * 
+ * @param noToAdd The number of squads to add 
  */
-vector<Troops *> Soldiers::remove(int noToRemove)
+void Soldiers::build(int noToAdd)
 {
-    int left = clearSquads();
-    if (left == 0)
+    if (getState() == Defeated)
     {
-        return vector<Troops *>();
+        clearSquads();
+        setState(Ready);
     }
-    vector<Troops *> removedSquads;
-    if (noToRemove > this->squads.size())
-    { // bounds checking
-        noToRemove = this->squads.size();
-    }
-    TroopIterator *it = createIterator();
-    it->first();
-    while (!it->isDone() && noToRemove > 0)
+    for (int i = 0; i < noToAdd; i++)
     {
-        removedSquads.push_back(squads[it->getIndex()]);
-        squads.erase(squads.begin() + it->getIndex());
-        it->next();
+        squads.push_back(new Squad());
     }
     setHP(getTotalHP());
     setDMG(getTotalDMG());
     changeName();
-    delete it;
-    return removedSquads;
 }
 
 /**
