@@ -15,5 +15,6 @@ class NeutralState : public FactionState
 {                           
 public:
     NeutralState();
+    void handleState(ActionResult, Faction*, FactionState*) override;
     virtual ~NeutralState();
 };

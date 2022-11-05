@@ -15,5 +15,6 @@ class DefensiveState : public FactionState
 {                           
 public:
     DefensiveState();
+    void handleState(ActionResult, Faction*, FactionState*) override;
     virtual ~DefensiveState();
 };
