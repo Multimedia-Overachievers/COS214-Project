@@ -15,26 +15,14 @@ Restock::Restock(Faction* myFaction, Country* myCountry,  State troopstate, std:
 
 void Restock::execute() {
 
-    int numTroops = rand() % 20 + 10;
-    std::vector<Troops*> troops;
-
-
-    //get the existing troops from the country
-    while (myCountry->hasTroops())
-        troops.push_back(myCountry->removeTroop());
-
+    const int NUM_TROOPS = rand() % 20 + 10;
 
     //add the newly created troops
-    for (int i = 0; i < numTroops; i++) troops.push_back(new Soldiers(troopName, troopstate));      
+    for (int i = 0; i < NUM_TROOPS; i++)
+        myCountry->addTroop(new Soldiers(troopName, troopstate));
 
+    std::cout << "Restocked " << NUM_TROOPS << " troops in " << convert_country[myCountry->getName()] << std::endl;
+    std::cout << myCountry->troops_sized->getReport() << std::endl;
 
-    //build the platooon
-    Soldiers* mySoldiers = new Soldiers(troopName, troopstate);
-    mySoldiers->build(troops);    
-
-    std::cout << "Restocked " << numTroops << " troops in " << convert_country[myCountry->getName()] << std::endl;
-    std::cout << mySoldiers->getReport() << std::endl;
-
-    myCountry->troops_sized = mySoldiers;
     ConcreteSimulator::getInstance()->setLastResult(ActionResult::None);
 }
