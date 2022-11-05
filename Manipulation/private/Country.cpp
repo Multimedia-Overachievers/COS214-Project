@@ -8,7 +8,6 @@
 #include "../../Driver/public/ConcreteSimulator.h"
 #include "../public/CountryObserver.h"
 #include "../public/Country.h"
-#include "../../Creation/public/Squad.h"
 
 /**
  * @brief Country::Country
