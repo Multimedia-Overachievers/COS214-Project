@@ -30,6 +30,7 @@ void AggressiveState::handleState(ActionResult result, Faction* faction, Faction
     int morale = calculateMorale(result, faction);
     FactionState* newState = nullptr;
     FactionState* oldState = state;
+    string stateName = "aggressive";
 
     if (morale <= 25)
     {
@@ -41,11 +42,11 @@ void AggressiveState::handleState(ActionResult result, Faction* faction, Faction
     }
     else if (morale >= 75)
     {
-        state->printState(faction->getName(), "aggressive", false);
+        state->printState(faction->getName(), stateName, false);
         return;
     }
 
     deletePreviousState(oldState);
     state = newState;
-    state->printState(faction->getName(), "aggressive", true);
+    state->printState(faction->getName(), stateName, true);
 }
