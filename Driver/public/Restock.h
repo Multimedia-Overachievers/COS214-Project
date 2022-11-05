@@ -13,11 +13,8 @@ class Restock: public FactionAction
 {
 private:
     Country* myCountry;
-    Faction* myFaction;
-    Soldiers** mySoldiers;
     State troopstate;
     Name troopName;
-
 public:
     friend class Country;
     Restock(Faction* myFaction, Country* myCountry,  State troopstate, std::vector<Troops*> squads);

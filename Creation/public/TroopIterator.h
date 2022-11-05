@@ -31,6 +31,7 @@ public:
     virtual Troops *next() = 0;
     virtual bool isDone() = 0;
     virtual Troops *current() = 0;
+    virtual int getIndex() = 0;
 
 protected:
     TroopIterator();
