@@ -19,7 +19,7 @@ NeutralState::NeutralState() {};
 NeutralState::~NeutralState() {};
 
 /**
- * @brief Handles the changing from the agressive state to another state
+ * @brief Handles the changing from the neutral state to another state
  * 
  * @param result State object, can be 'AggressiveState', 'NeutralState', 'DefensiveState'
  * @param faction Faction object

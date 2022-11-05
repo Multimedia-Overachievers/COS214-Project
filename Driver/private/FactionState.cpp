@@ -1,6 +1,6 @@
 /*
  *  FactionState.cpp
- *  Created on: 05/11/2022.
+ *  Created on: 10/31/2022.
  *  Author: Dhairiya Chhipa (u21437841)
  */
 
@@ -77,10 +77,10 @@ void FactionState::deletePreviousState(FactionState* state)
 /**
  * @brief Calculate the morale of a faction based on: the number of troops, number of countries in the faction and the result of a battle
  * 
- * @param faction 
+ * @param faction Faction object
  * @return int 
  */
 int FactionState::calculateMorale(ActionResult result, Faction* faction)
 {   
-    
+    int numCountries = faction->getStrength();
 }   
