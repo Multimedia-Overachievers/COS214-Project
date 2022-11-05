@@ -52,7 +52,7 @@ Troops *Country::removeTroop()
  * @brief Adds a troop
  * @param troop
  */
-void Country::addTroop(Troops* troop) 
+void Country::addTroop(Troops* troop)
 {
     //call build on using the troops array
     this->troops.push_back(troop);
