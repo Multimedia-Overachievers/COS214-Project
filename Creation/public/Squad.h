@@ -15,7 +15,7 @@ using namespace std;
  * This class inherits from the Troops class
  * 
  * @author Tayla Orsmond
- * @date 10/24/2022
+ * @date 11/05/2022
  * 
  */
 class Squad : public Troops 
@@ -26,9 +26,10 @@ class Squad : public Troops
         int takeDMG(int total);
         string getReport();
         vector<Troops *> disband();
-        void build(vector<Troops *>& squads);
+        void build(vector<Troops *> squads);
         void add(Troops * squad);
         vector<Troops *> remove(int noToRemove);
-        int getTotalHP() {return this->getHP();};
-        int getTotalDMG() {return this->getDMG();};
+        int getTotalHP();
+        int getTotalDMG();
+        //TroopIterator * createIterator();
 };
