@@ -2,6 +2,7 @@
  *  Country.cpp
  *  Created on: 10/19/2022.
  *  Author: Keelan Matthews (u21549967)
+ *  Edited by: Tayla Orsmond (u21467456)
  */
 
 #include "../../Driver/public/ConcreteSimulator.h"
@@ -11,60 +12,105 @@
 
 /**
  * @brief Country::Country
- * @param name
- * @param continent
- * @param owner
- * @param troops
+ * @param name - name of the country
+ * @param continent - the continent the country is in
+ * @param owner - the faction that owns the country
+ * @param hospitals - number of hospitals in the country
+ * @param barracks - number of barracks in the country
  */
-Country::Country(CountryName name, FactionName owner, int hospitals, int barracks) 
+Country::Country(CountryName name, FactionName owner, int hospitals, int barracks)
 {
     this->name = name;
     this->owner = owner;
 
     buildings.insert(pair<Building, int>(Hospital, hospitals));
     buildings.insert(pair<Building, int>(Barracks, barracks));
-    
+
     ConcreteSimulator::getInstance()->countries.push_back(this);
     this->observer = new CountryObserver(this);
+    this->troops = nullptr;
 }
 
 /**
  * @brief Checks if the country has troops
- * @return
+ * @return - true if the country has troops, false otherwise
  */
-bool Country::hasTroops() 
+bool Country::hasTroops()
 {
-    return !this->troops.empty();
+    return this->troops != nullptr && this->troops->getTotalTroops() > 0;
 }
 
 /**
- * @brief Removes a troop
- * @return
+ * @brief Removes all the troops from the country
+ * @warning Any memory passed back is your problem now, so make sure to delete it when you are done with it
+ *
+ * @return - a vector of troops that were removed
  */
-Troops *Country::removeTroop() 
+vector<Troops *> Country::removeAllTroops()
 {
-    Troops* troop = this->troops.back();
-    this->troops.pop_back();
-    return troop;
+    return this->troops->disband();
 }
 
 /**
- * @brief Adds a troop
- * @param troop
+ * @brief Removes a number of Troops from the country
+ * @warning Any memory passed back is your problem now, so make sure to delete it when you are done with it
+ *
+ * @return vector of Troops that were removed from the country
  */
-void Country::addTroop(Troops* troop)
+vector<Troops *> Country::removeTroops(int noToRemove)
 {
-    //call build on using the troops array
-    this->troops.push_back(troop);
-    Squad* s = new Squad(troop->getName(), troop->getState());
-    s->build(this->troops);
-    this->troops_sized = s;
+    return troops->disband(noToRemove);
+}
+
+/**
+ * @brief Adds a troop to the country
+ * @note Assume any memory you pass to the troop will be automatically deleted by the troop
+ *
+ * @param troop - a vector of troops to add (memory is self managed)
+ */
+void Country::addTroops(vector<Troops *> troops)
+{
+    if (troops == nullptr)
+    {
+        troops = new Soldiers();
+    }
+    troops->build(troops);
+}
+
+/**
+ * @brief Adds a troop to the country
+ * @note Assume any memory you pass to the troop will be automatically deleted by the troop
+ *
+ * @param troop - the troop * to add (memory is self managed)
+ */
+void Country::addTroops(Troops *troop)
+{
+    if (troops == nullptr)
+    {
+        troops = new Soldiers();
+    }
+    troops->build(troop);
+}
+
+/**
+ * @brief Adds a troop to the country
+ * @note Assume any memory you pass to the troop will be automatically deleted by the troop
+ *
+ * @param noToAdd - the no of troops to add (memory is self managed)
+ */
+void Country::addTroops(int noToAdd)
+{
+    if (troops == nullptr)
+    {
+        troops = new Soldiers();
+    }
+    troops->build(noToAdd);
 }
 
 /**
  * @brief Notifies the observer of a change
  */
-void Country::notify() 
+void Country::notify()
 {
     this->observer->update();
 }
@@ -73,30 +119,35 @@ void Country::notify()
  * @brief Invades a country
  * @param country
  */
-void Country::invade(Country *country) 
+void Country::invade(Country *country)
 {
-    if(country->hasTroops()) 
+    if (country->hasTroops())
     {
-        int damage = this->buffDMG(this->troops_sized->getTotalDMG());   // Get damage from my troops
-        int defence = country->buffDMG(country->troops_sized->getTotalDMG()); // Get damage from enemy troops
+        int damage = this->buffDMG();            // Get damage from my troops
+        int invaderHealth = this->buffDefence(); // Get health from my troops
 
-        int invaderHealth = this->buffDefence(this->troops_sized->getTotalHP()); // Get health from my troops
-        int defenderHealth = country->buffDefence(country->troops_sized->getTotalHP()); // Get health from enemy troops
-        do
-        {
-            invaderHealth -= defence;
-            defenderHealth -= damage;
-        } while ((invaderHealth > 0 && defenderHealth > 0));
+        int defence = country->buffDMG();            // Get damage from enemy troops
+        int defenderHealth = country->buffDefence(); // Get health from enemy troops
 
-        if (defenderHealth <= 0) 
+        while (invaderHealth > 0 && defenderHealth > 0)
         {
-            this->conquer(country);  // Conquer the country
+            defenderHealth = country->takeDMG(damage); // Take damage from my troops
+            if (defenderHealth > 0)
+            {
+                invaderHealth = this->takeDMG(defence); // Take damage from enemy troops
+            }
         }
-        
-        this->troops_sized->takeDMG(country->troops_sized->getTotalHP() - invaderHealth);
-        country->troops_sized->takeDMG(this->troops_sized->getTotalHP() - defenderHealth);
+        if (defenderHealth <= 0)
+        { // I win if their health is 0 or less
+            this->conquer(country);
+        }
+        else if (invaderHealth <= 0)
+        { // They win if my health is 0 or less
+            country->conquer(this);
+        }
     }
-    else{
+    else
+    {
         this->conquer(country);
     }
 
@@ -104,58 +155,57 @@ void Country::invade(Country *country)
 }
 
 /**
+ * @brief Takes damage from an attack
+ * @param damage - the damage to take
+ * @return - the health left after taking damage
+ */
+int Country::takeDMG(int damage)
+{
+    return this->troops->takeDMG(damage);
+}
+
+/**
  * @brief Changes the owner of the country to the invader
  * @param invader
  */
-void Country::conquer(Country *invader) 
+void Country::conquer(Country *invader)
 {
     setOwner(invader->owner);
 }
 
-Country::~Country() 
+Country::~Country()
 {
     delete this->observer;
-
-    for (auto troop: troops)
-        delete troop;
-
-    delete troops_sized;
+    delete troops;
 }
 
 /**
  * @brief Buffs the damage of the troops using the number of barracks. 5% per barracks
  * @param damage
- * @return
+ * @return - the buffed damage
  */
-int Country::buffDMG(int damage) {
+int Country::buffDMG()
+{
+    int damage = this->troops->getTotalDMG();
     return damage + (damage * (buildings[Barracks] * 0.05));
 }
 
 /**
  * @brief Buffs the defence of the troops using the number of hospitals. 5% per hospital
  * @param defence
- * @return
+ * @return - the buffed defence
  */
-int Country::buffDefence(int defence) {
+int Country::buffDefence()
+{
+    int defence = this->troops->getTotalHP();
     return defence + (defence * (buildings[Hospital] * 0.05));
 }
 
 /**
  * @brief Returns the total number of troops a country has
- * 
- * @return int 
+ * @return int
  */
 int Country::getNumTroops()
 {
-    int total = 0;
-
-    for (int i = 0; i < this->troops.size(); i++)
-    {
-        if(this->troops.at(i) != nullptr)
-        {
-            total += this->troops.at(i)->getTotalTroops();
-        }
-    }
-
-    return total;
+    return troops->getTotalTroops();
 }

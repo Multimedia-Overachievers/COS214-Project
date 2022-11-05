@@ -16,32 +16,34 @@ class CountryObserver;
 /**
  * @description Represents a country in the game
  */
-class Country 
+class Country
 {
 public:
     friend class Restock;
     Country(CountryName name, FactionName owner, int hospitals, int barracks);
-    bool hasTroops();
-    Troops* removeTroop();
-    void addTroop(Troops* troop);
-    void notify();
-    void invade(Country* country);
-    void conquer(Country* invader); 
-    int buffDMG(int damage);
-    int buffDefence(int defence);
-    FactionName getOwner(){return this->owner;};
     ~Country();
-    CountryName getName(){return this->name;};
-    void setOwner(FactionName owner){this->owner = owner;};
+    bool hasTroops();
+    vector<Troops *> removeAllTroops();
+    vector<Troops *> removeTroops(int noToRemove);
+    void addTroops(Troops *troops);
+    void addTroops(vector<Troops *> troops);
+    void addTroops(int noToAdd);
+    void notify();
+    void invade(Country *country);
+    int takeDMG(int dmg);
+    void conquer(Country *country);
+    int buffDMG();
+    int buffDefence();
     int getNumTroops();
+
+    FactionName getOwner() { return this->owner; };
+    void setOwner(FactionName owner) { this->owner = owner; };
+    CountryName getName() { return this->name; };
 
 private:
     map<Building, int> buildings;
-    vector<Troops*> troops;
     CountryName name;
     FactionName owner;
-    CountryObserver* observer;
-
-    //Tays squad->build() sets the state of the troops automatically
-    Troops* troops_sized;
+    CountryObserver *observer;
+    Troops * troops;
 };
