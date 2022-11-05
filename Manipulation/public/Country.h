@@ -8,6 +8,7 @@
 
 #include "../../Creation/public/Troops.h"
 #include "../../Driver/public/enums.h"
+#include "../../Creation/public/Soldiers.h"
 #include <iostream>
 #include <map>
 
