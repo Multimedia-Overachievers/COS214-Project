@@ -32,6 +32,7 @@ public:
     virtual void changeState(ActionResult result, Faction* opposite = nullptr) = 0;
     virtual void createCountries() = 0;
     virtual int getTotalTroops() = 0;
+    virtual ~Faction() { delete observer; };
     
 protected: 
     std::list<Country*> countries;
