@@ -1,7 +1,10 @@
-/*
- *  MoveTroops.h
- *  Created on: 10/15/2022.
- *  Author: Thomas Isebeck (u20446332)
+/**
+ * @brief A concrete move troops
+ * @details Moves a passed in number of troops from the source
+ * to the destination country.
+ *
+ * @author Thomas Isebeck
+ * @date 11/06/2022
  */
 
 #pragma once

@@ -6,6 +6,14 @@
 #include "../../Driver/public/enums.h"
 #include "../../Creation/public/Soldiers.h"
 
+/**
+ * @brief The Recruit class
+ * @details This country will be used to recruit Troops.
+ * One can add troops at a later stage by calling this command.
+ *
+ * @author Thomas Isebeck
+ * @date 11/06/2022
+ */
 class Recruit: public FactionAction
 {
 private:
