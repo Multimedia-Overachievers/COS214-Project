@@ -105,6 +105,14 @@ vector<Troops *> Squad::disband(int noToRemove)
  */
 void Squad::build(vector<Troops *> squads)
 {
+    // recycle me if my state is DEFATED
+    // otherwise do nothing
+    if (getState() == Defeated)
+    {
+        setHP(SquadHp);
+        setDMG(SquadDmg);
+        setState(Ready);
+    }
     for (int i = 0; i < squads.size(); i++)
     {
         delete squads[i];
@@ -126,8 +134,8 @@ void Squad::build(Troops *squad)
     // otherwise do nothing
     if (getState() == Defeated)
     {
-        setHP(squad->getTotalHP());
-        setDMG(squad->getTotalDMG());
+        setHP(SquadHp);
+        setDMG(SquadDmg);
         setState(Ready);
     }
     delete squad;
@@ -143,7 +151,14 @@ void Squad::build(Troops *squad)
  */
 void Squad::build(int noToAdd)
 {
-    // do nothing
+    // recycle me if my state is DEFATED
+    // otherwise do nothing
+    if (getState() == Defeated)
+    {
+        setHP(SquadHp);
+        setDMG(SquadDmg);
+        setState(Ready);
+    }
 }
 
 /**
