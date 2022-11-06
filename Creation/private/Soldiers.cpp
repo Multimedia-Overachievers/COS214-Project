@@ -433,26 +433,27 @@ void Soldiers::setState(State state)
  */
 void Soldiers::changeName()
 {
+    int total = getTotalTroops();
     // change the name of the composite to reflect the number of squads it contains
-    if (squads.size() <= 1)
+    if (total <= 1)
     { // SQUAD -> 0-1 squads
         setName(SquadStd);
         this->bonusDMG = SquadDmg;
         this->bonusHP = SquadHp;
     }
-    else if (squads.size() <= 4)
+    else if (total <= 4)
     { // PLATOON -> 2-4 squads
         setName(Platoon);
         this->bonusDMG = PlatoonDmg;
         this->bonusHP = PlatoonHp;
     }
-    else if (squads.size() <= 20)
+    else if (total <= 20)
     { // COMPANY -> 3-5 platoons = 6-20 squads
         setName(Company);
         this->bonusDMG = CompanyDmg;
         this->bonusHP = CompanyHp;
     }
-    else if (squads.size() <= 60)
+    else if (total <= 60)
     { // BATTALION -> 4-6 companies = 24-60 squads
         setName(Battalion);
         this->bonusDMG = BattalionDmg;
