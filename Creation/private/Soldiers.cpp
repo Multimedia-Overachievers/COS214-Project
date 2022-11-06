@@ -413,7 +413,7 @@ int Soldiers::getTotalTroops()
  * @details This function will change the state of the soldiers and all squads in the vector
  *
  */
-void Soldiers::setState(State state)
+void Soldiers::changeState(State state)
 {
     Troops::setState(state);
     TroopIterator *it = createIterator();

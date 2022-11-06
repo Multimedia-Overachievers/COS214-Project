@@ -34,6 +34,7 @@ class Squad : public Troops
         int getTotalHP();
         int getTotalDMG();
         int getTotalTroops();
+        void changeState(State state);
     private:
         TroopIterator * createIterator();
         vector<Troops *> getTroops();

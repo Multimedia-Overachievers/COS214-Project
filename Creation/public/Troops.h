@@ -40,9 +40,9 @@ public:
     virtual int getTotalHP() = 0;
     virtual int getTotalDMG() = 0;
     virtual int getTotalTroops() = 0;
+    virtual void changeState(State state) = 0;
     enum State getState() { return this->state; }
     enum Name getName() { return this->name; }
-
 protected:
     void setState(State state) { this->state = state; }
     void setName(Name name) { this->name = name; }

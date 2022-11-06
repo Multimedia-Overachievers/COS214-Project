@@ -225,3 +225,8 @@ vector<Troops *> Squad::getTroops()
     squads.push_back(this);
     return squads;
 }
+
+void Squad::changeState(State state)
+{
+    this->setState(state);
+}
