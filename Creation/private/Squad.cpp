@@ -12,7 +12,7 @@
  * @param name The name of the squad (enum) - default is SquadStd, options are SquadStd
  * @param state The state of the squad (enum) - default is Ready, options are Ready, Moving, Defeated
  */
-Squad::Squad(Name name, State state) : Troops(name, state)
+Squad::Squad(Name name, State state) : Troops(Name::SquadStd, state)
 {
     setDMG(SquadDmg);
     setHP(SquadHp);
