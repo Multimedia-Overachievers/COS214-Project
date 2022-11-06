@@ -139,3 +139,4 @@ int main()
 // Modified research slightly to match
 // Prettified docs
 // Reformatted docs, added updated class diagrams, prettified docs
+// Updated country class diagram and added to docs
