@@ -210,4 +210,8 @@ int Country::getNumTroops()
     {
         return this->myTroops->getTotalTroops();
     }
+    else
+    {
+        return 0;
+    }
 }
