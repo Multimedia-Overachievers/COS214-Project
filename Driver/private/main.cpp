@@ -141,7 +141,7 @@ int main()
 // Reformatted docs, added updated class diagrams, prettified docs
 // Updated country class diagram and added to docs
 // Added more Object Diagrams to docs
-// Added Sequence Diagrams to docs
+// Added more Sequence Diagrams to docs
 
 // Dhairiya
 // Updated previous state diagram in docs
