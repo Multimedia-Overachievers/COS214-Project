@@ -1,0 +1,10 @@
+
+#pragma once
+
+#define GTEST_BOX "[          ] "
+#define ANSI_TXT_GRN "\033[0;32m"
+#define ANSI_TXT_MES "\033[38;5;220m"
+#define ANSI_TXT_DFT "\033[0;0m"
+#define COUT_GTEST_DFT ANSI_TXT_GRN << GTEST_BOX 
+#define COUT_GTEST_MES COUT_GTEST_DFT << ANSI_TXT_MES
+#define COUT_GTEST_SUC COUT_GTEST_DFT << ANSI_TXT_GRN
