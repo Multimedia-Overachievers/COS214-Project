@@ -126,3 +126,4 @@ int main()
 
 //finished class diagram
 //Split up individual patterns and placed in docs
+//Updated class diagram
