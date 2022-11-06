@@ -138,3 +138,4 @@ int main()
 // Added Thomas's research to docs
 // Modified research slightly to match
 // Prettified docs
+// Reformatted docs, added updated class diagrams, prettified docs
