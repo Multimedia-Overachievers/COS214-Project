@@ -46,5 +46,5 @@ private:
     CountryName name;
     FactionName owner;
     CountryObserver *observer;
-    Troops * myTroops;
+    Troops* myTroops;
 };

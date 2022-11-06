@@ -272,7 +272,7 @@ void Soldiers::build(vector<Troops *> squads)
         clearSquads();
         setState(Ready);
     }
-    for (int i = 0; i < squads.size(); i++)
+    for(size_t i = 0; i < squads.size(); i++)
     {
         if (squads[i]->getState() != Defeated)
         {
@@ -331,7 +331,7 @@ void Soldiers::build(int noToAdd)
         clearSquads();
         setState(Ready);
     }
-    for (int i = 0; i < noToAdd; i++)
+    for(size_t i = 0; i < noToAdd; i++)
     {
         squads.push_back(new Squad());
     }
@@ -418,9 +418,9 @@ void Soldiers::setState(State state)
     Troops::setState(state);
     TroopIterator *it = createIterator();
     it->first();
-    while (!it->isDone())
+    while(!it->isDone())
     {
-        it->current()->changeState(state);
+        it->current()->setState(state);
         it->next();
     }
     delete it;
