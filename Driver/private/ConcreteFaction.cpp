@@ -5,7 +5,7 @@
  */
 
 #include "../public/FactionState.h"
-#include "../public/Structs.h"
+#include "../public/structs.h"
 #include "../public/ConcreteFaction.h"
 
 ConcreteFaction::ConcreteFaction(FactionName name)
