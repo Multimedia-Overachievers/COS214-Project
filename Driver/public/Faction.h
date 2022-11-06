@@ -7,9 +7,11 @@
 #pragma once
 #include "../../Manipulation/public/Country.h"
 #include "../../Manipulation/public/FactionObserver.h"
-#include "./structs.h"
 #include "./enums.h"
 #include <list>
+
+class FactionState;
+class FactionStore;
 
 class Faction 
 {

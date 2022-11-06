@@ -198,7 +198,7 @@ ActionResult ConcreteSimulator::getLastResult(){
 }
 
 /**
- * @brief Constructs an image path baeed on passed in country
+ * @brief Constructs an image path based on passed in country
  * @return std::string - The path to the image
  */
 std::string ConcreteSimulator::getImagePath(CountryName country){

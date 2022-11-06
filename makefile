@@ -13,9 +13,10 @@ clean:
 
 debug:
 ifneq ("$(wildcard $(BUILD_DIR))","")
-	rm -d -r $(BUILD_DIR)
-endif
+
+else
 	mkdir $(BUILD_DIR)
+endif
 	cd $(BUILD_DIR); cmake -DCMAKE_BUILD_TYPE=Debug ..; make; gdb ./Project
 	
 test:
@@ -25,3 +26,7 @@ else
 	mkdir $(BUILD_DIR)
 endif
 	cd $(BUILD_DIR); cmake -D BUILD_TESTS=ON ..; make; ./Testing
+
+setup:
+	sudo apt-get update
+	sudo apt install libfreetype6-dev libxrandr-dev libudev-dev libogg-dev libflac-dev libvorbis-dev libopenal-dev libgl1-mesa-dev

@@ -1,8 +1,8 @@
 #pragma once
 
 #include "../../Manipulation/public/Country.h"
-#include "../../Driver/public/FactionState.h"
 #include "../../Driver/public/enums.h"
+#include "./FactionState.h"
 #include <list>
 
 struct FactionStore

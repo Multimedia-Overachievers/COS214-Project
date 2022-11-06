@@ -4,6 +4,8 @@
  *  Author: Keelan Matthews (u21549967)
  */
 
+#include "../public/FactionState.h"
+#include "../public/Structs.h"
 #include "../public/ConcreteFaction.h"
 
 ConcreteFaction::ConcreteFaction(FactionName name)

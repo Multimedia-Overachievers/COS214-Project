@@ -95,6 +95,8 @@ int main()
                 case sf::Event::Closed:
                     window.close();
                     break;
+                default:
+                    break;
             }
         }
 
@@ -124,9 +126,11 @@ int main()
     return EXIT_SUCCESS;
 }
 
+//Keelan
 //finished class diagram
 //Split up individual patterns and placed in docs
 //Updated class diagram
+//Recorded video voiceover
 
 //Tayla 
 //Finished Composite Pattern and added to docs
