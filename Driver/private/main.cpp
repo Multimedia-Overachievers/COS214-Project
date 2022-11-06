@@ -130,3 +130,4 @@ int main()
 
 //Tayla 
 //Finished Composite Pattern and added to docs
+//Finished Iterator Pattern and added to docs
