@@ -131,3 +131,6 @@ int main()
 //Tayla 
 //Finished Composite Pattern and added to docs
 //Finished Iterator Pattern and added to docs
+// Added Thomas's research to docs
+// Modified research slightly to match
+// Prettified docs
