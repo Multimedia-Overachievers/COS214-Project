@@ -123,3 +123,5 @@ int main()
 
     return EXIT_SUCCESS;
 }
+
+//finished class diagram
