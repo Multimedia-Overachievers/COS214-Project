@@ -38,7 +38,7 @@ public:
     int getTotalHP();
     int getTotalDMG();
     int getTotalTroops();
-    void changeState(State state);
+    void setState(State state);
 private:
     void changeName();
     int clearSquads();
