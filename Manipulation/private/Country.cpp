@@ -206,5 +206,8 @@ int Country::buffDefence()
  */
 int Country::getNumTroops()
 {
-    return this->myTroops->getTotalTroops();
+    if (this->myTroops != nullptr)
+    {
+        return this->myTroops->getTotalTroops();
+    }
 }
