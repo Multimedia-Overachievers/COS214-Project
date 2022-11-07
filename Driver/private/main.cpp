@@ -1,19 +1,32 @@
-#include <SFML/Graphics.hpp>
+
+
+
+
 #include <iostream>
 #include "../public/ConcreteSimulator.h"
+#include "../../Creation/public/Simulation.h"
+#include "../../Creation/public/Logs.h"
+
+#include <SFML/Graphics.hpp>
 
 // ================== Global Variables ==================
-
 int year = 1936;
 int month = 0;
+bool sandbox = false;
+
+
+// ================== Global Sprites ==================
+sf::Sprite* undoSprite;
+sf::Sprite* playSprite;
+sf::Sprite* pauseSprite;
+sf::Sprite* fastForwardSprite;
+
 
 // ------------------ Colours ------------------
-
 sf::Color offBlack = sf::Color(38, 37, 34);
 sf::Color waterColour = sf::Color(69, 153, 186);
 
 // ================== Helper/Set-up functions ==================
-
 sf::Text* createText(std::string text, int size, int x, int y, FontType fontType, sf::Color colour) {
     sf::Font* font = new sf::Font();
     switch(fontType)
@@ -77,7 +90,7 @@ std::string wrapText(std::string text, int length) {
     
 }
 
-void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator, FactionName factionTurn)
+void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator, FactionName factionTurn, bool paused)
 {  
     float x[] = {215, 164, 63, 701, 342, 355, 391, 381, 668, 611, 546, 647};
     float y[] = {310, 104, 307, 0, 305, 267, 238, 431, 626, 396, 401, 499};
@@ -99,58 +112,48 @@ void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator, FactionNam
     sprite.setPosition(373, 0);
     window.draw(sprite);
 
-    //setup the action window
+    // -----setup the action window -----
     sf::Texture actionTexture;
     actionTexture.loadFromFile(simulator->getImagePath(simulator->getNextAction()));
     sf::Sprite actionSprite(actionTexture);
     actionSprite.setPosition(13, 527);
     window.draw(actionSprite);
 
-    //setup the date window
+    // ----- setup the date window -----
     std::string date = std::to_string(year) + " " + convert_month[month];
     window.draw(*createText(date, 24, 44, 545, FontType::Cinzel, offBlack));
 
-    // List of things for attackAction output
+    // ----- List of things for attackAction output -----
     std::string action = wrapText(simulator->messageMap["Action"] + simulator->messageMap["Result"], 36);
     window.draw(*createText(action, 21, 47, 587, FontType::Alegreya, offBlack));
 
 
-    std::cout << "HERE" << std::endl;
-    // Current faction
+    // ----- Faction Details -----
     Faction* faction = simulator->getFaction(factionTurn);
     std::string factionName = convert_faction[faction->getName()];
     // Get total number of troops in every country
 
-    std::cout << "HERE2" << std::endl;
     int totalTroops = 0;
     for (int i = 0; i < faction->getStrength(); i++) {
         totalTroops += faction->getCountry(i)->getNumTroops();
-          std::cout << "HERE" << 3+i << std::endl;
     }
-      std::cout << "HERE3" << std::endl;
     // Get total number of countries owned
     int totalCountries = faction->getStrength();
 
 
-    std::cout << "FACTION: " << faction << std::endl;
-    std::cout << "FACTION NAME: " << factionName << std::endl;
     window.draw(*createText(factionName, 36, 206, 750, FontType::Alegreya, offBlack));
 
     // Current state of faction
-    
     std::string state = convert_stance[faction->getStanceType()];
     state = "In " + state.substr(0, state.length() - 6) + " state";
-    std::cout << "STATE: " << state << std::endl;
     window.draw(*createText(state, 21, 206, 789, FontType::Alegreya, offBlack));
 
     // Current number of countries in faction
     std::string countries = "Countries: " + std::to_string(totalCountries);
-    std::cout << "COUNTRIES: " << countries << std::endl;
     window.draw(*createText(countries, 21, 206, 814, FontType::Alegreya, offBlack));
 
     // Current number of troops in faction
     std::string troops = "Troops: " + std::to_string(totalTroops);
-    std::cout << "TROOPS: " << troops << std::endl;
     window.draw(*createText(troops, 21, 206, 840, FontType::Alegreya, offBlack));
 
     // Print out the countries in both the Axis and Allies
@@ -167,7 +170,17 @@ void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator, FactionNam
         std::cout << country << " ";
     }
     std::cout << std::endl;
-        
+
+
+    // ----- Render buttons -----
+    cout << "Paused? " << paused << endl;
+    if(sandbox)
+    {
+        window.draw(*undoSprite);
+    }
+    window.draw(*playSprite);
+    window.draw(*pauseSprite);
+    window.draw(*fastForwardSprite);
         
 }
 
@@ -193,6 +206,11 @@ void incrementTurn()
  */
 void nextRound(ConcreteSimulator* simulator, FactionName factionTurn)
 {
+    // Save state to memento
+    if(sandbox)
+    {
+        simulator->saveState();
+    }
     Faction* faction = simulator->getFaction(factionTurn);
     simulator->messageMap["Faction"] = convert_faction[factionTurn];
     simulator->notify(faction);
@@ -207,17 +225,54 @@ void nextRound(ConcreteSimulator* simulator, FactionName factionTurn)
 
 int main()
 {
+    // ----- Prompt the user to enter sandbox or simulation mode -----
+    std::cout << "Would you like to play in sandbox mode? (y/n)" << std::endl;
+    std::string input;
+    std::cin >> input;
+    if(input == "y")
+    {
+        sandbox = true;
+    }
+
     //======================== SFML Variable setup ========================
     sf::RenderWindow window(sf::VideoMode(900, 900), "Memento Mori | Project");
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
-    sf::Time timePerFrame = sf::seconds(4.0f);
-    
+    float speed = 2.0f;
+    sf::Time timePerFrame = sf::seconds(speed);
+    sf::Time timeSave = timeSinceLastUpdate;
+
+    //======================== Sprite setup ========================
+    sf::Texture undoTexture;
+    undoTexture.loadFromFile("../Media/Undo.png");
+    undoSprite = new sf::Sprite(undoTexture);
+    undoSprite->setPosition(37, 27);
+    sf::FloatRect undoBounds = undoSprite->getGlobalBounds();
+
+    sf::Texture playTexture;
+    playTexture.loadFromFile("../Media/Play.png");
+    playSprite = new sf::Sprite(playTexture);
+    playSprite->setPosition(81, 27);
+    playSprite->move(-100, -100);
+
+    sf::Texture pauseTexture;
+    pauseTexture.loadFromFile("../Media/Pause.png");
+    pauseSprite = new sf::Sprite(pauseTexture);
+    pauseSprite->setPosition(81, 27);
+
+    sf::Texture fastForwardTexture;
+    fastForwardTexture.loadFromFile("../Media/FastForward.png");
+    fastForwardSprite = new sf::Sprite(fastForwardTexture);
+    fastForwardSprite->setPosition(123, 27);
+    sf::FloatRect fastForwardBounds = fastForwardSprite->getGlobalBounds();
+
     //======================== Simulator Setup ========================
     ConcreteSimulator* simulator = ConcreteSimulator::getInstance();
+    Simulation* simulation = new Simulation(
     const int MAX_TURNS = 48;
     int currentTurn = 0;
     FactionName factionTurn = Allies;
+    bool isPaused = false;
 
     while (window.isOpen())
     {
@@ -231,7 +286,49 @@ int main()
                     if (event.mouseButton.button == sf::Mouse::Left && lock != true) 
                     {
                         lock = true;
-                    }   
+                        sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+
+                        sf::FloatRect playBounds = playSprite->getGlobalBounds();
+                        sf::FloatRect pauseBounds = pauseSprite->getGlobalBounds();
+                    
+                        if (undoBounds.contains(mouse))
+                        {
+                            cout << "Undo button pressed" << endl;
+                        }
+             
+                        if (playBounds.contains(mouse))
+                        {
+                            cout << "PLAY BUTTON PRESSED" << endl;
+                            timePerFrame = sf::seconds(2.0f);
+                            isPaused = false;
+                            playSprite->move(-100, -100);
+                            pauseSprite->move(100, 100);
+                        }
+                        if (pauseBounds.contains(mouse))
+                        {
+                            cout << "PAUSE BUTTON PRESSED" << endl;
+                            timePerFrame = sf::seconds(2.0f);
+                            isPaused = true;
+                            pauseSprite->move(-100, -100);
+                            playSprite->move(100, 100);    
+                        }
+               
+                        if (fastForwardBounds.contains(mouse))
+                        {
+                            cout << "Fast Forward button pressed" << endl;
+                            timePerFrame = sf::seconds(0.4f);
+                            if(isPaused)
+                            {
+                                isPaused = false;
+                                playSprite->move(-100, -100);
+                                pauseSprite->move(100, 100);
+                            }
+                        }
+                        window.clear(waterColour);
+                        setupMap(window, simulator, factionTurn, isPaused);
+                        window.display();
+                    }
+                   
                     break;
                 case sf::Event::MouseButtonReleased:
                     if (event.mouseButton.button == sf::Mouse::Left)
@@ -242,6 +339,12 @@ int main()
                 case sf::Event::Closed:
                     window.close();
                     break;
+                case sf::Event::KeyPressed:
+                    if (event.key.code == sf::Keyboard::Space)
+                    {
+                        isPaused = !isPaused;
+                    }
+                    break;
                 default:
                     break;
             }
@@ -251,27 +354,26 @@ int main()
         while (timeSinceLastUpdate > timePerFrame)
         {
             timeSinceLastUpdate -= timePerFrame;
-            nextRound(simulator, factionTurn);
-            if (factionTurn == Allies) factionTurn = Axis;
-            else factionTurn = Allies;
-            std::cout << "Turn " << currentTurn << " complete." << std::endl;
-            currentTurn++;
+            if(!isPaused) {
+                nextRound(simulator, factionTurn);
+                if (factionTurn == Allies) factionTurn = Axis;
+                else factionTurn = Allies;
+                std::cout << "Turn " << currentTurn << " complete." << std::endl;
+                currentTurn++;
 
-            if(currentTurn == MAX_TURNS || simulator->gameOver()) // TODO: ADD THE WIN CONDITION
-            {
-                std::cout << "Game Over" << std::endl;
-                window.close();
+                if(currentTurn == MAX_TURNS || simulator->gameOver()) // TODO: ADD THE WIN CONDITION
+                {
+                    std::cout << "Game Over" << std::endl;
+                    window.close();
+                }
             }
-
             window.clear(waterColour);
-            
-            setupMap(window, simulator, factionTurn);
-            window.draw(*createText("Europe", 50, 10, 10, FontType::Cinzel, sf::Color::White));
-
+            setupMap(window, simulator, factionTurn, false);
             window.display();
-        }   
+        }
+      
+    }   
 
-    }
 
     return EXIT_SUCCESS;
 }
