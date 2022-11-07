@@ -29,7 +29,7 @@ ConcreteSimulator* ObserverTests::simulator = nullptr;
 TEST_F(ObserverTests, CountryObserverDrawTest)
 {
     std::cout << COUT_GTEST_MES << "Testing: Initial action result" << ANSI_TXT_DFT << std::endl;
-    EXPECT_EQ(simulator->getLastResult(), ActionResult::None);
+    EXPECT_EQ(simulator->getLastResult(), ActionResult::Win);
     country->notify();
     EXPECT_TRUE(simulator->getLastResult() == ActionResult::Draw);
     std::cout << COUT_GTEST_SUC << "==== TEST PASSED ====" << ANSI_TXT_DFT << std::endl;
