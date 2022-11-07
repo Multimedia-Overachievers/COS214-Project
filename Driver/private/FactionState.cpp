@@ -106,11 +106,6 @@ int FactionState::calculateMorale(ActionResult result, Faction* faction)
     int numCountries = faction->getStrength();
     int numTroops = faction->getTotalTroops();
 
-    if (faction == nullptr)
-    {
-        newMorale *= 1.2;
-    }
-
     // Total number of troops
     if (numTroops < 300)
     {
