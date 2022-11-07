@@ -115,7 +115,11 @@ void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator)
     std::string action = wrapText(simulator->messageMap["Action"] + simulator->messageMap["Result"], 36);
     std::cout << "ACTION: " << action << std::endl;
     window.draw(*createText(action, 21, 47, 587, FontType::Alegreya, offBlack));
-        
+
+    // List of current faction
+    std::string faction = simulator->messageMap["Faction"];
+    std::cout << "FACTION: " << faction << std::endl;
+    window.draw(*createText(faction, 26, 330, 700, FontType::Alegreya, offBlack));
 }
 
 /**
@@ -215,7 +219,7 @@ int main()
             window.draw(*createText("Europe", 50, 10, 10, FontType::Cinzel, sf::Color::White));
 
             window.display();
-        }
+        }   
 
     }
 
