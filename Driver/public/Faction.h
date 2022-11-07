@@ -33,6 +33,7 @@ public:
     virtual void createCountries() = 0;
     virtual int getTotalTroops() = 0;
     virtual void setStance(FactionState*) = 0;
+    virtual FactionState* getStance() = 0;
     virtual ~Faction() { delete observer; };
     
 protected: 
