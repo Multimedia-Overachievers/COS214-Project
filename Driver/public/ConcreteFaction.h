@@ -21,7 +21,8 @@ public:
     void removeCountry(Country* country) override;
     void addCountry(Country* country) override;
     void notify() override;
-    void changeState(ActionResult result, Faction* opposite) override;
+    void changeState(ActionResult result) override;
     void createCountries() override;
     int getTotalTroops() override;
+    void setStance(FactionState*) override;
 };

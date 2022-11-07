@@ -20,9 +20,6 @@ FactionObserver::FactionObserver(ConcreteFaction* faction)
 void FactionObserver::update()
 {
     ConcreteSimulator* simulator = ConcreteSimulator::getInstance();
-    std::cout << "FactionObserver::update() called" << std::endl;
-    std::cout << "changing State?" << std::endl;
-    std::cout << "Current State: " << this->faction->getStance() << std::endl;
-    this->faction->changeState(simulator->getLastResult(), simulator->getOpposite(this->faction));
-    std::cout << "New State: " << this->faction->getStance() << std::endl;
+    //this->faction->changeState(simulator->getLastResult(), simulator->getOpposite(this->faction));
+    this->faction->changeState(simulator->getLastResult());
 }

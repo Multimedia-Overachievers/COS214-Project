@@ -29,9 +29,10 @@ public:
     virtual void removeCountry(Country* country) = 0;
     virtual void addCountry(Country* country) = 0;
     virtual void notify() = 0;
-    virtual void changeState(ActionResult result, Faction* opposite = nullptr) = 0;
+    virtual void changeState(ActionResult result) = 0;
     virtual void createCountries() = 0;
     virtual int getTotalTroops() = 0;
+    virtual void setStance(FactionState*) = 0;
     virtual ~Faction() { delete observer; };
     
 protected: 

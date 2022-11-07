@@ -139,6 +139,7 @@ int main()
 //Split up individual patterns and placed in docs
 //Updated class diagram
 //Recorded video voiceover
+//Finished video
 
 //Tayla 
 //Finished Composite Pattern and added to docs

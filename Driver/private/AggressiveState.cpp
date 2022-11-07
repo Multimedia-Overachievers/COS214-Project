@@ -25,11 +25,10 @@ AggressiveState::~AggressiveState() {};
  * @param faction Opposite Faction object
  * @param state FactionName enum, can be 'Allies', 'Axis'
  */
-void AggressiveState::handleState(ActionResult result, Faction* faction, FactionState* state)
+void AggressiveState::handleState(ActionResult result, Faction* faction)
 {
     int newMorale = calculateMorale(result, faction);
     FactionState* newState = nullptr;
-    FactionState* oldState = state;
     string stateName = "aggressive";
 
     if (newMorale < 50)
@@ -46,7 +45,6 @@ void AggressiveState::handleState(ActionResult result, Faction* faction, Faction
         return;
     }
 
-    deletePreviousState(oldState);
-    state = newState;
-    state->printState(faction->getName(), stateName, true);
+    newState->printState(faction->getName(), stateName, true);
+    faction->setStance(newState); 
 }
