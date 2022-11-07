@@ -23,6 +23,11 @@ void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator)
     sf::Sprite sprite(texture);
     sprite.setPosition(373, 0);
     window.draw(sprite);
+
+    //setup the action window
+    // st::Texture texture;
+    texture.loadFromFile("../Media/ActionWindow.png");
+    
 }
 
 void nextRound(ConcreteSimulator* simulator, FactionName factionTurn)
@@ -115,12 +120,15 @@ int main()
                 std::cout << "Game Over" << std::endl;
                 window.close();
             }
+
+            window.clear(sf::Color(69, 153, 186));
+            setupMap(window, simulator);
+            window.draw(*createText("Europe", 50, 10, 10, FontType::Cinzel));
+
+            window.display();
         }
 
-        window.clear(sf::Color(69, 153, 186));
-        setupMap(window, simulator);
-        window.draw(*createText("Europe", 50, 10, 10, FontType::Cinzel));
-        window.display();
+
     }
 
     return EXIT_SUCCESS;

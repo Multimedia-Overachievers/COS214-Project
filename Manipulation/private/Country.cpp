@@ -120,6 +120,7 @@ void Country::notify()
  */
 void Country::invade(Country *country)
 {
+    std::cout << "Invading " << country->getName() << std::endl;
     if (country->hasTroops())
     {
         int damage = this->buffDMG();            // Get damage from my troops
@@ -135,21 +136,28 @@ void Country::invade(Country *country)
             {
                 invaderHealth = this->takeDMG(defence); // Take damage from enemy troops
             }
+            std::cout << "Invader Health: " << invaderHealth << std::endl;
+            std::cout << "Defender Health: " << defenderHealth << std::endl;
         }
         if (defenderHealth <= 0)
         { // I win if their health is 0 or less
             this->conquer(country);
+            std::cout << "I win" << std::endl;
         }
         else if (invaderHealth <= 0)
         { // They win if my health is 0 or less
             country->conquer(this);
+            std::cout << "You lost the battle" << std::endl;
         }
     }
     else
     {
+        std::cout << "You won the battle (The enemy had no troops)" << std::endl;
         this->conquer(country);
+   
     }
 
+    std::cout << "notifying" << std::endl;
     this->notify();
 }
 

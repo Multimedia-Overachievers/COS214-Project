@@ -17,9 +17,7 @@ AttackFromCountry::AttackFromCountry(Faction* myFaction, Country* attacker, Coun
 {
     this->attacker = attacker;
     this->toAttack = toAttack;
-
-    //DEBUG_
-    type = "AttackFromCountry";
+    this->action = ActionType::Attack;
 }
 
 /**
