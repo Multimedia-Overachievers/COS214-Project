@@ -46,7 +46,7 @@ TEST_F(SimulatorTests, SimulatorCaptureTest)
     Country* country1 = simulator->countries[0];
     Country* country2 = simulator->countries[6];
     ASSERT_EQ(country1->getOwner(), FactionName::Allies);
-    country1->conquer(country2);
+    country1->getConqueredBy(country2);
     ASSERT_EQ(country1->getOwner(), FactionName::Axis);
     std::cout << COUT_GTEST_SUC << "==== TEST PASSED ====" << ANSI_TXT_DFT << std::endl;
 }

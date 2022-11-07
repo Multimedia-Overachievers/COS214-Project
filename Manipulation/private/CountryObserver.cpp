@@ -21,7 +21,7 @@ void CountryObserver::update()
 {
     ConcreteSimulator* simulator = ConcreteSimulator::getInstance();
 
-    // Prev owner  |  New owner
+    // Prev owner  |  New owner  
     if(this->owner != this->country->getOwner())
     {
         simulator->captureCountry(this->country, simulator->getFaction(this->owner));

@@ -134,21 +134,21 @@ void Country::invade(Country *country)
         }
         if (defenderHealth <= 0)
         { // I win if their health is 0 or less
-            this->conquer(country);
-            simulator->messageMap["Result"] = ". They won the battle, inflicting " + std::to_string(defendingTroops) + " casualties, suffering " + std::to_string(attackingTroops - this->myTroops->getTotalTroops()) + " of their " + std::to_string(attackingTroops) + ". " + countryName + " now belongs to the " + faction + ". ";
+            country->getConqueredBy(this);
+            simulator->messageMap["Result"] = "They won the battle, inflicting " + std::to_string(defendingTroops) + " casualties, suffering " + std::to_string(attackingTroops - this->myTroops->getTotalTroops()) + " of their " + std::to_string(attackingTroops) + ". " + countryName + " now belongs to the " + faction + ". ";
         }
         else if (invaderHealth <= 0)
         { // They win if my health is 0 or less
-            // country->conquer(this);
-            simulator->messageMap["Result"] = ". They lost the battle, losing " + std::to_string(attackingTroops) + " troops. The defenders suffered " + std::to_string(defendingTroops - country->myTroops->getTotalTroops()) + " of their " + std::to_string(defendingTroops) + " troops. ";
+            // country->getConqueredBy(this);
+            simulator->messageMap["Result"] = "They lost the battle, losing " + std::to_string(attackingTroops) + " troops. The defenders suffered " + std::to_string(defendingTroops - country->myTroops->getTotalTroops()) + " of their " + std::to_string(defendingTroops) + " troops. ";
         }
     }
     else
     {
-        this->conquer(country);
+        country->getConqueredBy(this);
     }
 
-    this->notify();
+    country->notify();
 }
 
 /**
@@ -165,8 +165,9 @@ int Country::takeDMG(int damage)
  * @brief Changes the owner of the country to the invader
  * @param invader
  */
-void Country::conquer(Country *invader)
+void Country::getConqueredBy(Country *invader)
 {
+    std::cout << "GOT HERE 1" << std::endl;
     setOwner(invader->owner);
 }
 

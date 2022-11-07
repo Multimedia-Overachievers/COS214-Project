@@ -35,9 +35,9 @@ public:
     virtual int getTotalTroops() = 0;
     virtual void setStance(FactionState*) = 0;
     virtual ~Faction() { delete observer; };
-    
-protected: 
     std::list<Country*> countries;
+protected: 
+    // std::list<Country*> countries;
     FactionState* stance;
     FactionName name;
     FactionObserver* observer;

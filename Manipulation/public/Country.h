@@ -32,7 +32,7 @@ public:
     void notify();
     void invade(Country *country);
     int takeDMG(int dmg);
-    void conquer(Country *country);
+    void getConqueredBy(Country *country);
     int buffDMG();
     int buffDefence();
     int getNumTroops();

@@ -154,9 +154,49 @@ Faction* ConcreteSimulator::getOpposite(Faction* faction)
  */
 void ConcreteSimulator::captureCountry(Country* country, Faction* faction)
 {
+    Faction* opposite = getOpposite(faction); 
+
+    std::cout << "BEFORE:" << std::endl;
+    // Output all the countries in the faction
+    std::cout << "Faction: " << faction->getName() << " Countries: ";
+    for (Country* country : faction->countries)
+    {
+        std::string countryName = convert_country[country->getName()];
+        std::cout << countryName << " ";
+    }
+    std::cout << std::endl;
+
+    // Output all the countries in the opposite faction
+    std::cout << "Opposite Faction: " << opposite->getName() << " Countries: ";
+    for (Country* country : opposite->countries)
+    {
+        std::string countryName = convert_country[country->getName()];
+        std::cout << countryName << " ";
+    }
+    std::cout << std::endl;
+
     faction->addCountry(country);
     getOpposite(faction)->removeCountry(country);      
     this->WIN_CONDITION = getOpposite(faction)->getStrength() == 0;  
+
+    std::cout << "AFTER:" << std::endl;
+    // Output all the countries in the faction
+    std::cout << "Faction: " << faction->getName() << " Countries: ";
+    for (Country* country : faction->countries)
+    {
+        std::string countryName = convert_country[country->getName()];
+        std::cout << countryName << " ";
+    }
+    std::cout << std::endl;
+
+    // Output all the countries in the opposite faction
+    std::cout << "Opposite Faction: " << opposite->getName() << " Countries: ";
+    for (Country* country : opposite->countries)
+    {
+        std::string countryName = convert_country[country->getName()];
+        std::cout << countryName << " ";
+    }
+    std::cout << std::endl;
 }
 
 /**
