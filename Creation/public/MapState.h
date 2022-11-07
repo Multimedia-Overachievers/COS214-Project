@@ -5,10 +5,12 @@
  */
 
 #pragma once
+
 #include "../../Driver/public/structs.h"
 
 /**
- * @description Stores the state of the world at a given time
+ * @brief Stores the state of the world at a given time (Memento)
+ * 
  */
 class MapState
 {

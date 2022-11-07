@@ -7,12 +7,14 @@
 #include "../public/Logs.h"
 
 /**
- * Constructor for Logs
+ * @brief Construct a new Logs:: Logs object
+ * 
  */
 Logs::Logs() {}
 
 /**
- * Destructor for Logs
+ * @brief Destroy the Logs:: Logs object
+ * 
  */
 Logs::~Logs() 
 {
@@ -23,16 +25,18 @@ Logs::~Logs()
 }
 
 /**
- * Gets the logs
- * @return logs
+ * @brief Gets the logs
+ * 
+ * @return std::vector<MapState*> 
  */
 std::vector<MapState*> Logs::getLogs() {
     return this->logs;
 }
 
 /**
- * Creates a log and pushes it to the logs vector
- * @param state
+ * @brief Creates a log and pushes it to the logs vector
+ * 
+ * @param state 
  */
 void Logs::CreateLog(MapState* state) {
     this->logs.push_back(state);

@@ -7,9 +7,10 @@
 #include "../public/MapState.h"
 
 /**
- * Constructor for MapState
- * @param allies
- * @param axis
+ * @brief Construct a new Map State:: Map State object
+ * 
+ * @param allies 
+ * @param axis 
  */
 MapState::MapState(FactionStore* allies, FactionStore* axis) 
 {
@@ -18,8 +19,9 @@ MapState::MapState(FactionStore* allies, FactionStore* axis)
 }
 
 /**
- * Gets the faction states
- * @return factionStates
+ * @brief Gets the faction states (not to be confused with stance)
+ * 
+ * @return FactionStore** 
  */
 FactionStore** MapState::getFactionStores()
 {

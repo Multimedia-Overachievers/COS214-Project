@@ -9,11 +9,10 @@
 #include "../../Driver/public/Faction.h"
 #include "./MapState.h"
 
-
 /**
- * @description Stores the state of the simulation and handles creating and fetching of logs
+ * @brief Stores the state of the simulation and handles creating and fetching of logs (Originator)
+ * 
  */
-
 class Simulation
 {
 public:
@@ -23,6 +22,5 @@ public:
     void loadLog(MapState* state);
 
 private:
-    Faction* factions[2];
-        
+    Faction* factions[2];     
 };
