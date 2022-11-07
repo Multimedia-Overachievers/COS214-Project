@@ -174,7 +174,7 @@ void ConcreteFaction::setStance(FactionState* stance)
 }
 
 /**
- * @brief returns the total number of troops from every country in a faction
+ * @brief Returns the total number of troops from every country in a faction
  * 
  * @return int 
  */
@@ -192,4 +192,20 @@ int ConcreteFaction::getTotalTroops()
     }
 
     return total;
+}
+
+/**
+ * @brief A function used to clone the faction
+ * 
+ * @return Faction* 
+ */
+Faction* ConcreteFaction::clone()
+{
+    return new ConcreteFaction(this);
+}
+
+ConcreteFaction::ConcreteFaction(Faction* faction)
+{
+    this->name = faction->getName();
+    
 }

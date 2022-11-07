@@ -34,6 +34,9 @@ public:
     virtual void createCountries() = 0;
     virtual int getTotalTroops() = 0;
     virtual void setStance(FactionState*) = 0;
+
+    virtual Faction* clone() = 0;
+
     virtual ~Faction() { delete observer; };
     std::list<Country*> countries;
 

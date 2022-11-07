@@ -214,3 +214,17 @@ int Country::getNumTroops()
         return 0;
     }
 }
+
+
+
+
+
+Country* Country::clone()
+{
+    return new Country(this);
+}
+
+Country::Country(Country* country)
+{
+
+}

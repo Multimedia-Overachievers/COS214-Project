@@ -36,10 +36,14 @@ public:
     int buffDMG();
     int buffDefence();
     int getNumTroops();
-
+    Country* clone();
+    
     FactionName getOwner() { return this->owner; };
     void setOwner(FactionName owner) { this->owner = owner; };
     CountryName getName() { return this->name; };
+
+protected:
+    Country(Country*);
 
 private:
     map<Building, int> buildings;

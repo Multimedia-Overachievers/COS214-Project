@@ -26,4 +26,8 @@ public:
     void createCountries() override;
     int getTotalTroops() override;
     void setStance(FactionState*) override;
+    Faction* clone() override;
+
+protected:
+    ConcreteFaction(Faction*);
 };
