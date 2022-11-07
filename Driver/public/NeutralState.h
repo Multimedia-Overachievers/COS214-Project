@@ -19,4 +19,5 @@ public:
     NeutralState(int);
     virtual ~NeutralState();
     void handleState(ActionResult, Faction*) override;
+    StanceType getStateType() override;
 };

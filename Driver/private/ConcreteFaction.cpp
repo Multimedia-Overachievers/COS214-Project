@@ -70,12 +70,22 @@ void ConcreteFaction::setData(FactionStore* store)
 }
 
 /**
- * @brief Gets the stance of the faction.
+ * @brief Gets the object stance of the faction.
  * @return FactionStance - Stance of the faction.
  */
 FactionState* ConcreteFaction::getStance() 
 {
     return stance;
+}
+
+/**
+ * @brief Returns the actual type of the stance
+ * 
+ * @return StanceType 
+ */
+StanceType ConcreteFaction::getStanceType()
+{
+    return this->stance->getStateType();
 }
 
 /**

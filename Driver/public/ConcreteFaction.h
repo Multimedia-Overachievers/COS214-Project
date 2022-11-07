@@ -15,6 +15,7 @@ public:
     FactionStore* getData() override;
     void setData(FactionStore* store) override;
     FactionState* getStance() override;
+    StanceType getStanceType() override;
     FactionName getName() override;
     Country* getCountry(int index) override;
     int getStrength() override;

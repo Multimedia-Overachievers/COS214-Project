@@ -48,3 +48,8 @@ void NeutralState::handleState(ActionResult result, Faction* faction)
     newState->printState(faction->getName(), stateName, true);
     faction->setStance(newState);
 }
+
+StanceType NeutralState::getStateType()
+{
+    return NeutralStance;
+}

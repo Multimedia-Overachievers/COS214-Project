@@ -48,3 +48,8 @@ void AggressiveState::handleState(ActionResult result, Faction* faction)
     newState->printState(faction->getName(), stateName, true);
     faction->setStance(newState); 
 }
+
+StanceType AggressiveState::getStateType()
+{
+    return AggressiveStance;
+}

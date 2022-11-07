@@ -23,6 +23,7 @@ public:
     virtual FactionStore* getData() = 0;
     virtual void setData(FactionStore* store) = 0;
     virtual FactionState* getStance() = 0;
+    virtual StanceType getStanceType() = 0;
     virtual FactionName getName() = 0;
     virtual int getStrength() = 0;
     virtual Country* getCountry(int index) = 0;

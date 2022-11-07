@@ -19,4 +19,5 @@ public:
     DefensiveState(int);
     virtual ~DefensiveState();
     void handleState(ActionResult, Faction*) override;
+    StanceType getStateType() override;
 };

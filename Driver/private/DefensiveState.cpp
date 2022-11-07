@@ -48,3 +48,8 @@ void DefensiveState::handleState(ActionResult result, Faction* faction)
     newState->printState(faction->getName(), stateName, true);
     faction->setStance(newState);
 }
+
+StanceType DefensiveState::getStateType()
+{
+    return DefensiveStance;
+}
