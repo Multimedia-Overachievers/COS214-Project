@@ -25,6 +25,10 @@ ConcreteSimulator::ConcreteSimulator()
     this->messageMap = std::map<std::string, std::string>();
     this->messageMap["Action"] = "";
     this->messageMap["Result"] = "";
+    this->messageMap["Faction"] = "";
+    this->messageMap["State"] = "";
+    this->messageMap["NumTroops"] = "";
+    this->messageMap["NumCountries"] = "";
 
 }
 
@@ -122,7 +126,7 @@ FactionAction* ConcreteSimulator::decideAction(Faction* faction)
     }
     else
     {
-        Country* country = faction->getCountry(rand() % 6); // Random number between 0 and 5
+        Country* country = faction->getCountry(rand() % faction->getStrength()); // Random number between 0 and 5
         nextAction = ActionType::RestockAction;
         return new Restock(faction, country); // Random number between 0 and 5
     }

@@ -77,7 +77,7 @@ std::string wrapText(std::string text, int length) {
     
 }
 
-void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator)
+void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator, FactionName factionTurn)
 {  
     float x[] = {215, 164, 63, 701, 342, 355, 391, 381, 668, 611, 546, 647};
     float y[] = {310, 104, 307, 0, 305, 267, 238, 431, 626, 396, 401, 499};
@@ -113,6 +113,45 @@ void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator)
     // List of things for attackAction output
     std::string action = wrapText(simulator->messageMap["Action"] + simulator->messageMap["Result"], 36);
     window.draw(*createText(action, 21, 47, 587, FontType::Alegreya, offBlack));
+
+
+    std::cout << "HERE" << std::endl;
+    // Current faction
+    Faction* faction = simulator->getFaction(factionTurn);
+    std::string factionName = convert_faction[faction->getName()];
+    // Get total number of troops in every country
+
+    std::cout << "HERE2" << std::endl;
+    int totalTroops = 0;
+    for (int i = 0; i < faction->getStrength(); i++) {
+        totalTroops += faction->getCountry(i)->getNumTroops();
+          std::cout << "HERE" << 3+i << std::endl;
+    }
+      std::cout << "HERE3" << std::endl;
+    // Get total number of countries owned
+    int totalCountries = faction->getStrength();
+
+
+    std::cout << "FACTION: " << faction << std::endl;
+    std::cout << "FACTION NAME: " << factionName << std::endl;
+    window.draw(*createText(factionName, 36, 206, 750, FontType::Alegreya, offBlack));
+
+    // Current state of faction
+    
+    std::string state = convert_stance[faction->getStanceType()];
+    state = "In " + state.substr(0, state.length() - 6) + " state";
+    std::cout << "STATE: " << state << std::endl;
+    window.draw(*createText(state, 21, 206, 789, FontType::Alegreya, offBlack));
+
+    // Current number of countries in faction
+    std::string countries = "Countries: " + std::to_string(totalCountries);
+    std::cout << "COUNTRIES: " << countries << std::endl;
+    window.draw(*createText(countries, 21, 206, 814, FontType::Alegreya, offBlack));
+
+    // Current number of troops in faction
+    std::string troops = "Troops: " + std::to_string(totalTroops);
+    std::cout << "TROOPS: " << troops << std::endl;
+    window.draw(*createText(troops, 21, 206, 840, FontType::Alegreya, offBlack));
 
     // Print out the countries in both the Axis and Allies
 
@@ -155,6 +194,7 @@ void incrementTurn()
 void nextRound(ConcreteSimulator* simulator, FactionName factionTurn)
 {
     Faction* faction = simulator->getFaction(factionTurn);
+    simulator->messageMap["Faction"] = convert_faction[factionTurn];
     simulator->notify(faction);
     faction->notify();
 
@@ -224,7 +264,8 @@ int main()
             }
 
             window.clear(waterColour);
-            setupMap(window, simulator);
+            
+            setupMap(window, simulator, factionTurn);
             window.draw(*createText("Europe", 50, 10, 10, FontType::Cinzel, sf::Color::White));
 
             window.display();
