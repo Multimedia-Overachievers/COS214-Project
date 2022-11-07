@@ -8,6 +8,7 @@
 #include "./Simulator.h"
 #include "./ConcreteFaction.h"
 #include <vector>
+#include <map>
 
 class FactionAction;
 
@@ -27,6 +28,8 @@ public:
     ActionType getNextAction();
     std::string getImagePath(CountryName country);
     std::string getImagePath(ActionType action);
+    bool gameOver(){return this->WIN_CONDITION;}
+    void toggleGameOver(){this->WIN_CONDITION = true;}
 
 protected:
     ConcreteSimulator();
@@ -36,6 +39,7 @@ protected:
 
 public:
     std::vector<Country*> countries;
+    std::map<std::string, std::string> messageMap;
 
 private:
     FactionAction* decideAction(Faction* faction) override;
@@ -44,4 +48,7 @@ private:
     static ConcreteSimulator* instance;
     ActionResult lastResult;
     ActionType nextAction;
+    bool WIN_CONDITION;
+
+
 };

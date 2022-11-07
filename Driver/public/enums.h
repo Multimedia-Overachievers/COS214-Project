@@ -127,6 +127,24 @@ enum StanceType {
     DefensiveStance
 };
 
+/**
+ * @brief Enum for the months of the year
+ */
+enum Month {
+    January = 0,
+    February,
+    March,
+    April,
+    May,
+    June,
+    July,
+    August,
+    September,
+    October,
+    November,
+    December
+};
+
 #ifndef GLOB_CONST_H
 #define GLOB_CONST_H 
     #define stringify( name ) # name
@@ -223,6 +241,22 @@ enum StanceType {
         stringify(NeutralStance),
         stringify(AggressiveStance),
         stringify(DefensiveStance),
+    };
+
+    inline const char* convert_month[] = 
+    {
+        stringify(January),
+        stringify(February),
+        stringify(March),
+        stringify(April),
+        stringify(May),
+        stringify(June),
+        stringify(July),
+        stringify(August),
+        stringify(September),
+        stringify(October),
+        stringify(November),
+        stringify(December),
     };
     
 #endif  

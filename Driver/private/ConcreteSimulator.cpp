@@ -21,6 +21,11 @@ ConcreteSimulator::ConcreteSimulator()
     this->lastResult = ActionResult::None;
     this->nextAction = ActionType::NoneAction;
     srand(time(NULL));
+    this->WIN_CONDITION = false;
+    this->messageMap = std::map<std::string, std::string>();
+    this->messageMap["Action"] = "";
+    this->messageMap["Result"] = "";
+
 }
 
 ConcreteSimulator* ConcreteSimulator::instance = nullptr;
@@ -87,8 +92,8 @@ FactionAction* ConcreteSimulator::decideAction(Faction* faction)
     std::cout << "Weights: " << weight << " Random: " << random << endl; 
     if(random < weight)
     {
-        int invadingCountry = rand() % 6; // Random number between 0 and 5
-        int defendingCountry = rand() % 6; // Random number between 0 and 5
+        int invadingCountry = rand() % faction->getStrength();
+        int defendingCountry = rand() % getOpposite(faction)->getStrength();
         nextAction = ActionType::AttackAction;    
         return new AttackFromCountry(faction, faction->getCountry(invadingCountry), this->getOpposite(faction)->getCountry(defendingCountry));
     }
@@ -130,14 +135,10 @@ Faction* ConcreteSimulator::getOpposite(Faction* faction)
 {
     if(faction->getName() == Allies)
     {
-        std::cout << "Allies, returning Axis" << std::endl;
-        std::cout << "Axis: " << factions[1]->getName() << std::endl;
         return factions[1];
     }
     else if(faction->getName() == Axis)
     {
-        std::cout << "Axis, returning Allies" << std::endl;
-        std::cout << "Allies: " << factions[0]->getName() << std::endl;
         return factions[0];
     }
     else
@@ -154,8 +155,8 @@ Faction* ConcreteSimulator::getOpposite(Faction* faction)
 void ConcreteSimulator::captureCountry(Country* country, Faction* faction)
 {
     faction->addCountry(country);
-    getOpposite(faction)->removeCountry(country);    
-    
+    getOpposite(faction)->removeCountry(country);      
+    this->WIN_CONDITION = getOpposite(faction)->getStrength() == 0;  
 }
 
 /**
