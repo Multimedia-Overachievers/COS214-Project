@@ -145,6 +145,7 @@ int main()
 //Finished video
 //Fixed Thomas' citations to be in Harvard
 //Added facade description
+//Added Mediator and and Facade Interrelationships
 
 //Tayla 
 //Finished Composite Pattern and added to docs
