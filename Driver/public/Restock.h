@@ -1,6 +1,5 @@
 #pragma once
 #include "FactionAction.h"
-#include "../../Creation/public/Soldiers.h"
 
 class Country;
 
@@ -14,13 +13,13 @@ class Country;
 
 class Restock: public FactionAction
 {
-private:
-    Country* myCountry;
-    State troopstate;
-    Name troopName;
 public:
     friend class Country;
-    Restock(Faction* myFaction, Country* myCountry,  State troopstate, std::vector<Troops*> squads);
+    Restock(Faction* myFaction, Country* myCountry);
     Faction* getFaction();
     virtual void execute();
+
+private:
+    Country* myCountry;
+    Name troopName;
 };

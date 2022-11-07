@@ -32,11 +32,11 @@ void FactionState::printState(FactionName name, string state, bool change)
 {
     if (change)
     {   
-        cout << getFactionName(name) << " is now" << state << endl;
+        cout << getFactionName(name) << " is now " << state << endl;
     }
     else
     {
-        cout << getFactionName(name) << " is still" << state << endl;
+        cout << getFactionName(name) << " is still " << state << endl;
     }
 }
 
@@ -105,11 +105,6 @@ int FactionState::calculateMorale(ActionResult result, Faction* faction)
     double newMorale = this->getMorale();
     int numCountries = faction->getStrength();
     int numTroops = faction->getTotalTroops();
-
-    if (faction == nullptr)
-    {
-        newMorale *= 1.2;
-    }
 
     // Total number of troops
     if (numTroops < 300)

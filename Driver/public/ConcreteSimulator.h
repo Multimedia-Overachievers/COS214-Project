@@ -27,6 +27,7 @@ public:
     void setLastResult(ActionResult result);
     ActionResult getLastResult();
     std::string getImagePath(CountryName country);
+    std::string getImagePath(ActionType action);
 
 protected:
     ConcreteSimulator();

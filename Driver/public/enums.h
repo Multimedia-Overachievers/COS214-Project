@@ -108,6 +108,15 @@ enum FontType {
     Literata
 };
 
+/**
+ * @brief Defines the different types of actions
+ */
+enum ActionType {
+    Attack,
+    Restock,
+    Move
+};
+
 #ifndef GLOB_CONST_H
 #define GLOB_CONST_H 
     #define stringify( name ) # name
@@ -190,4 +199,12 @@ enum FontType {
         stringify(Alegreya),
         stringify(Literata),
     };
+
+    inline const char* convert_action[] = 
+    {
+        stringify(Attack),
+        stringify(Restock),
+        stringify(Move),
+    };
+    
 #endif  
