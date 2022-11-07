@@ -2,6 +2,44 @@
 #include <iostream>
 #include "../public/ConcreteSimulator.h"
 
+// ================== Global Variables ==================
+
+int year = 1936;
+int month = 0;
+
+// ------------------ Colours ------------------
+
+sf::Color offBlack = sf::Color(38, 37, 34);
+sf::Color waterColour = sf::Color(69, 153, 186);
+
+// ================== Helper/Set-up functions ==================
+
+sf::Text* createText(std::string text, int size, int x, int y, FontType fontType, sf::Color colour) {
+    sf::Font* font = new sf::Font();
+    switch(fontType)
+    {
+        default: case FontType::Literata:
+            font->loadFromFile("../Media/Fonts/Literata.ttf"); // Secondary text font
+            break;
+        case FontType::Cinzel:
+            font->loadFromFile("../Media/Fonts/Cinzel.ttf"); // Title font
+            break;
+        case FontType::Alegreya:
+            font->loadFromFile("../Media/Fonts/Alegreya.ttf"); // Main text font
+            break;
+    }
+    
+    //create text
+    sf::Text* textPtr = new sf::Text();
+    textPtr->setFont(*font);
+    textPtr->setString(text);
+    textPtr->setCharacterSize(size);
+    textPtr->setFillColor(colour);
+    textPtr->setPosition(x, y);
+
+    return textPtr;
+}
+
 void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator)
 {  
     float x[] = {215, 164, 63, 701, 342, 355, 391, 381, 668, 611, 546, 647};
@@ -30,40 +68,71 @@ void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator)
     sf::Sprite actionSprite(actionTexture);
     actionSprite.setPosition(13, 527);
     window.draw(actionSprite);
-    
+
+    //setup the date window
+    std::string date = std::to_string(year) + " " + convert_month[month];
+    std::cout << "DATE: " << date << std::endl;
+    window.draw(*createText(date, 24, 44, 545, FontType::Cinzel, offBlack));
+
+    // List of things for attackAction output
+    std::string action = simulator->messageMap["Action"] + simulator->messageMap["Result"];
+    std::cout << "ACTION: " << action << std::endl;
+    window.draw(*createText(action, 21, 47, 587, FontType::Alegreya, offBlack));
+        
 }
 
+/**
+ * @brief Increments the turn by one by changing the month and year
+ * 
+ */
+void incrementTurn()
+{
+    month++;
+    if(month == 12)
+    {
+        month = 0;
+        year++;
+    }
+}
+
+/**
+ * @brief Function which takes in a string and wraps it to a certain width
+ * 
+ * @param text 
+ * @param length 
+ * @return std::string 
+ */
+std::string wrapText(std::string text, int length) {
+    std::string wrappedText = "";
+    int lineLength = 0;
+    for (int i = 0; i < text.length(); i++) {
+        if (lineLength >= length) {
+            wrappedText += "\n";
+            lineLength = 0;
+        }
+        wrappedText += text[i];
+        lineLength++;
+    }
+    return wrappedText;
+}
+
+/**
+ * @brief Handles the methods which need to be called each round
+ * 
+ * @param simulator 
+ * @param factionTurn 
+ */
 void nextRound(ConcreteSimulator* simulator, FactionName factionTurn)
 {
     Faction* faction = simulator->getFaction(factionTurn);
     simulator->notify(faction);
     faction->notify();
-}
 
-sf::Text* createText(std::string text, int size, int x, int y, FontType fontType){
-    sf::Font* font = new sf::Font();
-    switch(fontType)
+    // If the faction is the Axis, then increment the turn
+    if(factionTurn == FactionName::Axis)
     {
-        default: case FontType::Literata:
-            font->loadFromFile("../Media/Fonts/Literata.ttf");
-            break;
-        case FontType::Cinzel:
-            font->loadFromFile("../Media/Fonts/Cinzel.ttf");
-            break;
-        case FontType::Alegreya:
-            font->loadFromFile("../Media/Fonts/Alegreya.ttf");
-            break;
+        incrementTurn();
     }
-    
-    //create text
-    sf::Text* textPtr = new sf::Text();
-    textPtr->setFont(*font);
-    textPtr->setString(text);
-    textPtr->setCharacterSize(size);
-    textPtr->setFillColor(sf::Color::White);
-    textPtr->setPosition(x, y);
-
-    return textPtr;
 }
 
 int main()
@@ -76,7 +145,7 @@ int main()
     
     //======================== Simulator Setup ========================
     ConcreteSimulator* simulator = ConcreteSimulator::getInstance();
-    const int MAX_TURNS = 20;
+    const int MAX_TURNS = 48;
     int currentTurn = 0;
     FactionName factionTurn = Allies;
 
@@ -118,19 +187,19 @@ int main()
             std::cout << "Turn " << currentTurn << " complete." << std::endl;
             currentTurn++;
 
-            if(currentTurn == MAX_TURNS)
+            if(currentTurn == MAX_TURNS || simulator->gameOver()) // TODO: ADD THE WIN CONDITION
             {
                 std::cout << "Game Over" << std::endl;
+                std::cin.get();
                 window.close();
             }
 
-            window.clear(sf::Color(69, 153, 186));
+            window.clear(waterColour);
             setupMap(window, simulator);
-            window.draw(*createText("Europe", 50, 10, 10, FontType::Cinzel));
+            window.draw(*createText("Europe", 50, 10, 10, FontType::Cinzel, sf::Color::White));
 
             window.display();
         }
-
 
     }
 
