@@ -242,12 +242,15 @@ vector<Troops *> Soldiers::disband(int noToRemove)
     }
     TroopIterator *it = createIterator();
     it->first();
-    while (!it->isDone() && noToRemove > 0)
+
+    while (!it->isDone() && noToRemove > 0 )
     {
         removedSquads.push_back(squads[it->getIndex()]);
-        squads.erase(squads.begin() + it->getIndex());
         it->next();
+        noToRemove--;
     }
+    squads.erase(squads.begin(), squads.begin() + it->getIndex());
+
     setHP(getTotalHP());
     setDMG(getTotalDMG());
     changeName();

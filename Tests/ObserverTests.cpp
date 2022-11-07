@@ -8,9 +8,10 @@ protected:
     static void SetUpTestSuite() {
         if(simulator == nullptr) {
             simulator = ConcreteSimulator::getInstance();
+            simulator->setLastResult(ActionResult::Draw);
         }
         if(country == nullptr) {
-            country = new Country(CountryName::France, FactionName::Allies, 3, 0);
+            country = new Country(CountryName::France, FactionName::Allies, 3, 0, 0);
         }
     }
 
@@ -29,7 +30,7 @@ ConcreteSimulator* ObserverTests::simulator = nullptr;
 TEST_F(ObserverTests, CountryObserverDrawTest)
 {
     std::cout << COUT_GTEST_MES << "Testing: Initial action result" << ANSI_TXT_DFT << std::endl;
-    EXPECT_EQ(simulator->getLastResult(), ActionResult::Win);
+    EXPECT_EQ(simulator->getLastResult(), ActionResult::Draw);
     country->notify();
     EXPECT_TRUE(simulator->getLastResult() == ActionResult::Draw);
     std::cout << COUT_GTEST_SUC << "==== TEST PASSED ====" << ANSI_TXT_DFT << std::endl;

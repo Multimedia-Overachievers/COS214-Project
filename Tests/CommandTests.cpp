@@ -42,10 +42,28 @@ TEST_F(CommandTests, CommandRestockTest)
     Faction* allies = simulator->getFaction(Allies);
     Faction* axis = simulator->getFaction(Axis);
 
-    // ASSERT_EQ(country->getTroops(), 0);
-    // Country* country = allies->getCountry(2);
-    // FactionAction* restock = new Restock(allies, country);
-    // simulator->action(restock);
-    // ASSERT_EQ(country->getTroops(), 20);
+    Country* country = allies->getCountry(2);
+    country->removeAllTroops();
+    ASSERT_EQ(country->getNumTroops(), 0);
+
+    FactionAction* restock = new Restock(allies, country);
+    simulator->action(restock);
+    EXPECT_TRUE(country->getNumTroops() > 0);
+    std::cout << COUT_GTEST_SUC << "==== TEST PASSED ====" << ANSI_TXT_DFT << std::endl;
+}
+
+TEST_F(CommandTests, CommandMoveTest)
+{
+    std::cout << COUT_GTEST_MES << "Testing: Moving troops between countries" << ANSI_TXT_DFT << std::endl;
+    Faction* allies = simulator->getFaction(Allies);
+    Country* country1 = allies->getCountry(0);
+    Country* country2 = allies->getCountry(1);
+
+    country1->removeAllTroops();
+    ASSERT_EQ(country1->getNumTroops(), 0);
+    FactionAction* move = new MoveTroops(allies, country1, country2, 10);
+    simulator->action(move);
+
+    EXPECT_EQ(country1->getNumTroops(), 10);
     std::cout << COUT_GTEST_SUC << "==== TEST PASSED ====" << ANSI_TXT_DFT << std::endl;
 }
