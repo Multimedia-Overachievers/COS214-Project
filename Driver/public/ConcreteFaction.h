@@ -12,6 +12,7 @@ class ConcreteFaction: public Faction
 {
 public:
     ConcreteFaction(FactionName name);
+    virtual ~ConcreteFaction();
     FactionStore* getData() override;
     void setData(FactionStore* store) override;
     FactionState* getStance() override;
@@ -26,4 +27,8 @@ public:
     void createCountries() override;
     int getTotalTroops() override;
     void setStance(FactionState*) override;
+    Faction* clone() override;
+
+protected:
+    ConcreteFaction(Faction*);
 };

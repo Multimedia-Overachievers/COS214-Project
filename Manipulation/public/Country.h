@@ -37,14 +37,20 @@ public:
     int buffDefence();
     int getNumTroops();
 
+    Country* clone();
+    map<Building, int> getBuildings();
+
     FactionName getOwner() { return this->owner; };
     void setOwner(FactionName owner) { this->owner = owner; };
     CountryName getName() { return this->name; };
+
+protected:
+    Country(Country*);
 
 private:
     map<Building, int> buildings;
     CountryName name;
     FactionName owner;
-    CountryObserver *observer;
+    CountryObserver* observer;
     Troops* myTroops;
 };

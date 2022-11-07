@@ -7,9 +7,10 @@
 #include "../public/Simulation.h"
 
 /**
- * Constructor for Simulation
- * @param allies
- * @param axis
+ * @brief Construct a new Simulation:: Simulation object
+ * 
+ * @param allies 
+ * @param axis 
  */
 Simulation::Simulation(Faction* allies, Faction* axis)
 {
@@ -18,7 +19,8 @@ Simulation::Simulation(Faction* allies, Faction* axis)
 }
 
 /**
- * Destructor for Simulation
+ * @brief Destroy the Simulation:: Simulation object
+ * 
  */
 Simulation::~Simulation()
 {
@@ -30,8 +32,9 @@ Simulation::~Simulation()
 
 
 /**
- * Saves the current state of the simulation
- * @return state
+ * @brief Saves the current state of the simulation
+ * 
+ * @return MapState* 
  */
 MapState* Simulation::saveLog()
 {
@@ -42,8 +45,9 @@ MapState* Simulation::saveLog()
 }
 
 /**
- * Loads a previous state of the simulation
- * @param state
+ * @brief Loads a previous state of the simulation
+ * 
+ * @param state 
  */
 void Simulation::loadLog(MapState* state)
 {

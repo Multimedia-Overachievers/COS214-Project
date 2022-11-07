@@ -399,6 +399,10 @@ int main()
 // Updated country class diagram and added to docs
 // Added more Object Diagrams to docs
 // Added more Sequence Diagrams to docs
+// Added activity diagrams to docs
+// Added communication diagrams to docs
+// Finished up documentation
+// Added citations to docs
 
 // Dhairiya
 // Updated previous state diagram in docs

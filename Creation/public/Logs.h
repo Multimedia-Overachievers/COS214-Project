@@ -9,7 +9,8 @@
 #include "./MapState.h"
 
 /**
- * @description A log of the previous states of each faction
+ * @brief A log of the previous states of each faction (Caretaker)
+ * 
  */
 class Logs 
 {

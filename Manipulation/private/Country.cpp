@@ -225,3 +225,34 @@ int Country::getNumTroops()
         return 0;
     }
 }
+
+
+
+map<Building, int> Country::getBuildings()
+{
+    return this->buildings;
+}
+
+/**
+ * @brief Clone a country object
+ * 
+ * @return Country* 
+ */
+Country* Country::clone()
+{
+    return new Country(this);
+}
+
+/**
+ * @brief Construct a new Country:: Country object
+ * 
+ * @param country 
+ */
+Country::Country(Country* country)
+{
+    this->name = country->getName();
+    this->owner = country->getOwner();
+    this->buildings = country->getBuildings();
+    this->observer = new CountryObserver(this);
+    this->addTroops(country->getNumTroops());
+}
