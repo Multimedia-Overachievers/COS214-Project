@@ -70,12 +70,22 @@ void ConcreteFaction::setData(FactionStore* store)
 }
 
 /**
- * @brief Gets the stance of the faction.
+ * @brief Gets the object stance of the faction.
  * @return FactionStance - Stance of the faction.
  */
 FactionState* ConcreteFaction::getStance() 
 {
     return stance;
+}
+
+/**
+ * @brief Returns the actual type of the stance
+ * 
+ * @return StanceType 
+ */
+StanceType ConcreteFaction::getStanceType()
+{
+    return this->stance->getStanceType();
 }
 
 /**
@@ -147,9 +157,20 @@ void ConcreteFaction::notify()
  * @brief Changes the current state of the faction.
  * 
  */
-void ConcreteFaction::changeState(ActionResult result, Faction* opposite)
+void ConcreteFaction::changeState(ActionResult result)
 {
-    stance->handleState(result, opposite, stance);
+    this->stance->handleState(result, this);
+}
+
+/**
+ * @brief Set the current stance to the one passed in as a parameter; will be most often used by FactionState.cpp
+ * 
+ * @param stance 
+ */
+void ConcreteFaction::setStance(FactionState* stance)
+{
+    delete(this->stance);
+    this->stance = stance;
 }
 
 /**

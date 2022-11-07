@@ -27,7 +27,7 @@ Country::Country(CountryName name, FactionName owner, int hospitals, int barrack
 
     ConcreteSimulator::getInstance()->countries.push_back(this);
     this->observer = new CountryObserver(this);
-    this->myTroops = nullptr;
+    this->myTroops = new Soldiers();
 }
 
 /**
@@ -69,10 +69,6 @@ vector<Troops *> Country::removeTroops(int noToRemove)
  */
 void Country::addTroops(vector<Troops *> troops)
 {
-    if (this->myTroops == nullptr)
-    {
-        this->myTroops = new Soldiers();
-    }
     this->myTroops->build(troops);
 }
 
@@ -84,10 +80,6 @@ void Country::addTroops(vector<Troops *> troops)
  */
 void Country::addTroops(Troops *troop)
 {
-    if (this->myTroops == nullptr)
-    {
-        this->myTroops = new Soldiers();
-    }
     this->myTroops->build(troop);
 }
 
@@ -99,10 +91,6 @@ void Country::addTroops(Troops *troop)
  */
 void Country::addTroops(int noToAdd)
 {
-    if (this->myTroops == nullptr)
-    {
-        this->myTroops = new Soldiers();
-    }
     this->myTroops->build(noToAdd);
 }
 
@@ -120,12 +108,12 @@ void Country::notify()
  */
 void Country::invade(Country *country)
 {
+    std::cout << "Invading " << convert_country[country->getName()] << std::endl;
     if (country->hasTroops())
-    {
+    {   
         int damage = this->buffDMG();            // Get damage from my troops
         int invaderHealth = this->buffDefence(); // Get health from my troops
-
-        int defence = country->buffDMG();            // Get damage from enemy troops
+        int defence = country->buffDMG();        // Get damage from enemy troops
         int defenderHealth = country->buffDefence(); // Get health from enemy troops
 
         while (invaderHealth > 0 && defenderHealth > 0)

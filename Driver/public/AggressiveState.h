@@ -18,5 +18,6 @@ class AggressiveState : public FactionState
 public:
     AggressiveState(int);
     virtual ~AggressiveState();
-    void handleState(ActionResult, Faction*, FactionState*) override;
+    void handleState(ActionResult, Faction*) override;
+    StanceType getStanceType() override;
 };

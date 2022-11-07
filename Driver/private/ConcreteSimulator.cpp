@@ -4,6 +4,7 @@
  *  Author: Keelan Matthews (u21549967)
  */
 
+#include "../public/FactionAction.h"
 #include "../public/AttackFromCountry.h"
 #include "../public/Restock.h"
 #include "../public/ConcreteSimulator.h"
@@ -18,6 +19,7 @@ ConcreteSimulator::ConcreteSimulator()
     factions.push_back(allies);
     factions.push_back(axis);
     this->lastResult = ActionResult::None;
+    this->nextAction = ActionType::NoneAction;
     srand(time(NULL));
 }
 
@@ -45,10 +47,8 @@ ConcreteSimulator* ConcreteSimulator::getInstance()
  */
 void ConcreteSimulator::notify(Faction* faction) 
 {
-    FactionAction* actionWD = decideAction(faction);
-    action(actionWD);
+    action(decideAction(faction));
     std::cout << std::endl;
-    actionWD->print();
 }
 
 /**
@@ -65,64 +65,38 @@ void ConcreteSimulator::action(FactionAction *factionAction)
  * @param faction - Faction to decide an action for.
  * @return FactionAction - Action to perform on the faction.
  */
-FactionAction* ConcreteSimulator::decideAction(Faction *faction)
+FactionAction* ConcreteSimulator::decideAction(Faction* faction)
 {
-    double weights[2]; // Weights for the different actions 0 -> 0.5 = attack, 0.5 -> 1 = reStock
-    weights[0] = 0.25; // 75%
-    weights[1] = 1; // 25%
-    // if(faction->getStance() == FactionStance::Aggressive)
-    // {
-    //     weights[0] = 0.75; // 75%
-    //     weights[1] = 1; // 25%
-    // }
-    // else if(faction->getStance() == FactionStance::Passive)
-    // {
-    //     weights[0] = 0.5; // 50% 
-    //     weights[1] = 1; // 50%
-    // }
-    // else if(faction->getStance() == FactionStance::Defensive)
-    // {   
-    //     weights[0] = 0.25; // 25%
-    //     weights[1] = 1; // 75%
-    // }
-
-
-    if(faction->getStrength() <= 3)
+    double weight = 0.5; // Weights for the different actions < weight = attack, > weight = reStock
+    // Get the faction's stance and adjust the weight accordingly
+    switch (faction->getStance()->getStanceType())
     {
-        weights[0] /= 0.25; // Make the faction (25%) more likely to reStock
-    }
-    else if(faction->getStrength() >= 4 && faction->getStrength() <= 6)
-    {
-        // No change
-    }
-    else if(faction->getStrength() >= 7)
-    {
-        weights[0] *= 0.25; // Make the faction (25%) more likely to attack
+        case DefensiveStance:
+            weight = 0.25; // 75% chance to reStock, 25% chance to attack
+            break;
+        case NeutralStance:
+            weight = 0.5; // 50% chance to reStock, 50% chance to attack
+            break;
+        case AggressiveStance:
+            weight = 0.75; // 25% chance to reStock, 75% chance to attack
+            break;
     }
 
     double random = (double)rand() / RAND_MAX; // Random number between 0 and 1
     
-    std::cout << "Weights: " << weights[0] << " Random: " << random << endl; 
-    if(random < weights[0])
+    std::cout << "Weights: " << weight << " Random: " << random << endl; 
+    if(random < weight)
     {
-        int invadingCountry = rand() % 3; // Random number between 0 and 2
-        int defendingCountry = rand() % 3; // Random number between 0 and 2
-
-        FactionAction* action = new AttackFromCountry(faction, faction->getCountry(invadingCountry), this->getOpposite(faction)->getCountry(defendingCountry));       
-        return action;
+        int invadingCountry = rand() % 6; // Random number between 0 and 5
+        int defendingCountry = rand() % 6; // Random number between 0 and 5
+        nextAction = ActionType::AttackAction;    
+        return new AttackFromCountry(faction, faction->getCountry(invadingCountry), this->getOpposite(faction)->getCountry(defendingCountry));
     }
     else
     {
-       // Random number between 5 and 15
-        int numSquads = rand() % 11 + 5;
-        std::vector<Troops*> squads;
-        for(int i = 0; i < numSquads; i++)
-        {
-            squads.push_back(new Squad(SquadStd, Ready)); // @Ross-Tordiffe - I changed Squad to SquadStd because Squad is a class in the std namespace (not sure if this is the correct way to do it)
-        }
-
-        FactionAction* action = new Restock(faction, faction->getCountry(rand() % 3), Ready, squads);
-        return action; // Random number between 0 and 2
+        Country* country = faction->getCountry(rand() % 6); // Random number between 0 and 5
+        nextAction = ActionType::RestockAction;
+        return new Restock(faction, country); // Random number between 0 and 5
     }
 }
 
@@ -156,14 +130,19 @@ Faction* ConcreteSimulator::getOpposite(Faction* faction)
 {
     if(faction->getName() == Allies)
     {
+        std::cout << "Allies, returning Axis" << std::endl;
+        std::cout << "Axis: " << factions[1]->getName() << std::endl;
         return factions[1];
     }
     else if(faction->getName() == Axis)
     {
+        std::cout << "Axis, returning Allies" << std::endl;
+        std::cout << "Allies: " << factions[0]->getName() << std::endl;
         return factions[0];
     }
     else
     {
+        std::cout << "Error: Faction not found" << std::endl;
         return nullptr;
     }
 }
@@ -198,6 +177,15 @@ ActionResult ConcreteSimulator::getLastResult(){
 }
 
 /**
+ * @brief Get the next action to be displayed on the UI
+ * 
+ */
+ActionType ConcreteSimulator::getNextAction()
+{
+    return nextAction;
+}
+
+/**
  * @brief Constructs an image path based on passed in country
  * @return std::string - The path to the image
  */
@@ -224,5 +212,18 @@ std::string ConcreteSimulator::getImagePath(CountryName country){
         return path;
     }
 
+    return path;
+}
+
+/**
+ * @brief Constructs an image path based on passed in faction
+ * @return std::string - The path to the image
+ */
+std::string ConcreteSimulator::getImagePath(ActionType action)
+{
+    std::string path = "../Media/";
+    std::string actionName = convert_action[action];
+    path += actionName;
+    path += ".png";
     return path;
 }

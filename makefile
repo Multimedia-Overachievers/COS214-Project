@@ -33,3 +33,6 @@ setup:
 
 documentation:
 	doxygen docs.bak
+
+run:
+	cd $(BUILD_DIR); ./Project

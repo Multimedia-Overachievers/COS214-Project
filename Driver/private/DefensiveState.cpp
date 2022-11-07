@@ -25,11 +25,10 @@ DefensiveState::~DefensiveState() {};
  * @param faction Faction object
  * @param state FactionName enum, can be 'Allies', 'Axis'
  */
-void DefensiveState::handleState(ActionResult result, Faction* faction, FactionState* state)
+void DefensiveState::handleState(ActionResult result, Faction* faction)
 {
     int newMorale = calculateMorale(result, faction);
     FactionState* newState = nullptr;
-    FactionState* oldState = state;
     string stateName = "defensive";
 
     if (newMorale < 50)
@@ -46,7 +45,11 @@ void DefensiveState::handleState(ActionResult result, Faction* faction, FactionS
         newState = new AggressiveState(newMorale);
     }
 
-    deletePreviousState(oldState);
-    state = newState;
-    state->printState(faction->getName(), stateName, true);
+    newState->printState(faction->getName(), stateName, true);
+    faction->setStance(newState);
+}
+
+StanceType DefensiveState::getStanceType()
+{
+    return DefensiveStance;
 }

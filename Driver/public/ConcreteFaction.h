@@ -15,13 +15,15 @@ public:
     FactionStore* getData() override;
     void setData(FactionStore* store) override;
     FactionState* getStance() override;
+    StanceType getStanceType() override;
     FactionName getName() override;
     Country* getCountry(int index) override;
     int getStrength() override;
     void removeCountry(Country* country) override;
     void addCountry(Country* country) override;
     void notify() override;
-    void changeState(ActionResult result, Faction* opposite) override;
+    void changeState(ActionResult result) override;
     void createCountries() override;
     int getTotalTroops() override;
+    void setStance(FactionState*) override;
 };

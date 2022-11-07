@@ -20,5 +20,6 @@ FactionObserver::FactionObserver(ConcreteFaction* faction)
 void FactionObserver::update()
 {
     ConcreteSimulator* simulator = ConcreteSimulator::getInstance();
-    this->faction->changeState(simulator->getLastResult(), simulator->getOpposite(this->faction));
+    //this->faction->changeState(simulator->getLastResult(), simulator->getOpposite(this->faction));
+    this->faction->changeState(simulator->getLastResult());
 }

@@ -18,11 +18,19 @@ void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator)
     }
 
     //setup neutral teritory image
-    sf::Texture texture;
-    texture.loadFromFile("../Media/Neutral.png");
-    sf::Sprite sprite(texture);
+    sf::Texture neutralTexture;
+    neutralTexture.loadFromFile("../Media/Neutral.png");
+    sf::Sprite sprite(neutralTexture);
     sprite.setPosition(373, 0);
     window.draw(sprite);
+
+    //setup the action window
+    sf::Texture actionTexture;
+    actionTexture.loadFromFile(simulator->getImagePath(simulator->getNextAction()));
+    sf::Sprite actionSprite(actionTexture);
+    actionSprite.setPosition(13, 527);
+    window.draw(actionSprite);
+    
 }
 
 void nextRound(ConcreteSimulator* simulator, FactionName factionTurn)
@@ -64,7 +72,7 @@ int main()
     sf::RenderWindow window(sf::VideoMode(900, 900), "Memento Mori | Project");
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
-    sf::Time timePerFrame = sf::seconds(4.0f);
+    sf::Time timePerFrame = sf::seconds(1.0f);
     
     //======================== Simulator Setup ========================
     ConcreteSimulator* simulator = ConcreteSimulator::getInstance();
@@ -115,12 +123,15 @@ int main()
                 std::cout << "Game Over" << std::endl;
                 window.close();
             }
+
+            window.clear(sf::Color(69, 153, 186));
+            setupMap(window, simulator);
+            window.draw(*createText("Europe", 50, 10, 10, FontType::Cinzel));
+
+            window.display();
         }
 
-        window.clear(sf::Color(69, 153, 186));
-        setupMap(window, simulator);
-        window.draw(*createText("Europe", 50, 10, 10, FontType::Cinzel));
-        window.display();
+
     }
 
     return EXIT_SUCCESS;

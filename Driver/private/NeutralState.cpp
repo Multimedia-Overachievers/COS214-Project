@@ -25,11 +25,10 @@ NeutralState::~NeutralState() {};
  * @param faction Faction object
  * @param state FactionName enum, can be 'Allies', 'Axis'
  */
-void NeutralState::handleState(ActionResult result, Faction* faction, FactionState* state)
+void NeutralState::handleState(ActionResult result, Faction* faction)
 {
     int newMorale = calculateMorale(result, faction);
     FactionState* newState = nullptr;
-    FactionState* oldState = state;
     string stateName = "neutal";
 
     if (newMorale < 50)
@@ -46,7 +45,11 @@ void NeutralState::handleState(ActionResult result, Faction* faction, FactionSta
         newState = new AggressiveState(newMorale);
     }
 
-    deletePreviousState(oldState);
-    state = newState;
-    state->printState(faction->getName(), stateName, true);
+    newState->printState(faction->getName(), stateName, true);
+    faction->setStance(newState);
+}
+
+StanceType NeutralState::getStanceType()
+{
+    return NeutralStance;
 }

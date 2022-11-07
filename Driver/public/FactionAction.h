@@ -5,6 +5,7 @@
  */
 
 #pragma once
+#include "./enums.h"
 #include <string>
 #include <iostream>
 
@@ -19,9 +20,5 @@ public:
 
 protected:
     Faction* myFaction;
-
-//DEBUG_
-public:
-    std::string type;
-    void print(){std::cout << "Action: " << type << std::endl;}
+    ActionType action;
 };

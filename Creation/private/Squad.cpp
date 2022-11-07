@@ -5,6 +5,7 @@
  */
 
 #include "../public/Squad.h"
+#include <iostream>
 
 /**
  * @brief Construct a new Squad:: Squad object
