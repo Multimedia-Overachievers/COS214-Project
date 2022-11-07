@@ -7,7 +7,9 @@
 
 #include "../../Driver/public/ConcreteSimulator.h"
 #include "../public/CountryObserver.h"
+#include "../../Driver/public/MoveTroops.h"
 #include "../public/Country.h"
+
 
 /**
  * @brief Country::Country
@@ -128,24 +130,33 @@ void Country::invade(Country *country)
         while (invaderHealth > 0 && defenderHealth > 0)
         {
             defenderHealth = country->takeDMG(damage); // Take damage from my troops
+            std::cout << "Defender health: " << defenderHealth << std::endl;
             if (defenderHealth > 0)
             {
                 invaderHealth = this->takeDMG(defence); // Take damage from enemy troops
             }
+            std::cout << "Invader Health: " << invaderHealth << std::endl;
+            std::cout << "Defender Health: " << defenderHealth << std::endl;
         }
         if (defenderHealth <= 0)
         { // I win if their health is 0 or less
+            std::cout << "I win" << std::endl;
             country->getConqueredBy(this);
             simulator->messageMap["Result"] = "They won the battle, inflicting " + std::to_string(defendingTroops) + " casualties, suffering " + std::to_string(attackingTroops - this->myTroops->getTotalTroops()) + " of their " + std::to_string(attackingTroops) + ". " + countryName + " now belongs to the " + faction + ". ";
+            // move half of my troops to the country
+            FactionAction* moveAction = new MoveTroops(simulator->getFaction(this->owner), country, this, (this->myTroops->getTotalTroops() / 2));
+            simulator->action(moveAction);
         }
         else if (invaderHealth <= 0)
         { // They win if my health is 0 or less
             // country->getConqueredBy(this);
+            std::cout << "They win" << std::endl;
             simulator->messageMap["Result"] = "They lost the battle, losing " + std::to_string(attackingTroops) + " troops. The defenders suffered " + std::to_string(defendingTroops - country->myTroops->getTotalTroops()) + " of their " + std::to_string(defendingTroops) + " troops. ";
         }
     }
     else
     {
+        std::cout << "They win (no troops)" << std::endl;
         country->getConqueredBy(this);
     }
 

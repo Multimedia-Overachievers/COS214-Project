@@ -48,7 +48,7 @@ FactionStore* ConcreteFaction::getData()
     std::list<Country*> countries;
     for (Country* country : this->countries)
     {
-        countries.push_back(country);
+        countries.push_back(country->clone());
     }
     
     FactionStore* store = new FactionStore();

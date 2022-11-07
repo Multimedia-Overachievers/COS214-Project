@@ -24,5 +24,5 @@ public:
 
 private:
     Faction* factions[2];
-        
+    
 };
