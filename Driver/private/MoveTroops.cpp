@@ -34,7 +34,7 @@ void MoveTroops::execute()
 
     for (Troops* troop : removed)
     {
-        troop->setState(Moving);
+        troop->setState(Ready);
         this->destinationCountry->addTroops(troop);
     }
 }
