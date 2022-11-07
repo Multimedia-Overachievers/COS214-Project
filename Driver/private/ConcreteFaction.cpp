@@ -163,11 +163,6 @@ void ConcreteFaction::setStance(FactionState* stance)
     this->stance = stance;
 }
 
-FactionState* ConcreteFaction::getStance()
-{
-    return this->stance;
-}
-
 /**
  * @brief returns the total number of troops from every country in a faction
  * 

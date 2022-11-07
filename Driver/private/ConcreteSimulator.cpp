@@ -70,7 +70,6 @@ FactionAction* ConcreteSimulator::decideAction(Faction* faction)
     double weight = 0.5; // Weights for the different actions 0 -> 0.4999.. = attack, 0.5 -> 1 = reStock
     // Get the faction's stance and adjust the weight accordingly
     FactionState* state = faction->getStance();
-    
 
     double random = (double)rand() / RAND_MAX; // Random number between 0 and 1
     

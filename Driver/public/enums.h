@@ -118,6 +118,15 @@ enum ActionType {
     NoneAction
 };
 
+/**
+ * @brief Defines the different types of stances
+ */
+enum StanceType {
+    NeutralStance,
+    AggressiveStance,
+    DefensiveStance
+};
+
 #ifndef GLOB_CONST_H
 #define GLOB_CONST_H 
     #define stringify( name ) # name
@@ -209,4 +218,11 @@ enum ActionType {
         stringify(NoneAction),
     };
 
+    inline const char* convert_stance[] = 
+    {
+        stringify(NeutralStance),
+        stringify(AggressiveStance),
+        stringify(DefensiveStance),
+    };
+    
 #endif  
