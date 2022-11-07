@@ -206,6 +206,42 @@ Faction* ConcreteFaction::clone()
 
 ConcreteFaction::ConcreteFaction(Faction* faction)
 {
+    // copy name
     this->name = faction->getName();
-    
+
+    // copy countries
+    list<Country*>::iterator it;
+    for (it = faction->countries.begin(); it != faction->countries.end(); ++it)
+    {
+        if ((*it) != nullptr)
+        {
+            this->countries.push_back((*it)->clone());
+        }
+    }
+
+    // copy state
+    FactionState* stateObj = nullptr;
+    StanceType stateType = faction->getStance()->getStanceType();
+    int stateMorale = faction->getStance()->getMorale();
+    switch (stateType)
+    {
+        case DefensiveStance:
+            stateObj = new DefensiveState(stateMorale);
+            break;
+
+        case AggressiveStance:
+            stateObj = new AggressiveState(stateMorale);
+            break;
+
+        case NeutralStance:
+            stateObj = new NeutralState(stateMorale);
+            break;
+        
+        default:
+            stateObj = new NeutralState(stateMorale);
+            break;
+    }
+
+    // copy observer
+    FactionObserver* obsObj = new FactionObserver(this);
 }

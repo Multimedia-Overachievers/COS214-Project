@@ -19,12 +19,11 @@ public:
     virtual void handleState(ActionResult, Faction*) = 0;
     virtual StanceType getStanceType() = 0;
     void printState(FactionName, string, bool);
+    int getMorale();
 protected:
     string getFactionName(FactionName);
     void deletePreviousState(FactionState*);
-    int getMorale();
     int calculateMorale(ActionResult, Faction*);
-
 private:
     int morale;
 };
