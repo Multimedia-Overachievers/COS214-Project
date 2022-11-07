@@ -132,6 +132,7 @@ int main()
 //Updated class diagram
 //Recorded video voiceover
 //Finished video
+//Fixed Thomas' citations to be in Harvard
 
 //Tayla 
 //Finished Composite Pattern and added to docs
