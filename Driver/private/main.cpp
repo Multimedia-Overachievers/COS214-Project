@@ -144,6 +144,7 @@ int main()
 //Recorded video voiceover
 //Finished video
 //Fixed Thomas' citations to be in Harvard
+//Added facade description
 
 //Tayla 
 //Finished Composite Pattern and added to docs
