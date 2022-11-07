@@ -67,42 +67,15 @@ void ConcreteSimulator::action(FactionAction *factionAction)
  */
 FactionAction* ConcreteSimulator::decideAction(Faction* faction)
 {
-    double weights[2]; // Weights for the different actions 0 -> 0.5 = attack, 0.5 -> 1 = reStock
-    weights[0] = 0.25; // 75%
-    weights[1] = 1; // 25%
-    // if(faction->getStance() == FactionStance::Aggressive)
-    // {
-    //     weights[0] = 0.75; // 75%
-    //     weights[1] = 1; // 25%
-    // }
-    // else if(faction->getStance() == FactionStance::Passive)
-    // {
-    //     weights[0] = 0.5; // 50% 
-    //     weights[1] = 1; // 50%
-    // }
-    // else if(faction->getStance() == FactionStance::Defensive)
-    // {   
-    //     weights[0] = 0.25; // 25%
-    //     weights[1] = 1; // 75%
-    // }
-
-    if(faction->getStrength() <= 3)
-    {
-        weights[0] /= 0.25; // Make the faction (25%) more likely to reStock
-    }
-    else if(faction->getStrength() >= 4 && faction->getStrength() <= 6)
-    {
-        // No change
-    }
-    else if(faction->getStrength() >= 7)
-    {
-        weights[0] *= 0.25; // Make the faction (25%) more likely to attack
-    }
+    double weight = 0.5; // Weights for the different actions 0 -> 0.4999.. = attack, 0.5 -> 1 = reStock
+    // Get the faction's stance and adjust the weight accordingly
+    FactionState* state = faction->getStance();
+    
 
     double random = (double)rand() / RAND_MAX; // Random number between 0 and 1
     
-    std::cout << "Weights: " << weights[0] << " Random: " << random << endl; 
-    if(random < weights[0])
+    std::cout << "Weights: " << weight << " Random: " << random << endl; 
+    if(random < weight)
     {
         int invadingCountry = rand() % 6; // Random number between 0 and 5
         int defendingCountry = rand() % 6; // Random number between 0 and 5

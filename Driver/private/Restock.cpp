@@ -26,7 +26,7 @@ void Restock::execute()
     myCountry->addTroops(NUM_TROOPS);
 
     std::cout << "Restocked " << NUM_TROOPS << " troops in " << convert_country[myCountry->getName()] << std::endl;
-    std::cout << myCountry->myTroops->getReport() << std::endl;
+    // std::cout << myCountry->myTroops->getReport() << std::endl;
 
     ConcreteSimulator::getInstance()->setLastResult(ActionResult::None);
 }
