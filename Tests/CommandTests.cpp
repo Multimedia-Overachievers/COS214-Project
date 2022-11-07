@@ -29,12 +29,23 @@ TEST_F(CommandTests, CommandAttackTest)
     Country* defendingCountry = axis->getCountry(3);
     ASSERT_EQ(defendingCountry->getOwner(), FactionName::Axis);
 
-    std::cout << convert_faction[invadingCountry->getOwner()] << std::endl;
-    std::cout << convert_faction[defendingCountry->getOwner()] << std::endl;
-    
     invadingCountry->addTroops(10);
     FactionAction* attack = new AttackFromCountry(allies, invadingCountry, defendingCountry);
     simulator->action(attack);
     ASSERT_EQ(invadingCountry->getOwner(), FactionName::Allies);
+    std::cout << COUT_GTEST_SUC << "==== TEST PASSED ====" << ANSI_TXT_DFT << std::endl;
+}
+
+TEST_F(CommandTests, CommandRestockTest)
+{
+    std::cout << COUT_GTEST_MES << "Testing: Restock a country" << ANSI_TXT_DFT << std::endl;
+    Faction* allies = simulator->getFaction(Allies);
+    Faction* axis = simulator->getFaction(Axis);
+
+    // ASSERT_EQ(country->getTroops(), 0);
+    // Country* country = allies->getCountry(2);
+    // FactionAction* restock = new Restock(allies, country);
+    // simulator->action(restock);
+    // ASSERT_EQ(country->getTroops(), 20);
     std::cout << COUT_GTEST_SUC << "==== TEST PASSED ====" << ANSI_TXT_DFT << std::endl;
 }

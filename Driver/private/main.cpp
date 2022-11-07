@@ -228,7 +228,7 @@ int main()
             window.draw(*createText("Europe", 50, 10, 10, FontType::Cinzel, sf::Color::White));
 
             window.display();
-        }
+        }   
 
     }
 
