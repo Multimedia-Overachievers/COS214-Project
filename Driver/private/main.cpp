@@ -215,6 +215,7 @@ int main()
 //Fixed Thomas' citations to be in Harvard
 //Added facade description
 //Added Mediator and and Facade Interrelationships
+//Updated functional requirements
 
 //Tayla 
 //Finished Composite Pattern and added to docs
