@@ -1,15 +1,24 @@
-#include "../../Manipulation/public/Country.h"
-#include "../../Creation/public/Soldiers.h"
+// #include "../../Manipulation/public/Country.h"
+// #include "../../Creation/public/Soldiers.h"
 #include "../public/ConcreteSimulator.h"
 #include "../public/Restock.h"
 
-Restock::Restock(Faction* myFaction, Country* myCountry) : FactionAction(myFaction) {
+/**
+ * @brief Constructor for the Restock command
+ * @param myFaction The faction to be built in (passed to FactionAction)
+ * @param myCountry The country to be restocked.
+ */
+Restock::Restock(Faction* myFaction, Country* myCountry) : FactionAction(myFaction) 
+{
     this->myCountry = myCountry;
-    this->troopName = troopName;
-    this->action = ActionType::Restock;
+    this->action = ActionType::RestockAction;
 }
 
-void Restock::execute() {
+/**
+ * @brief Restocks the country with troops
+ */
+void Restock::execute() 
+{
 
     const int NUM_TROOPS = rand() % 20 + 10;
 

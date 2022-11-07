@@ -27,7 +27,7 @@ Country::Country(CountryName name, FactionName owner, int hospitals, int barrack
 
     ConcreteSimulator::getInstance()->countries.push_back(this);
     this->observer = new CountryObserver(this);
-    this->myTroops = nullptr;
+    this->myTroops = new Soldiers();
 }
 
 /**
@@ -69,10 +69,6 @@ vector<Troops *> Country::removeTroops(int noToRemove)
  */
 void Country::addTroops(vector<Troops *> troops)
 {
-    if (this->myTroops == nullptr)
-    {
-        this->myTroops = new Soldiers();
-    }
     this->myTroops->build(troops);
 }
 
@@ -84,10 +80,6 @@ void Country::addTroops(vector<Troops *> troops)
  */
 void Country::addTroops(Troops *troop)
 {
-    if (this->myTroops == nullptr)
-    {
-        this->myTroops = new Soldiers();
-    }
     this->myTroops->build(troop);
 }
 
@@ -99,10 +91,6 @@ void Country::addTroops(Troops *troop)
  */
 void Country::addTroops(int noToAdd)
 {
-    if (this->myTroops == nullptr)
-    {
-        this->myTroops = new Soldiers();
-    }
     this->myTroops->build(noToAdd);
 }
 
@@ -120,13 +108,12 @@ void Country::notify()
  */
 void Country::invade(Country *country)
 {
-    std::cout << "Invading " << country->getName() << std::endl;
+    std::cout << "Invading " << convert_country[country->getName()] << std::endl;
     if (country->hasTroops())
-    {
+    {   
         int damage = this->buffDMG();            // Get damage from my troops
         int invaderHealth = this->buffDefence(); // Get health from my troops
-
-        int defence = country->buffDMG();            // Get damage from enemy troops
+        int defence = country->buffDMG();        // Get damage from enemy troops
         int defenderHealth = country->buffDefence(); // Get health from enemy troops
 
         while (invaderHealth > 0 && defenderHealth > 0)
@@ -136,28 +123,21 @@ void Country::invade(Country *country)
             {
                 invaderHealth = this->takeDMG(defence); // Take damage from enemy troops
             }
-            std::cout << "Invader Health: " << invaderHealth << std::endl;
-            std::cout << "Defender Health: " << defenderHealth << std::endl;
         }
         if (defenderHealth <= 0)
         { // I win if their health is 0 or less
             this->conquer(country);
-            std::cout << "I win" << std::endl;
         }
         else if (invaderHealth <= 0)
         { // They win if my health is 0 or less
             country->conquer(this);
-            std::cout << "You lost the battle" << std::endl;
         }
     }
     else
     {
-        std::cout << "You won the battle (The enemy had no troops)" << std::endl;
         this->conquer(country);
-   
     }
 
-    std::cout << "notifying" << std::endl;
     this->notify();
 }
 

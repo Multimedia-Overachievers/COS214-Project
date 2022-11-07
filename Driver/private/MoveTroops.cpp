@@ -19,7 +19,7 @@ MoveTroops::MoveTroops(Faction* destinationFaction, Country* destinationCountry,
     this->destinationCountry = destinationCountry;
     this->numTroops = numTroops;
     this->sourceCountry = sourceCountry;
-    this->action = ActionType::Move;
+    this->action = ActionType::MoveAction;
 }
 
 /**

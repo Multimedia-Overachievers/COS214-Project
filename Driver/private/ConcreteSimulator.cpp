@@ -19,6 +19,7 @@ ConcreteSimulator::ConcreteSimulator()
     factions.push_back(allies);
     factions.push_back(axis);
     this->lastResult = ActionResult::None;
+    this->nextAction = ActionType::NoneAction;
     srand(time(NULL));
 }
 
@@ -85,7 +86,6 @@ FactionAction* ConcreteSimulator::decideAction(Faction* faction)
     //     weights[1] = 1; // 75%
     // }
 
-
     if(faction->getStrength() <= 3)
     {
         weights[0] /= 0.25; // Make the faction (25%) more likely to reStock
@@ -105,12 +105,14 @@ FactionAction* ConcreteSimulator::decideAction(Faction* faction)
     if(random < weights[0])
     {
         int invadingCountry = rand() % 6; // Random number between 0 and 5
-        int defendingCountry = rand() % 6; // Random number between 0 and 5    
+        int defendingCountry = rand() % 6; // Random number between 0 and 5
+        nextAction = ActionType::AttackAction;    
         return new AttackFromCountry(faction, faction->getCountry(invadingCountry), this->getOpposite(faction)->getCountry(defendingCountry));
     }
     else
     {
         Country* country = faction->getCountry(rand() % 6); // Random number between 0 and 5
+        nextAction = ActionType::RestockAction;
         return new Restock(faction, country); // Random number between 0 and 5
     }
 }
@@ -192,6 +194,15 @@ ActionResult ConcreteSimulator::getLastResult(){
 }
 
 /**
+ * @brief Get the next action to be displayed on the UI
+ * 
+ */
+ActionType ConcreteSimulator::getNextAction()
+{
+    return nextAction;
+}
+
+/**
  * @brief Constructs an image path based on passed in country
  * @return std::string - The path to the image
  */
@@ -225,7 +236,7 @@ std::string ConcreteSimulator::getImagePath(CountryName country){
  * @brief Constructs an image path based on passed in faction
  * @return std::string - The path to the image
  */
-std::string ConcreteSimulator::getImagePath(ActionType action){
+std::string ConcreteSimulator::getImagePath(ActionType action)
 {
     std::string path = "../Media/";
     std::string actionName = convert_action[action];

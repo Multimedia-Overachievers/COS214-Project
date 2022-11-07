@@ -26,6 +26,7 @@ public:
     static ConcreteSimulator* getInstance();
     void setLastResult(ActionResult result);
     ActionResult getLastResult();
+    ActionType getNextAction();
     std::string getImagePath(CountryName country);
     std::string getImagePath(ActionType action);
 
@@ -42,4 +43,5 @@ private:
     std::vector<Faction*> factions;
     static ConcreteSimulator* instance;
     ActionResult lastResult;
+    ActionType nextAction;
 };

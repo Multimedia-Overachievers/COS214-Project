@@ -112,9 +112,10 @@ enum FontType {
  * @brief Defines the different types of actions
  */
 enum ActionType {
-    Attack,
-    Restock,
-    Move
+    AttackAction,
+    RestockAction,
+    MoveAction,
+    NoneAction
 };
 
 #ifndef GLOB_CONST_H
@@ -202,9 +203,10 @@ enum ActionType {
 
     inline const char* convert_action[] = 
     {
-        stringify(Attack),
-        stringify(Restock),
-        stringify(Move),
+        stringify(AttackAction),
+        stringify(RestockAction),
+        stringify(MoveAction),
+        stringify(NoneAction),
     };
-    
+
 #endif  
