@@ -108,13 +108,27 @@ void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator)
 
     //setup the date window
     std::string date = std::to_string(year) + " " + convert_month[month];
-    std::cout << "DATE: " << date << std::endl;
     window.draw(*createText(date, 24, 44, 545, FontType::Cinzel, offBlack));
 
     // List of things for attackAction output
     std::string action = wrapText(simulator->messageMap["Action"] + simulator->messageMap["Result"], 36);
-    std::cout << "ACTION: " << action << std::endl;
     window.draw(*createText(action, 21, 47, 587, FontType::Alegreya, offBlack));
+
+    // Print out the countries in both the Axis and Allies
+
+    Faction* axis = simulator->getFaction(Axis);
+    Faction* allies = simulator->getFaction(Allies);
+    for (int i = 0; i < axis->getStrength(); i++) {
+        std::string country = convert_country[axis->getCountry(i)->getName()];
+        std::cout << country << " ";
+    }
+    std::cout << std::endl;
+    for (int i = 0; i < allies->getStrength(); i++) {
+        std::string country = convert_country[allies->getCountry(i)->getName()];
+        std::cout << country << " ";
+    }
+    std::cout << std::endl;
+        
         
 }
 
@@ -157,7 +171,7 @@ int main()
     sf::RenderWindow window(sf::VideoMode(900, 900), "Memento Mori | Project");
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
-    sf::Time timePerFrame = sf::seconds(1.0f);
+    sf::Time timePerFrame = sf::seconds(4.0f);
     
     //======================== Simulator Setup ========================
     ConcreteSimulator* simulator = ConcreteSimulator::getInstance();
@@ -206,7 +220,6 @@ int main()
             if(currentTurn == MAX_TURNS || simulator->gameOver()) // TODO: ADD THE WIN CONDITION
             {
                 std::cout << "Game Over" << std::endl;
-                std::cin.get();
                 window.close();
             }
 
@@ -215,7 +228,7 @@ int main()
             window.draw(*createText("Europe", 50, 10, 10, FontType::Cinzel, sf::Color::White));
 
             window.display();
-        }
+        }   
 
     }
 

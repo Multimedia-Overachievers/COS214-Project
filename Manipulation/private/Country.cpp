@@ -117,8 +117,7 @@ void Country::invade(Country *country)
     simulator->messageMap["Action"] = "The " + faction + " have invaded " + countryName + " from " + myName + ". ";
     int attackingTroops = this->myTroops->getTotalTroops();
     int defendingTroops = country->myTroops->getTotalTroops();
-    
-    std::cout << "Invading " << convert_country[country->getName()] << std::endl;
+
     if (country->hasTroops())
     {   
         int damage = this->buffDMG();            // Get damage from my troops
@@ -136,9 +135,7 @@ void Country::invade(Country *country)
         }
         if (defenderHealth <= 0)
         { // I win if their health is 0 or less
-            std::cout << "GOT HERE 2" << std::endl;
             country->getConqueredBy(this);
-            std::cout << "GOT HERE 3" << std::endl;
             simulator->messageMap["Result"] = "They won the battle, inflicting " + std::to_string(defendingTroops) + " casualties, suffering " + std::to_string(attackingTroops - this->myTroops->getTotalTroops()) + " of their " + std::to_string(attackingTroops) + ". " + countryName + " now belongs to the " + faction + ". ";
         }
         else if (invaderHealth <= 0)
@@ -149,7 +146,6 @@ void Country::invade(Country *country)
     }
     else
     {
-        std::cout << "THEY HAD NO TROOPS HAHA" << std::endl;
         country->getConqueredBy(this);
     }
 
@@ -172,7 +168,6 @@ int Country::takeDMG(int damage)
  */
 void Country::getConqueredBy(Country *invader)
 {
-    std::cout << "GOT HERE 1" << std::endl;
     setOwner(invader->owner);
 }
 

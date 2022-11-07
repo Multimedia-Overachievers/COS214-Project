@@ -24,7 +24,7 @@ void CountryObserver::update()
     // Prev owner  |  New owner  
     if(this->owner != this->country->getOwner())
     {
-        simulator->captureCountry(this->country, simulator->getFaction(this->owner));
+        simulator->captureCountry(this->country, simulator->getOpposite(simulator->getFaction(this->owner)));
         simulator->setLastResult(ActionResult::Win);
     }
     else if(this->country->hasTroops()){
