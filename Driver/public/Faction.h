@@ -36,8 +36,8 @@ public:
     virtual void setStance(FactionState*) = 0;
     virtual ~Faction() { delete observer; };
     std::list<Country*> countries;
+
 protected: 
-    // std::list<Country*> countries;
     FactionState* stance;
     FactionName name;
     FactionObserver* observer;
