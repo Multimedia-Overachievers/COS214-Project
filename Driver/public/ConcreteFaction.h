@@ -12,6 +12,7 @@ class ConcreteFaction: public Faction
 {
 public:
     ConcreteFaction(FactionName name);
+    virtual ~ConcreteFaction();
     FactionStore* getData() override;
     void setData(FactionStore* store) override;
     FactionState* getStance() override;

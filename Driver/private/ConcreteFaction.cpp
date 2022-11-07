@@ -8,6 +8,21 @@
 #include "../public/structs.h"
 #include "../public/ConcreteFaction.h"
 
+ConcreteFaction::~ConcreteFaction()
+{
+    list<Country*>::iterator it;
+    for (it = this->countries.begin(); it != this->countries.end(); ++it)
+    {
+        if ((*it) != nullptr)
+        {
+            delete *it;
+        }
+    }
+
+    delete this->stance;
+    delete this->observer;
+}
+
 ConcreteFaction::ConcreteFaction(FactionName name)
 {   
     this->name = name;
