@@ -6,7 +6,7 @@ This project is a war simulation based on World War II. In the simulation you ha
 - :bookmark_tabs: [Documentation](https://docs.google.com/document/d/1Ya7evdNcRy57eaPhburpuBTe0nAYsRKZ/edit?usp=share_link&ouid=107703581346392061394&rtpof=true&sd=true)
 - :movie_camera: [Video]()
 - :page_with_curl: [Class Diagram]()
-- :page_facing_up: [Code Standards](https://github.com/Multimedia-Overachievers/COS214-Project/blob/main/Docs/DefinitiveStyleGuide.md)
+- :keyboard: [Code Standards](https://github.com/Multimedia-Overachievers/COS214-Project/blob/main/Docs/DefinitiveStyleGuide.md)
 
 ## :computer: Installation
 ### :package: Prerequisites
