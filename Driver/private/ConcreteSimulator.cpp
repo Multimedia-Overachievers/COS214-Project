@@ -53,7 +53,6 @@ ConcreteSimulator* ConcreteSimulator::getInstance()
 void ConcreteSimulator::notify(Faction* faction) 
 {
     action(decideAction(faction));
-    std::cout << std::endl;
 }
 
 /**
@@ -92,10 +91,34 @@ FactionAction* ConcreteSimulator::decideAction(Faction* faction)
     std::cout << "Weights: " << weight << " Random: " << random << endl; 
     if(random < weight)
     {
+        
         int invadingCountry = rand() % faction->getStrength();
         int defendingCountry = rand() % getOpposite(faction)->getStrength();
         nextAction = ActionType::AttackAction;    
-        return new AttackFromCountry(faction, faction->getCountry(invadingCountry), this->getOpposite(faction)->getCountry(defendingCountry));
+        if(faction->getCountry(invadingCountry)->getNumTroops() > 0)
+        {
+            return new AttackFromCountry(faction, faction->getCountry(invadingCountry), getOpposite(faction)->getCountry(defendingCountry));
+        }
+        else
+        {
+         //Check the other countries in the faction starting from the country directly after invadingCountry, if they have troops then attack from there
+         //Otherwise restock the original invadingCountry
+            for(int i = invadingCountry + 1; i < faction->getStrength(); i++)
+            {
+                if(faction->getCountry(i)->getNumTroops() > 0)
+                {
+                    return new AttackFromCountry(faction, faction->getCountry(i), getOpposite(faction)->getCountry(defendingCountry));
+                }
+            }
+            for(int i = 0; i < invadingCountry; i++)
+            {
+                if(faction->getCountry(i)->getNumTroops() > 0)
+                {
+                    return new AttackFromCountry(faction, faction->getCountry(i), getOpposite(faction)->getCountry(defendingCountry));
+                }
+            }   
+            return new Restock(faction, faction->getCountry(invadingCountry)); 
+        }
     }
     else
     {
@@ -156,47 +179,9 @@ void ConcreteSimulator::captureCountry(Country* country, Faction* faction)
 {
     Faction* opposite = getOpposite(faction); 
 
-    std::cout << "BEFORE:" << std::endl;
-    // Output all the countries in the faction
-    std::cout << "Faction: " << faction->getName() << " Countries: ";
-    for (Country* country : faction->countries)
-    {
-        std::string countryName = convert_country[country->getName()];
-        std::cout << countryName << " ";
-    }
-    std::cout << std::endl;
-
-    // Output all the countries in the opposite faction
-    std::cout << "Opposite Faction: " << opposite->getName() << " Countries: ";
-    for (Country* country : opposite->countries)
-    {
-        std::string countryName = convert_country[country->getName()];
-        std::cout << countryName << " ";
-    }
-    std::cout << std::endl;
-
     faction->addCountry(country);
     getOpposite(faction)->removeCountry(country);      
-    this->WIN_CONDITION = getOpposite(faction)->getStrength() == 0;  
-
-    std::cout << "AFTER:" << std::endl;
-    // Output all the countries in the faction
-    std::cout << "Faction: " << faction->getName() << " Countries: ";
-    for (Country* country : faction->countries)
-    {
-        std::string countryName = convert_country[country->getName()];
-        std::cout << countryName << " ";
-    }
-    std::cout << std::endl;
-
-    // Output all the countries in the opposite faction
-    std::cout << "Opposite Faction: " << opposite->getName() << " Countries: ";
-    for (Country* country : opposite->countries)
-    {
-        std::string countryName = convert_country[country->getName()];
-        std::cout << countryName << " ";
-    }
-    std::cout << std::endl;
+    this->WIN_CONDITION = getOpposite(faction)->getStrength() == 0; 
 }
 
 /**
