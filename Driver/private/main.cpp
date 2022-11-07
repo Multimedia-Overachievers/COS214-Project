@@ -40,6 +40,43 @@ sf::Text* createText(std::string text, int size, int x, int y, FontType fontType
     return textPtr;
 }
 
+/**
+ * @brief Function which takes in a string and wraps it to a certain width
+ * 
+ * @param text 
+ * @param length 
+ * @return std::string 
+ */
+std::string wrapText(std::string text, int length) {
+    // Put words from string into array
+    std::vector<std::string> words;
+    std::string word = "";
+    for (int i = 0; i < text.length(); i++) {
+        if (text[i] == ' ') {
+            words.push_back(word);
+            word = "";
+        } else {
+            word += text[i];
+        }
+    }
+    words.push_back(word);
+    
+    // Wrap words into lines
+    std::string wrappedText = "";
+    int lineLength = 0;
+    for (int i = 0; i < words.size(); i++) {
+        if (lineLength + words[i].length() > length) {
+            wrappedText += "\n";
+            lineLength = 0;
+        }
+        wrappedText += words[i] + " ";
+        lineLength += words[i].length() + 1;
+    }
+
+    return wrappedText;
+    
+}
+
 void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator)
 {  
     float x[] = {215, 164, 63, 701, 342, 355, 391, 381, 668, 611, 546, 647};
@@ -75,7 +112,7 @@ void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator)
     window.draw(*createText(date, 24, 44, 545, FontType::Cinzel, offBlack));
 
     // List of things for attackAction output
-    std::string action = simulator->messageMap["Action"] + simulator->messageMap["Result"];
+    std::string action = wrapText(simulator->messageMap["Action"] + simulator->messageMap["Result"], 36);
     std::cout << "ACTION: " << action << std::endl;
     window.draw(*createText(action, 21, 47, 587, FontType::Alegreya, offBlack));
         
@@ -93,27 +130,6 @@ void incrementTurn()
         month = 0;
         year++;
     }
-}
-
-/**
- * @brief Function which takes in a string and wraps it to a certain width
- * 
- * @param text 
- * @param length 
- * @return std::string 
- */
-std::string wrapText(std::string text, int length) {
-    std::string wrappedText = "";
-    int lineLength = 0;
-    for (int i = 0; i < text.length(); i++) {
-        if (lineLength >= length) {
-            wrappedText += "\n";
-            lineLength = 0;
-        }
-        wrappedText += text[i];
-        lineLength++;
-    }
-    return wrappedText;
 }
 
 /**
