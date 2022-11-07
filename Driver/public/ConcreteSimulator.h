@@ -49,6 +49,4 @@ private:
     ActionResult lastResult;
     ActionType nextAction;
     bool WIN_CONDITION;
-
-
 };
