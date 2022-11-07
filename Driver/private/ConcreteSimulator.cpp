@@ -67,9 +67,20 @@ void ConcreteSimulator::action(FactionAction *factionAction)
  */
 FactionAction* ConcreteSimulator::decideAction(Faction* faction)
 {
-    double weight = 0.5; // Weights for the different actions 0 -> 0.4999.. = attack, 0.5 -> 1 = reStock
+    double weight = 0.5; // Weights for the different actions < weight = attack, > weight = reStock
     // Get the faction's stance and adjust the weight accordingly
-    FactionState* state = faction->getStance();
+    switch (faction->getStance()->getStanceType())
+    {
+        case DefensiveStance:
+            weight = 0.25; // 75% chance to reStock, 25% chance to attack
+            break;
+        case NeutralStance:
+            weight = 0.5; // 50% chance to reStock, 50% chance to attack
+            break;
+        case AggressiveStance:
+            weight = 0.75; // 25% chance to reStock, 75% chance to attack
+            break;
+    }
 
     double random = (double)rand() / RAND_MAX; // Random number between 0 and 1
     

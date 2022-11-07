@@ -85,7 +85,7 @@ FactionState* ConcreteFaction::getStance()
  */
 StanceType ConcreteFaction::getStanceType()
 {
-    return this->stance->getStateType();
+    return this->stance->getStanceType();
 }
 
 /**

@@ -17,9 +17,8 @@ public:
     FactionState(int);
     virtual ~FactionState();
     virtual void handleState(ActionResult, Faction*) = 0;
-    virtual StanceType getStateType() = 0;
+    virtual StanceType getStanceType() = 0;
     void printState(FactionName, string, bool);
-
 protected:
     string getFactionName(FactionName);
     void deletePreviousState(FactionState*);
