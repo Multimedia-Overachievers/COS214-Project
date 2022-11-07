@@ -17,9 +17,7 @@ class FactionAction;
 class ConcreteSimulator : public Simulator
 {
 public:
-    void action(FactionAction* factionAction) override;
     void notify(Faction* faction) override;
-    FactionAction* decideAction(Faction* faction) override;
     Faction* getFaction(FactionName name) override; // 0 = Allies, 1 = Axis
     Faction* getOpposite(Faction* faction) override;
     void captureCountry(Country* country, Faction* faction) override;
@@ -40,6 +38,8 @@ public:
     std::vector<Country*> countries;
 
 private:
+    FactionAction* decideAction(Faction* faction) override;
+    void action(FactionAction* factionAction) override;
     std::vector<Faction*> factions;
     static ConcreteSimulator* instance;
     ActionResult lastResult;
