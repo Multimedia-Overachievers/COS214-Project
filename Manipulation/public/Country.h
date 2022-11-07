@@ -21,7 +21,7 @@ class Country
 {
 public:
     friend class Restock;
-    Country(CountryName name, FactionName owner, int hospitals, int barracks);
+    Country(CountryName name, FactionName owner, int hospitals, int barracks, int startingTroops);
     ~Country();
     bool hasTroops();
     vector<Troops *> removeAllTroops();
