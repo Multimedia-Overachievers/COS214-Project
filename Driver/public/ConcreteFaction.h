@@ -25,4 +25,5 @@ public:
     void createCountries() override;
     int getTotalTroops() override;
     void setStance(FactionState*) override;
+    FactionState* getStance() override;
 };
