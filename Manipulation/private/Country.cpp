@@ -17,7 +17,7 @@
  * @param hospitals - number of hospitals in the country
  * @param barracks - number of barracks in the country
  */
-Country::Country(CountryName name, FactionName owner, int hospitals, int barracks)
+Country::Country(CountryName name, FactionName owner, int hospitals, int barracks, int startingTroops)
 {
     this->name = name;
     this->owner = owner;
@@ -28,6 +28,8 @@ Country::Country(CountryName name, FactionName owner, int hospitals, int barrack
     ConcreteSimulator::getInstance()->countries.push_back(this);
     this->observer = new CountryObserver(this);
     this->myTroops = new Soldiers();
+
+    this->addTroops(startingTroops);
 }
 
 /**
@@ -134,7 +136,9 @@ void Country::invade(Country *country)
         }
         if (defenderHealth <= 0)
         { // I win if their health is 0 or less
+            std::cout << "GOT HERE 2" << std::endl;
             country->getConqueredBy(this);
+            std::cout << "GOT HERE 3" << std::endl;
             simulator->messageMap["Result"] = "They won the battle, inflicting " + std::to_string(defendingTroops) + " casualties, suffering " + std::to_string(attackingTroops - this->myTroops->getTotalTroops()) + " of their " + std::to_string(attackingTroops) + ". " + countryName + " now belongs to the " + faction + ". ";
         }
         else if (invaderHealth <= 0)
@@ -145,6 +149,7 @@ void Country::invade(Country *country)
     }
     else
     {
+        std::cout << "THEY HAD NO TROOPS HAHA" << std::endl;
         country->getConqueredBy(this);
     }
 

@@ -21,21 +21,21 @@ void ConcreteFaction::createCountries()
 {
     if(this->name == Allies)
     {
-        countries.push_back(new Country(CountryName::France, name, 3, 0)); 
-        countries.push_back(new Country(CountryName::UnitedKingdom, name, 2, 1));
-        countries.push_back(new Country(CountryName::UnitedStates, name, 0, 3));
-        countries.push_back(new Country(CountryName::SovietUnion, name, 1, 2));
-        countries.push_back(new Country(CountryName::Belgium, name, 2, 0));
-        countries.push_back(new Country(CountryName::Netherlands, name, 1, 1));
+        countries.push_back(new Country(CountryName::France, name, 3, 0, 27)); 
+        countries.push_back(new Country(CountryName::UnitedKingdom, name, 2, 1, 30));
+        countries.push_back(new Country(CountryName::UnitedStates, name, 0, 3, 35));
+        countries.push_back(new Country(CountryName::SovietUnion, name, 1, 2, 40));
+        countries.push_back(new Country(CountryName::Belgium, name, 2, 0, 16));
+        countries.push_back(new Country(CountryName::Netherlands, name, 1, 1, 21));
     }
     else
     {
-        countries.push_back(new Country(CountryName::Germany, name, 0, 3));
-        countries.push_back(new Country(CountryName::Italy, name, 2, 1));
-        countries.push_back(new Country(CountryName::Japan, name, 1, 2));
-        countries.push_back(new Country(CountryName::Romania, name, 1, 1));
-        countries.push_back(new Country(CountryName::Hungary, name, 2, 0));
-        countries.push_back(new Country(CountryName::Bulgaria, name, 0, 2));
+        countries.push_back(new Country(CountryName::Germany, name, 0, 3, 40));
+        countries.push_back(new Country(CountryName::Italy, name, 2, 1, 27));
+        countries.push_back(new Country(CountryName::Japan, name, 1, 2, 35));
+        countries.push_back(new Country(CountryName::Romania, name, 1, 1, 25));
+        countries.push_back(new Country(CountryName::Hungary, name, 2, 0, 23));
+        countries.push_back(new Country(CountryName::Bulgaria, name, 0, 2, 22));
     }
 }
 

@@ -7,6 +7,7 @@ This project is a war simulation based on World War II. In the simulation you ha
 - :movie_camera: [Video](https://www.youtube.com/watch?v=VCwNEQBFjVo)
 - :page_with_curl: [Class Diagram](https://drive.google.com/file/d/10B2CfRtyiI9lyLUvEtku-rfURCmkbnhA/view?usp=share_link)
 - :keyboard: [Code Standards](https://github.com/Multimedia-Overachievers/COS214-Project/blob/main/Docs/DefinitiveStyleGuide.md)
+- :globe_with_meridians: [Doxygen](https://memento-mori-doxygen.netlify.app/annotated.html)
 
 ## :computer: Installation
 ### :package: Prerequisites
