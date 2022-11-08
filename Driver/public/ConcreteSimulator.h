@@ -25,6 +25,7 @@ public:
     void captureCountry(Country* country, Faction* faction) override;
     static ConcreteSimulator* getInstance();
     void setLastResult(ActionResult result);
+    void setNextAction(ActionType action);
     ActionResult getLastResult();
     ActionType getNextAction();
     std::string getImagePath(CountryName country);

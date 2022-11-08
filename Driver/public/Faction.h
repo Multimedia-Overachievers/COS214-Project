@@ -20,7 +20,6 @@ public:
     { 
         this->observer = new FactionObserver((ConcreteFaction*)this);
     };
-    virtual ~Faction();
     virtual FactionStore* getData() = 0;
     virtual void setData(FactionStore* store) = 0;
     virtual FactionState* getStance() = 0;
@@ -35,7 +34,6 @@ public:
     virtual void createCountries() = 0;
     virtual int getTotalTroops() = 0;
     virtual void setStance(FactionState*) = 0;
-
     virtual Faction* clone() = 0;
 
     virtual ~Faction() { delete observer; };

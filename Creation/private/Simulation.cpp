@@ -4,6 +4,7 @@
  *  Author: Ross Tordiffe (u21533572)
  */
 
+#include "../../Driver/public/ConcreteSimulator.h"
 #include "../public/Simulation.h"
 
 /**
@@ -38,9 +39,15 @@ Simulation::~Simulation()
  */
 MapState* Simulation::saveLog()
 {
+    ConcreteSimulator* simulator = ConcreteSimulator::getInstance();
     FactionStore* allies = this->factions[0]->getData();
     FactionStore* axis = this->factions[1]->getData();
-    MapState* state = new MapState(allies, axis);
+    std::map<std::string, std::string> messageMap;
+    messageMap["Action"] = simulator->messageMap["Action"];
+    messageMap["Result"] = simulator->messageMap["Result"];
+    ActionResult lastResult = simulator->getLastResult();
+    ActionType nextAction = simulator->getNextAction();
+    MapState* state = new MapState(allies, axis, messageMap, lastResult, nextAction);
     return state;
 }
 
@@ -50,8 +57,17 @@ MapState* Simulation::saveLog()
  * @param state 
  */
 void Simulation::loadLog(MapState* state)
-{
-    FactionStore** factionStores = state->getFactionStores();
-    this->factions[0]->setData(factionStores[0]);
-    this->factions[1]->setData(factionStores[1]);
+{   
+    if(state != nullptr)
+    {
+        ConcreteSimulator* simulator = ConcreteSimulator::getInstance();
+        FactionStore** factionStores = state->getFactionStores();
+        this->factions[0]->setData(factionStores[0]);
+        this->factions[1]->setData(factionStores[1]);
+        simulator->messageMap["Action"] = state->messageMap["Action"];
+        simulator->messageMap["Result"] = state->messageMap["Result"];
+        simulator->setLastResult(state->lastResult);
+        simulator->setNextAction(state->nextAction);
+    }
+    // else do nothing
 }

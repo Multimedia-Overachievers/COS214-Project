@@ -15,11 +15,14 @@
 class MapState
 {
 private:
-    MapState(FactionStore* allies, FactionStore* axis);
+    MapState(FactionStore* allies, FactionStore* axis, std::map<std::string, std::string> messageMap, ActionResult lastResult, ActionType nextAction);
     FactionStore** getFactionStores();
 
 private:
     FactionStore* factionStores[2];
+    std::map<std::string, std::string> messageMap;
+    ActionResult lastResult;
+    ActionType nextAction;
     friend class Simulation;
     // Other world states from simulation
 };

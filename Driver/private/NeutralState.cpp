@@ -53,3 +53,8 @@ StanceType NeutralState::getStanceType()
 {
     return NeutralStance;
 }
+
+FactionState* NeutralState::clone()
+{
+    return new NeutralState(this->getMorale());
+}

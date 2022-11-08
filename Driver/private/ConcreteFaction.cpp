@@ -60,6 +60,7 @@ void ConcreteFaction::createCountries()
  */
 FactionStore* ConcreteFaction::getData() 
 {
+
     std::list<Country*> countries;
     for (Country* country : this->countries)
     {
@@ -69,7 +70,7 @@ FactionStore* ConcreteFaction::getData()
     FactionStore* store = new FactionStore();
     store->countries = countries;
     store->name = this->name;
-    store->stance = this->stance;
+    store->stance = this->stance->clone();
     return store;
 }
 
@@ -79,9 +80,29 @@ FactionStore* ConcreteFaction::getData()
  */
 void ConcreteFaction::setData(FactionStore* store)
 {
+    std::cout << "Setting data for faction: " << store->name << std::endl;
+    // Delete the old countries
+    list<Country*>::iterator it;
+    for (it = this->countries.begin(); it != this->countries.end(); ++it)
+    {
+        if ((*it) != nullptr)
+        {
+            delete *it;
+        }
+    }
+    std::cout << "Deleted old countries" << std::endl;
+    
+    // Delete old stance
+    delete this->stance;
+    std::cout << "Deleted old stance" << std::endl;
+
     this->countries = store->countries;
     this->name = store->name;
     this->stance = store->stance;
+    std::cout << "Set new data69" << std::endl;
+    std::cout << this->stance;
+     std::cout << this->stance->getStanceType() << std::endl;
+    std::cout << "Set new data" << std::endl;
 }
 
 /**
@@ -197,7 +218,6 @@ int ConcreteFaction::getTotalTroops()
 {
     int total = 0;
     list<Country*>::iterator it;
-
     for (it = this->countries.begin(); it != this->countries.end(); ++it)
     {
         if ((*it) != nullptr)
@@ -205,7 +225,6 @@ int ConcreteFaction::getTotalTroops()
             total += (*it)->getNumTroops();
         }
     }
-
     return total;
 }
 

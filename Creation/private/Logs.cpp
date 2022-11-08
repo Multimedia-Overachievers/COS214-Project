@@ -29,8 +29,20 @@ Logs::~Logs()
  * 
  * @return std::vector<MapState*> 
  */
-std::vector<MapState*> Logs::getLogs() {
-    return this->logs;
+MapState* Logs::getLog() {
+    // pop the last log
+    if (this->logs.size() > 0)
+    {
+        MapState* state = this->logs.back();
+        this->logs.pop_back();
+        std::cout << "Log loaded" << std::endl;
+        return state;
+    }
+    else
+    {
+        return nullptr;
+    }
+
 }
 
 /**
@@ -38,6 +50,6 @@ std::vector<MapState*> Logs::getLogs() {
  * 
  * @param state 
  */
-void Logs::CreateLog(MapState* state) {
+void Logs::createLog(MapState* state) {
     this->logs.push_back(state);
 }

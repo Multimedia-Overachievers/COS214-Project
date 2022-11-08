@@ -53,3 +53,8 @@ StanceType DefensiveState::getStanceType()
 {
     return DefensiveStance;
 }
+
+FactionState* DefensiveState::clone()
+{
+    return new DefensiveState(this->getMorale());
+}

@@ -20,4 +20,5 @@ public:
     virtual ~DefensiveState();
     void handleState(ActionResult, Faction*) override;
     StanceType getStanceType() override;
+    FactionState* clone() override;
 };

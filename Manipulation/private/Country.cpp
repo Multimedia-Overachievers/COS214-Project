@@ -95,6 +95,10 @@ void Country::addTroops(Troops *troop)
  */
 void Country::addTroops(int noToAdd)
 {
+    if(this->myTroops == nullptr)
+    {
+        this->myTroops = new Soldiers();
+    }
     this->myTroops->build(noToAdd);
 }
 
@@ -130,17 +134,13 @@ void Country::invade(Country *country)
         while (invaderHealth > 0 && defenderHealth > 0)
         {
             defenderHealth = country->takeDMG(damage); // Take damage from my troops
-            std::cout << "Defender health: " << defenderHealth << std::endl;
             if (defenderHealth > 0)
             {
                 invaderHealth = this->takeDMG(defence); // Take damage from enemy troops
             }
-            std::cout << "Invader Health: " << invaderHealth << std::endl;
-            std::cout << "Defender Health: " << defenderHealth << std::endl;
         }
         if (defenderHealth <= 0)
         { // I win if their health is 0 or less
-            std::cout << "I win" << std::endl;
             country->getConqueredBy(this);
             simulator->messageMap["Result"] = "They won the battle, inflicting " + std::to_string(defendingTroops) + " casualties, suffering " + std::to_string(attackingTroops - this->myTroops->getTotalTroops()) + " of their " + std::to_string(attackingTroops) + ". " + countryName + " now belongs to the " + faction + ". ";
             // move half of my troops to the country
@@ -150,13 +150,11 @@ void Country::invade(Country *country)
         else if (invaderHealth <= 0)
         { // They win if my health is 0 or less
             // country->getConqueredBy(this);
-            std::cout << "They win" << std::endl;
             simulator->messageMap["Result"] = "They lost the battle, losing " + std::to_string(attackingTroops) + " troops. The defenders suffered " + std::to_string(defendingTroops - country->myTroops->getTotalTroops()) + " of their " + std::to_string(defendingTroops) + " troops. ";
         }
     }
     else
     {
-        std::cout << "They win (no troops)" << std::endl;
         country->getConqueredBy(this);
     }
 
@@ -218,7 +216,8 @@ int Country::getNumTroops()
 {
     if (this->myTroops != nullptr)
     {
-        return this->myTroops->getTotalTroops();
+        int troops = this->myTroops->getTotalTroops();
+        return troops;
     }
     else
     {
@@ -240,19 +239,7 @@ map<Building, int> Country::getBuildings()
  */
 Country* Country::clone()
 {
-    return new Country(this);
-}
-
-/**
- * @brief Construct a new Country:: Country object
- * 
- * @param country 
- */
-Country::Country(Country* country)
-{
-    this->name = country->getName();
-    this->owner = country->getOwner();
-    this->buildings = country->getBuildings();
-    this->observer = new CountryObserver(this);
-    this->addTroops(country->getNumTroops());
+    Country* country = new Country(this->name, this->owner, this->buildings[Hospital], this->buildings[Barracks], this->getNumTroops());
+    country->observer = new CountryObserver(this);
+    return country;
 }

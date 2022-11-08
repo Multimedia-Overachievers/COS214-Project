@@ -17,8 +17,8 @@ class Logs
 public:
     Logs();
     ~Logs();
-    std::vector<MapState*> getLogs();
-    void CreateLog(MapState* state);
+    MapState* getLog();
+    void createLog(MapState* state);
 
 private:
     std::vector<MapState*> logs;

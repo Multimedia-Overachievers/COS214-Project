@@ -12,10 +12,13 @@
  * @param allies 
  * @param axis 
  */
-MapState::MapState(FactionStore* allies, FactionStore* axis) 
+MapState::MapState(FactionStore* allies, FactionStore* axis, std::map<std::string, std::string> messageMap, ActionResult lastResult, ActionType nextAction)
 {
     this->factionStores[0] = allies;
     this->factionStores[1] = axis;
+    this->messageMap = messageMap;
+    this->lastResult = lastResult;
+    this->nextAction = nextAction;
 }
 
 /**

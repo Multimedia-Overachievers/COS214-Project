@@ -20,6 +20,7 @@ public:
     virtual StanceType getStanceType() = 0;
     void printState(FactionName, string, bool);
     int getMorale();
+    virtual FactionState* clone() = 0;
 protected:
     string getFactionName(FactionName);
     void deletePreviousState(FactionState*);

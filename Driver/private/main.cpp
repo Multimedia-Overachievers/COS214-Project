@@ -92,6 +92,7 @@ std::string wrapText(std::string text, int length) {
 
 void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator, FactionName factionTurn, bool paused)
 {  
+    std::cout << "In setupMap" << std::endl;
     float x[] = {215, 164, 63, 701, 342, 355, 391, 381, 668, 611, 546, 647};
     float y[] = {310, 104, 307, 0, 305, 267, 238, 431, 626, 396, 401, 499};
     
@@ -112,6 +113,7 @@ void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator, FactionNam
     sprite.setPosition(373, 0);
     window.draw(sprite);
 
+    std::cout << "about to get next action" << std::endl;
     // -----setup the action window -----
     sf::Texture actionTexture;
     actionTexture.loadFromFile(simulator->getImagePath(simulator->getNextAction()));
@@ -127,20 +129,16 @@ void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator, FactionNam
     std::string action = wrapText(simulator->messageMap["Action"] + simulator->messageMap["Result"], 36);
     window.draw(*createText(action, 21, 47, 587, FontType::Alegreya, offBlack));
 
-
     // ----- Faction Details -----
     Faction* faction = simulator->getFaction(factionTurn);
     std::string factionName = convert_faction[faction->getName()];
     // Get total number of troops in every country
-
     int totalTroops = 0;
     for (int i = 0; i < faction->getStrength(); i++) {
         totalTroops += faction->getCountry(i)->getNumTroops();
     }
     // Get total number of countries owned
     int totalCountries = faction->getStrength();
-
-
     window.draw(*createText(factionName, 36, 206, 750, FontType::Alegreya, offBlack));
 
     // Current state of faction
@@ -151,25 +149,10 @@ void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator, FactionNam
     // Current number of countries in faction
     std::string countries = "Countries: " + std::to_string(totalCountries);
     window.draw(*createText(countries, 21, 206, 814, FontType::Alegreya, offBlack));
-
+    
     // Current number of troops in faction
     std::string troops = "Troops: " + std::to_string(totalTroops);
     window.draw(*createText(troops, 21, 206, 840, FontType::Alegreya, offBlack));
-
-    // Print out the countries in both the Axis and Allies
-
-    Faction* axis = simulator->getFaction(Axis);
-    Faction* allies = simulator->getFaction(Allies);
-    for (int i = 0; i < axis->getStrength(); i++) {
-        std::string country = convert_country[axis->getCountry(i)->getName()];
-        std::cout << country << " ";
-    }
-    std::cout << std::endl;
-    for (int i = 0; i < allies->getStrength(); i++) {
-        std::string country = convert_country[allies->getCountry(i)->getName()];
-        std::cout << country << " ";
-    }
-    std::cout << std::endl;
 
 
     // ----- Render buttons -----
@@ -204,13 +187,16 @@ void incrementTurn()
  * @param simulator 
  * @param factionTurn 
  */
-void nextRound(ConcreteSimulator* simulator, FactionName factionTurn)
+void nextRound(ConcreteSimulator* simulator, FactionName factionTurn, Logs* logs, Simulation* simulation)
 {
     // Save state to memento
     if(sandbox)
     {
-        simulator->saveState();
+        std::cout << "Saving state" << std::endl;
+        logs->createLog(simulation->saveLog());
+        std::cout << "State saved" << std::endl;
     }
+
     Faction* faction = simulator->getFaction(factionTurn);
     simulator->messageMap["Faction"] = convert_faction[factionTurn];
     simulator->notify(faction);
@@ -226,7 +212,9 @@ void nextRound(ConcreteSimulator* simulator, FactionName factionTurn)
 int main()
 {
     // ----- Prompt the user to enter sandbox or simulation mode -----
-    std::cout << "Would you like to play in sandbox mode? (y/n)" << std::endl;
+    std::cout << "\n\n\n\n=========================================================" << std::endl;
+    std::cout << "|   Would you like to play in sandbox mode? (y/n)       |" << std::endl;
+    std::cout << "=========================================================" << std::endl;
     std::string input;
     std::cin >> input;
     if(input == "y")
@@ -240,7 +228,6 @@ int main()
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
     float speed = 2.0f;
     sf::Time timePerFrame = sf::seconds(speed);
-    sf::Time timeSave = timeSinceLastUpdate;
 
     //======================== Sprite setup ========================
     sf::Texture undoTexture;
@@ -268,7 +255,8 @@ int main()
 
     //======================== Simulator Setup ========================
     ConcreteSimulator* simulator = ConcreteSimulator::getInstance();
-    Simulation* simulation = new Simulation(
+    Simulation* simulation = new Simulation(simulator->getFaction(Allies), simulator->getFaction(Axis));
+    Logs* logs = new Logs();
     const int MAX_TURNS = 48;
     int currentTurn = 0;
     FactionName factionTurn = Allies;
@@ -291,9 +279,18 @@ int main()
                         sf::FloatRect playBounds = playSprite->getGlobalBounds();
                         sf::FloatRect pauseBounds = pauseSprite->getGlobalBounds();
                     
-                        if (undoBounds.contains(mouse))
+                        if (undoBounds.contains(mouse) && sandbox)
                         {
                             cout << "Undo button pressed" << endl;
+                            simulation->loadLog(logs->getLog());
+                            std::cout << "State loaded" << std::endl;
+                            timePerFrame = sf::seconds(2.0f);
+                            if(!isPaused)
+                            {
+                                isPaused = true;
+                                playSprite->move(100, 100);
+                                pauseSprite->move(-100, -100);
+                            } 
                         }
              
                         if (playBounds.contains(mouse))
@@ -325,6 +322,7 @@ int main()
                             }
                         }
                         window.clear(waterColour);
+                        std::cout << "about to enter setup Map" << std::endl;
                         setupMap(window, simulator, factionTurn, isPaused);
                         window.display();
                     }
@@ -355,7 +353,7 @@ int main()
         {
             timeSinceLastUpdate -= timePerFrame;
             if(!isPaused) {
-                nextRound(simulator, factionTurn);
+                nextRound(simulator, factionTurn, logs, simulation);
                 if (factionTurn == Allies) factionTurn = Axis;
                 else factionTurn = Allies;
                 std::cout << "Turn " << currentTurn << " complete." << std::endl;

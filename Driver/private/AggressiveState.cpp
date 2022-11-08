@@ -53,3 +53,8 @@ StanceType AggressiveState::getStanceType()
 {
     return AggressiveStance;
 }
+
+FactionState* AggressiveState::clone()
+{
+    return new AggressiveState(this->getMorale());
+}

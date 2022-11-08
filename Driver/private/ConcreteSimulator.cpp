@@ -25,10 +25,6 @@ ConcreteSimulator::ConcreteSimulator()
     this->messageMap = std::map<std::string, std::string>();
     this->messageMap["Action"] = "";
     this->messageMap["Result"] = "";
-    this->messageMap["Faction"] = "";
-    this->messageMap["State"] = "";
-    this->messageMap["NumTroops"] = "";
-    this->messageMap["NumCountries"] = "";
 
 }
 
@@ -193,8 +189,18 @@ void ConcreteSimulator::captureCountry(Country* country, Faction* faction)
  * 
  * @param result - The result of the last battle
  */
-void ConcreteSimulator::setLastResult(ActionResult result){
+void ConcreteSimulator::setLastResult(ActionResult result)
+{
     lastResult = result;
+}
+
+/**
+ * @brief Sets the next action to be displayed
+ * 
+ */
+void ConcreteSimulator::setNextAction(ActionType action)
+{
+    nextAction = action;
 }
 
 /**
