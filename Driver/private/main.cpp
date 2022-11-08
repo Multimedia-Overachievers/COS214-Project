@@ -1,7 +1,3 @@
-
-
-
-
 #include <iostream>
 #include "../public/ConcreteSimulator.h"
 #include "../../Creation/public/Simulation.h"
@@ -14,13 +10,24 @@ int year = 1936;
 int month = 0;
 bool sandbox = false;
 
-
 // ================== Global Sprites ==================
 sf::Sprite* undoSprite;
 sf::Sprite* playSprite;
 sf::Sprite* pauseSprite;
 sf::Sprite* fastForwardSprite;
+sf::Sprite** countrySprites = new sf::Sprite*[12];
 
+sf::Sprite* sandboxAddSprite;
+sf::Sprite* sandboxAdd10Sprite;
+sf::Sprite* sandboxSubSprite;
+sf::Sprite* sandboxSub10Sprite;
+sf::Sprite* sandboxSwapSprite;
+
+sf::FloatRect sandboxSubBounds;
+sf::FloatRect sandboxSub10Bounds;
+sf::FloatRect sandboxAddBounds;
+sf::FloatRect sandboxAdd10Bounds;
+sf::FloatRect sandboxSwapBounds;
 
 // ------------------ Colours ------------------
 sf::Color offBlack = sf::Color(38, 37, 34);
@@ -100,10 +107,9 @@ void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator, FactionNam
     {
         sf::Texture texture;
         texture.loadFromFile(simulator->getImagePath((CountryName)i));
-        sf::Sprite sprite(texture);
-
-        sprite.setPosition(x[i], y[i]);
-        window.draw(sprite);
+        countrySprites[i] = new sf::Sprite(texture);
+        countrySprites[i]->setPosition(x[i], y[i]);
+        window.draw(*countrySprites[i]);
     }
 
     //setup neutral teritory image
@@ -209,6 +215,67 @@ void nextRound(ConcreteSimulator* simulator, FactionName factionTurn, Logs* logs
     }
 }
 
+void showDevMenu(sf::RenderWindow& window, Country* country, ConcreteSimulator* simulator)
+{
+    std::cout << "In showDevMenu showing country " << convert_country[country->getName()] << std::endl;
+    sf::Texture sandboxMenu;
+    sandboxMenu.loadFromFile("../Media/SandboxMenu.png");
+    sf::Sprite sandboxMenuSprite(sandboxMenu);
+    sandboxMenuSprite.setPosition(466, 751);
+    window.draw(sandboxMenuSprite);
+
+    // Country name
+    std::string countryName = convert_country[country->getName()];
+    window.draw(*createText(countryName, 27, 561, 766, FontType::Alegreya, offBlack));
+    
+    // Num of troops
+    window.draw(*createText("Troops", 17, 523, 815, FontType::Alegreya, offBlack));
+    int numTroops = country->getNumTroops();
+    std::string troops = std::to_string(numTroops);
+    window.draw(*createText(troops, 17, 543, 840, FontType::Alegreya, offBlack));
+    
+    // Num troops controls
+    sf::Texture sandboxSub;
+    sandboxSub.loadFromFile("../Media/SandboxSub.png");
+    sandboxSubSprite = new sf::Sprite(sandboxSub);
+    sandboxSubSprite->setPosition(513, 844);
+    window.draw(*sandboxSubSprite);
+    sandboxSubBounds = sandboxSubSprite->getGlobalBounds();
+
+    sf::Texture sandboxSub10;
+    sandboxSub10.loadFromFile("../Media/SandboxSub10.png");
+    sandboxSub10Sprite = new sf::Sprite(sandboxSub10);
+    sandboxSub10Sprite->setPosition(495, 844);
+    window.draw(*sandboxSub10Sprite);
+    sandboxSub10Bounds = sandboxSub10Sprite->getGlobalBounds();
+
+    sf::Texture sandboxAdd;
+    sandboxAdd.loadFromFile("../Media/SandboxAdd.png");
+    sandboxAddSprite = new sf::Sprite(sandboxAdd);
+    sandboxAddSprite->setPosition(572, 844);
+    window.draw(*sandboxAddSprite);
+    sandboxAddBounds = sandboxAddSprite->getGlobalBounds();
+
+    sf::Texture sandboxAdd10;
+    sandboxAdd10.loadFromFile("../Media/SandboxAdd10.png");
+    sandboxAdd10Sprite = new sf::Sprite(sandboxAdd10);
+    sandboxAdd10Sprite->setPosition(589, 844);
+    window.draw(*sandboxAdd10Sprite);
+    sandboxAdd10Bounds = sandboxAdd10Sprite->getGlobalBounds();
+    
+    // AciveFaction
+    window.draw(*createText("Faction", 17, 635, 815, FontType::Alegreya, offBlack));
+    std::string activeFaction = convert_faction[country->getOwner()];
+    window.draw(*createText(activeFaction, 17, 632, 844, FontType::Alegreya, offBlack));
+
+    sf::Texture sandboxSwap;
+    sandboxSwap.loadFromFile("../Media/SandboxSwap.png");
+    sandboxSwapSprite = new sf::Sprite(sandboxSwap);
+    sandboxSwapSprite->setPosition(680, 844);
+    window.draw(*sandboxSwapSprite);
+    sandboxSwapBounds = sandboxSwapSprite->getGlobalBounds();
+}
+
 int main()
 {
     // ----- Prompt the user to enter sandbox or simulation mode -----
@@ -261,6 +328,7 @@ int main()
     int currentTurn = 0;
     FactionName factionTurn = Allies;
     bool isPaused = false;
+    int activeCountry = -1;
 
     while (window.isOpen())
     {
@@ -275,9 +343,47 @@ int main()
                     {
                         lock = true;
                         sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-
                         sf::FloatRect playBounds = playSprite->getGlobalBounds();
                         sf::FloatRect pauseBounds = pauseSprite->getGlobalBounds();
+                        
+
+                        //bind all the sprites of countries
+                        for(int i = 0; i < 12; i++)
+                        {
+                            sf::FloatRect countryBounds = countrySprites[i]->getGlobalBounds();
+                            if(countryBounds.contains(mouse))
+                            {
+                                if(sandbox)
+                                {
+                                    activeCountry = i;
+                                }
+                            }
+                        }
+
+                        if(sandboxSubBounds.contains(mouse) && sandbox && activeCountry != -1){
+                            simulator->countries.at(activeCountry)->removeTroops(1);
+                        }
+
+                        if(sandboxSub10Bounds.contains(mouse) && sandbox && activeCountry != -1){
+                            simulator->countries.at(activeCountry)->removeTroops(10);
+                        }
+
+                        if(sandboxAddBounds.contains(mouse) && sandbox && activeCountry != -1){
+                            simulator->countries.at(activeCountry)->addTroops(1);
+                        }
+
+                        if(sandboxAdd10Bounds.contains(mouse) && sandbox && activeCountry != -1){
+                            simulator->countries.at(activeCountry)->addTroops(10);
+                        }
+
+                        if(sandboxSwapBounds.contains(mouse) && sandbox && activeCountry != -1){
+                            if(simulator->countries.at(activeCountry)->getOwner() == Allies){
+                                simulator->countries.at(activeCountry)->setOwner(Axis);
+                            } else {
+                                simulator->countries.at(activeCountry)->setOwner(Allies);
+                            }
+                            simulator->countries.at(activeCountry)->notify();
+                        }
                     
                         if (undoBounds.contains(mouse) && sandbox)
                         {
@@ -315,6 +421,7 @@ int main()
                         {
                             cout << "PLAY BUTTON PRESSED" << endl;
                             timePerFrame = sf::seconds(2.0f);
+                            activeCountry = -1;
                             isPaused = false;
                             playSprite->move(-100, -100);
                             pauseSprite->move(100, 100);
@@ -322,7 +429,7 @@ int main()
                         if (pauseBounds.contains(mouse))
                         {
                             cout << "PAUSE BUTTON PRESSED" << endl;
-                            timePerFrame = sf::seconds(2.0f);
+                            timePerFrame = sf::seconds(0.2f);
                             isPaused = true;
                             pauseSprite->move(-100, -100);
                             playSprite->move(100, 100);    
@@ -334,6 +441,7 @@ int main()
                             timePerFrame = sf::seconds(0.4f);
                             if(isPaused)
                             {
+                                activeCountry = -1;
                                 isPaused = false;
                                 playSprite->move(-100, -100);
                                 pauseSprite->move(100, 100);
@@ -370,6 +478,8 @@ int main()
         while (timeSinceLastUpdate > timePerFrame)
         {
             timeSinceLastUpdate -= timePerFrame;
+            window.clear(waterColour);
+
             if(!isPaused) {
                 nextRound(simulator, factionTurn, logs, simulation);
                 if (factionTurn == Allies) factionTurn = Axis;
@@ -377,17 +487,21 @@ int main()
                 std::cout << "Turn " << currentTurn << " complete." << std::endl;
                 currentTurn++;
 
-                if(currentTurn == MAX_TURNS || simulator->gameOver()) // TODO: ADD THE WIN CONDITION
+                if(currentTurn == MAX_TURNS || simulator->gameOver())
                 {
                     std::cout << "Game Over" << std::endl;
                     window.close();
                 }
+
             }
-            window.clear(waterColour);
             setupMap(window, simulator, factionTurn, false);
+            
+            if(sandbox && activeCountry != -1){
+                showDevMenu(window, simulator->countries.at(activeCountry), simulator);
+            }
             window.display();
         }
-      
+
     }   
 
 
