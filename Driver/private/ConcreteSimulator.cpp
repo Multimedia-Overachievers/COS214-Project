@@ -53,6 +53,7 @@ ConcreteSimulator* ConcreteSimulator::getInstance()
 void ConcreteSimulator::notify(Faction* faction) 
 {
     action(decideAction(faction));
+    std::cout << "ACTION DECIDED" << std::endl;
 }
 
 /**
@@ -126,6 +127,7 @@ FactionAction* ConcreteSimulator::decideAction(Faction* faction)
         nextAction = ActionType::RestockAction;
         return new Restock(faction, country); // Random number between 0 and 5
     }
+
 }
 
 /**
@@ -178,9 +180,8 @@ Faction* ConcreteSimulator::getOpposite(Faction* faction)
 void ConcreteSimulator::captureCountry(Country* country, Faction* faction)
 {
     Faction* opposite = getOpposite(faction); 
-
     faction->addCountry(country);
-    getOpposite(faction)->removeCountry(country);      
+    opposite->removeCountry(country);      
     this->WIN_CONDITION = getOpposite(faction)->getStrength() == 0; 
 }
 

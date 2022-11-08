@@ -21,5 +21,7 @@ void FactionObserver::update()
 {
     ConcreteSimulator* simulator = ConcreteSimulator::getInstance();
     //this->faction->changeState(simulator->getLastResult(), simulator->getOpposite(this->faction));
+    std::cout << "Faction state about to  change!!!" << std::endl;
     this->faction->changeState(simulator->getLastResult());
+    std::cout << "Faction state changed!!!" << std::endl;
 }

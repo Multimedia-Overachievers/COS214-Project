@@ -283,7 +283,6 @@ int main()
                         {
                             cout << "Undo button pressed" << endl;
                             simulation->loadLog(logs->getLog());
-                            std::cout << "State loaded" << std::endl;
                             timePerFrame = sf::seconds(2.0f);
                             if(!isPaused)
                             {
@@ -291,6 +290,25 @@ int main()
                                 playSprite->move(100, 100);
                                 pauseSprite->move(-100, -100);
                             } 
+                            // roll back the date by one
+                            if(factionTurn == Axis)
+                            {
+                                month--;
+                                if(month == -1)
+                                {
+                                    month = 11;
+                                    year--;
+                                }
+                            } 
+                            // roll back the faction turn
+                            if(factionTurn == Allies)
+                            {
+                                factionTurn = Axis;
+                            }
+                            else
+                            {
+                                factionTurn = Allies;
+                            }
                         }
              
                         if (playBounds.contains(mouse))

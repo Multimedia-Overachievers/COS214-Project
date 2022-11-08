@@ -62,8 +62,13 @@ void Simulation::loadLog(MapState* state)
     {
         ConcreteSimulator* simulator = ConcreteSimulator::getInstance();
         FactionStore** factionStores = state->getFactionStores();
+        // Remove all of the countries from the simulator
+        simulator->countries.clear();
+
         this->factions[0]->setData(factionStores[0]);
         this->factions[1]->setData(factionStores[1]);
+        
+
         simulator->messageMap["Action"] = state->messageMap["Action"];
         simulator->messageMap["Result"] = state->messageMap["Result"];
         simulator->setLastResult(state->lastResult);

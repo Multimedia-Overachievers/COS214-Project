@@ -5,8 +5,10 @@
  */
 
 #include "../public/FactionState.h"
+#include "../public/ConcreteSimulator.h"
 #include "../public/structs.h"
 #include "../public/ConcreteFaction.h"
+
 
 ConcreteFaction::~ConcreteFaction()
 {
@@ -36,21 +38,21 @@ void ConcreteFaction::createCountries()
 {
     if(this->name == Allies)
     {
-        countries.push_back(new Country(CountryName::France, name, 3, 0, 27)); 
-        countries.push_back(new Country(CountryName::UnitedKingdom, name, 2, 1, 30));
-        countries.push_back(new Country(CountryName::UnitedStates, name, 0, 3, 35));
-        countries.push_back(new Country(CountryName::SovietUnion, name, 1, 2, 40));
-        countries.push_back(new Country(CountryName::Belgium, name, 2, 0, 16));
-        countries.push_back(new Country(CountryName::Netherlands, name, 1, 1, 21));
+        countries.push_back(new Country(CountryName::France, name, 3, 0, 27, false)); 
+        countries.push_back(new Country(CountryName::UnitedKingdom, name, 2, 1, 30, false));
+        countries.push_back(new Country(CountryName::UnitedStates, name, 0, 3, 35, false));
+        countries.push_back(new Country(CountryName::SovietUnion, name, 1, 2, 40, false));
+        countries.push_back(new Country(CountryName::Belgium, name, 2, 0, 16, false));
+        countries.push_back(new Country(CountryName::Netherlands, name, 1, 1, 21, false));
     }
     else
     {
-        countries.push_back(new Country(CountryName::Germany, name, 0, 3, 40));
-        countries.push_back(new Country(CountryName::Italy, name, 2, 1, 27));
-        countries.push_back(new Country(CountryName::Japan, name, 1, 2, 35));
-        countries.push_back(new Country(CountryName::Romania, name, 1, 1, 25));
-        countries.push_back(new Country(CountryName::Hungary, name, 2, 0, 23));
-        countries.push_back(new Country(CountryName::Bulgaria, name, 0, 2, 22));
+        countries.push_back(new Country(CountryName::Germany, name, 0, 3, 40, false));
+        countries.push_back(new Country(CountryName::Italy, name, 2, 1, 27, false));
+        countries.push_back(new Country(CountryName::Japan, name, 1, 2, 35, false));
+        countries.push_back(new Country(CountryName::Romania, name, 1, 1, 25, false));
+        countries.push_back(new Country(CountryName::Hungary, name, 2, 0, 23, false));
+        countries.push_back(new Country(CountryName::Bulgaria, name, 0, 2, 22, false));
     }
 }
 
@@ -73,6 +75,7 @@ FactionStore* ConcreteFaction::getData()
     for (Country* country : this->countries)
     {
         countries.push_back(country->clone());
+        std::cout << "troop count" << countries.back()->getNumTroops() << std::endl;
     }
 
     // cout output all the new countries
@@ -81,9 +84,10 @@ FactionStore* ConcreteFaction::getData()
         // output new country address
         cout << "Country2: " << *it << endl;
         cout << "Country2 Name: " << convert_country[(*it)->getName()] << endl;
+        cout << "Owner: " << convert_faction[(*it)->getOwner()] << endl;
     }
 
-    
+
     FactionStore* store = new FactionStore();
     store->countries = countries;
     store->name = this->name;
@@ -118,12 +122,19 @@ void ConcreteFaction::setData(FactionStore* store)
         // output new country address
         cout << "OUT Country2: " << *it << endl;
         cout << "OUT Country2 Name: " << convert_country[(*it)->getName()] << endl;
+        cout << "Owner: " << convert_faction[(*it)->getOwner()] << endl;
     }
     
     // delete old countries which are no longer needed
     for (Country* country : oldCountries)
     {
         delete country;
+    }
+
+    // push the new countries to the simulator
+    for (Country* country : this->countries)
+    {
+        ConcreteSimulator::getInstance()->countries.push_back(country);
     }
     
     // Delete old stance
@@ -203,7 +214,16 @@ int ConcreteFaction::getStrength()
  */
 void ConcreteFaction::removeCountry(Country* country)
 {
+    std::cout << "Removing country: " << convert_country[country->getName()] << std::endl;
     countries.remove(country);
+    // print all the countries
+    list<Country*>::iterator it;
+    for (it = this->countries.begin(); it != this->countries.end(); ++it)
+    {
+        // output current country address
+        cout << "Removed ?? Country: " << *it << endl;
+        cout << "Removed ?? Country Name: " << convert_country[(*it)->getName()] << endl;
+    }
 }
 
 /**
@@ -250,6 +270,7 @@ void ConcreteFaction::setStance(FactionState* stance)
  */
 int ConcreteFaction::getTotalTroops()
 {
+    std::cout << "Getting total troops" << std::endl;
     int total = 0;
     list<Country*>::iterator it;
     for (it = this->countries.begin(); it != this->countries.end(); ++it)

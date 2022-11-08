@@ -19,7 +19,7 @@
  * @param hospitals - number of hospitals in the country
  * @param barracks - number of barracks in the country
  */
-Country::Country(CountryName name, FactionName owner, int hospitals, int barracks, int startingTroops)
+Country::Country(CountryName name, FactionName owner, int hospitals, int barracks, int startingTroops, bool copy)
 {
     this->name = name;
     this->owner = owner;
@@ -27,7 +27,10 @@ Country::Country(CountryName name, FactionName owner, int hospitals, int barrack
     buildings.insert(pair<Building, int>(Hospital, hospitals));
     buildings.insert(pair<Building, int>(Barracks, barracks));
 
-    ConcreteSimulator::getInstance()->countries.push_back(this);
+    if(!copy){
+        ConcreteSimulator::getInstance()->countries.push_back(this);
+    }
+ 
     this->observer = new CountryObserver(this);
     this->myTroops = new Soldiers();
 
@@ -118,16 +121,12 @@ void Country::invade(Country *country)
 {
     ConcreteSimulator* simulator = ConcreteSimulator::getInstance();
     std::string faction(convert_faction[this->owner]);
-    std::cout << "FACTION: " << faction << std::endl;
     std::string myName(convert_country[this->name]);
-    std::cout << "MY NAME: " << myName << std::endl;
     std::string countryName(convert_country[country->getName()]);
     simulator->messageMap["Action"] = "The " + faction + " have invaded " + countryName + " from " + myName + ". ";
 
     int attackingTroops = this->myTroops->getTotalTroops();
-    std::cout << "ATTACKING TROOPS: " << attackingTroops << std::endl;
     int defendingTroops = country->myTroops->getTotalTroops();
-    std::cout << "DEFENDING TROOPS: " << defendingTroops << std::endl;
 
     if (country->hasTroops())
     {   
@@ -135,15 +134,19 @@ void Country::invade(Country *country)
         int invaderHealth = this->buffDefence(); // Get health from my troops
         int defence = country->buffDMG();        // Get damage from enemy troops
         int defenderHealth = country->buffDefence(); // Get health from enemy troops
-        std::cout << "THIS FAR" << std::endl;
+        std::cout << "This one" << std::endl;
         while (invaderHealth > 0 && defenderHealth > 0)
-        {
+        {   
+            std::cout << "One of these" << std::endl;
             defenderHealth = country->takeDMG(damage); // Take damage from my troops
             if (defenderHealth > 0)
             {
+                std::cout << "here one" << std::endl;
                 invaderHealth = this->takeDMG(defence); // Take damage from enemy troops
+                std::cout <<"here two" << std::endl;
             }
         }
+        std::cout << "Invader Health: " << invaderHealth << std::endl;
         if (defenderHealth <= 0)
         { // I win if their health is 0 or less
             country->getConqueredBy(this);
@@ -246,7 +249,7 @@ map<Building, int> Country::getBuildings()
  */
 Country* Country::clone()
 {
-    Country* country = new Country(this->name, this->owner, this->buildings[Hospital], this->buildings[Barracks], this->getNumTroops());
+    Country* country = new Country(this->name, this->owner, this->buildings[Hospital], this->buildings[Barracks], this->getNumTroops(), true);
     country->observer = new CountryObserver(this);
     return country;
 }

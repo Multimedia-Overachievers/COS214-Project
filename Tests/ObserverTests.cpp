@@ -11,7 +11,7 @@ protected:
             simulator->setLastResult(ActionResult::Draw);
         }
         if(country == nullptr) {
-            country = new Country(CountryName::France, FactionName::Allies, 3, 0, 0);
+            country = new Country(CountryName::France, FactionName::Allies, 3, 0, 0, false);
         }
     }
 
