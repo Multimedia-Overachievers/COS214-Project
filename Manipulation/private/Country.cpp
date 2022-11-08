@@ -118,11 +118,16 @@ void Country::invade(Country *country)
 {
     ConcreteSimulator* simulator = ConcreteSimulator::getInstance();
     std::string faction(convert_faction[this->owner]);
+    std::cout << "FACTION: " << faction << std::endl;
     std::string myName(convert_country[this->name]);
+    std::cout << "MY NAME: " << myName << std::endl;
     std::string countryName(convert_country[country->getName()]);
     simulator->messageMap["Action"] = "The " + faction + " have invaded " + countryName + " from " + myName + ". ";
+
     int attackingTroops = this->myTroops->getTotalTroops();
+    std::cout << "ATTACKING TROOPS: " << attackingTroops << std::endl;
     int defendingTroops = country->myTroops->getTotalTroops();
+    std::cout << "DEFENDING TROOPS: " << defendingTroops << std::endl;
 
     if (country->hasTroops())
     {   
@@ -130,7 +135,7 @@ void Country::invade(Country *country)
         int invaderHealth = this->buffDefence(); // Get health from my troops
         int defence = country->buffDMG();        // Get damage from enemy troops
         int defenderHealth = country->buffDefence(); // Get health from enemy troops
-
+        std::cout << "THIS FAR" << std::endl;
         while (invaderHealth > 0 && defenderHealth > 0)
         {
             defenderHealth = country->takeDMG(damage); // Take damage from my troops
@@ -152,12 +157,14 @@ void Country::invade(Country *country)
             // country->getConqueredBy(this);
             simulator->messageMap["Result"] = "They lost the battle, losing " + std::to_string(attackingTroops) + " troops. The defenders suffered " + std::to_string(defendingTroops - country->myTroops->getTotalTroops()) + " of their " + std::to_string(defendingTroops) + " troops. ";
         }
+        std::cout << "END OF BATTLE" << std::endl;
     }
     else
     {
         country->getConqueredBy(this);
     }
 
+    std::cout << "END OF INVADE" << std::endl;
     country->notify();
 }
 

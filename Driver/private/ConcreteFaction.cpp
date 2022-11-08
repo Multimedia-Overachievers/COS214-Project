@@ -60,12 +60,29 @@ void ConcreteFaction::createCountries()
  */
 FactionStore* ConcreteFaction::getData() 
 {
+    // cout output all the current countries
+    list<Country*>::iterator it;
+    for (it = this->countries.begin(); it != this->countries.end(); ++it)
+    {
+        // output current country address
+        cout << "Country: " << *it << endl;
+        cout << "Country Name: " << convert_country[(*it)->getName()] << endl;
+    }
 
     std::list<Country*> countries;
     for (Country* country : this->countries)
     {
         countries.push_back(country->clone());
     }
+
+    // cout output all the new countries
+    for (it = countries.begin(); it != countries.end(); ++it)
+    {
+        // output new country address
+        cout << "Country2: " << *it << endl;
+        cout << "Country2 Name: " << convert_country[(*it)->getName()] << endl;
+    }
+
     
     FactionStore* store = new FactionStore();
     store->countries = countries;
@@ -80,17 +97,34 @@ FactionStore* ConcreteFaction::getData()
  */
 void ConcreteFaction::setData(FactionStore* store)
 {
-    std::cout << "Setting data for faction: " << store->name << std::endl;
-    // Delete the old countries
+    // cout output all the current countries
     list<Country*>::iterator it;
     for (it = this->countries.begin(); it != this->countries.end(); ++it)
     {
-        if ((*it) != nullptr)
-        {
-            delete *it;
-        }
+        // output current country address
+        cout << "OUT Country: " << *it << endl;
+        cout << "OUT Country Name: " << convert_country[(*it)->getName()] << endl;
     }
-    std::cout << "Deleted old countries" << std::endl;
+
+    std::cout << "Setting data for faction: " << store->name << std::endl;
+    // replace old countries with new ones
+    std::list<Country*> oldCountries = this->countries;
+    this->countries = store->countries;
+
+    
+    // cout output all the new countries
+    for (it = this->countries.begin(); it != this->countries.end(); ++it)
+    {
+        // output new country address
+        cout << "OUT Country2: " << *it << endl;
+        cout << "OUT Country2 Name: " << convert_country[(*it)->getName()] << endl;
+    }
+    
+    // delete old countries which are no longer needed
+    for (Country* country : oldCountries)
+    {
+        delete country;
+    }
     
     // Delete old stance
     delete this->stance;

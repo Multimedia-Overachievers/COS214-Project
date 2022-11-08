@@ -93,8 +93,8 @@ std::string wrapText(std::string text, int length) {
 void setupMap(sf::RenderWindow& window, ConcreteSimulator* simulator, FactionName factionTurn, bool paused)
 {  
     std::cout << "In setupMap" << std::endl;
-    float x[] = {215, 164, 63, 701, 342, 355, 391, 381, 668, 611, 546, 647};
-    float y[] = {310, 104, 307, 0, 305, 267, 238, 431, 626, 396, 401, 499};
+    float x[] = {215, 164, 63, 701, 342, 355, 391, 381, 622, 611, 546, 647};
+    float y[] = {310, 104, 307, 0, 305, 267, 238, 431, 596, 396, 401, 499};
     
     for(int i = 0; i < 12; i++)
     {
