@@ -1,5 +1,6 @@
 # Memento Mori | COS214 Project 2022
 ## :clipboard: Project Description
+
 This project is a war simulation based on World War II. In the simulation you have two factions battling one another: the Axis and the Allies. The faction with the most countries conquered wins the war.
 
 ## :memo: Resources
